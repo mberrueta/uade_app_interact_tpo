@@ -4,17 +4,15 @@
 
 - Docker
 - Docker Compose
-- My Sql image
-- Maven
+- Maven 3 or later
 - Java v 1.8
 - Git
 
-
-## Install 
+## Install
 
 ```shell
 git clone https://github.com/mberrueta/uade_app_interact_tpo.git
-cd git clone uade_app_interact_tpo
+cd clone uade_app_interact_tpo
 docker-compose up
+mvn install
 ```
-
