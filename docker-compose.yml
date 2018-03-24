@@ -1,7 +1,14 @@
-mysql:
-  image: mysql/mysql-server
-  environment:
-   - MYSQL_ROOT_PASSWORD=root
-   - MYSQL_DATABASE=app_interact_tpo
-  ports:
-    - "3306:3306"
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql/mysql-server
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app_interact_tpo
+      MYSQL_USER: tpo
+      MYSQL_PASSWORD: secret 
+    ports:
+      - 3306:3306
