@@ -1,1 +1,5 @@
-select 1 ;
+CREATE TABLE IF NOT EXISTS test_table (
+  id INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(40) NOT NULL,
+  description VARCHAR(200)
+)
