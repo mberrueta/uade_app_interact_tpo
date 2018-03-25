@@ -18,6 +18,10 @@
 *.tar.gz
 *.rar
 
+<<<<<<< HEAD
+=======
+/tpo/target/**
+>>>>>>> 38ee7c3342149ea47eaafe4fd8ffe76e891a2baf
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
