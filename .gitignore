@@ -28,4 +28,5 @@ hs_err_pid*
 
 .vscode
 tpo/.vscode
-/tpo/target
+tpo/target/**
+tpo/target

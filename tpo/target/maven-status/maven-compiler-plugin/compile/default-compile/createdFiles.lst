@@ -1,0 +1,11 @@
+edu/uade/appl_interact/model/dao/Base.class
+edu/uade/appl_interact/App.class
+edu/uade/appl_interact/model/dao/User.class
+edu/uade/appl_interact/model/services/Base.class
+edu/uade/lib/db/DBConnect.class
+edu/uade/appl_interact/controller/impl/Base.class
+edu/uade/appl_interact/model/factories/EntityManager.class
+edu/uade/appl_interact/model/factories/Base.class
+edu/uade/lib/db/Transaction.class
+edu/uade/appl_interact/model/services/impl/Base.class
+edu/uade/appl_interact/model/entities/Base.class
