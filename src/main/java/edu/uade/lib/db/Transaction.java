@@ -1,7 +1,5 @@
 package edu.uade.lib.db;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 public class Transaction {
@@ -26,12 +24,12 @@ public class Transaction {
     return true;
   }
 
-  public Boolean begin() throws SQLException, ClassNotFoundException {
-    ResultSet result = new DBConnect().execute("SELECT * FROM test_table");
-      while (result.next()) {
-        System.out.println(result);
-        log.debug(result);
-      }
+  public Boolean begin() throws Exception {
+    // ResultSet result = DBConnection.getInstance().execute("SELECT * FROM test_table");
+    //   while (result.next()) {
+    //     System.out.println(result);
+    //     log.debug(result);
+    //   }
     return true;
   }
 }
