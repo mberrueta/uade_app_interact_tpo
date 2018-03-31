@@ -16,3 +16,48 @@ cd clone uade_app_interact_tpo
 docker-compose up
 mvn install
 ```
+
+## Access db
+
+```shell
+$ docker exec -it uadeappinteracttpo_db_1 mysql -utpo -psecret
+mysql> USE app_interact_tpo;
+```
+
+## Organization
+
+```shell
+$tree
+
+├── docker-compose.yml <- DB configuration
+├── pom.xml <- Maven configuration. (It execute schema and seed also)
+├── README.md <- this file
+├── resources
+│   └── db
+│       ├── schema.sql <- tables creation
+│       └── seed.sql <- fill database
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── edu
+│   │   │       └── uade
+│   │   │           ├── appl_interact
+│   │   │           │   ├── controllers <- All the controllers 
+│   │   │           │   ├── exeptions <- All the custom exceptions
+│   │   │           │   ├── model
+│   │   │           │   │   ├── dao
+│   │   │           │   │   │   └── impl <- All the Data access objects (e.g. UserDao)
+│   │   │           │   │   ├── entities  <- All the System entities (e.g. User)
+│   │   │           │   │   ├── factories <- All the factories
+│   │   │           │   │   │   ├── DaoFactory.java <- Instantiate the correct data access object
+│   │   │           │   │   │   └── EntityManager.java <- CRUD operations for entities
+│   │   │           │   │   └── services <- All the services
+│   │   │           │   └── ui
+│   │   │           └── lib
+│   │   │               └── db
+│   │   │                   ├── DBConnection.java <- Data base execution
+│   │   │                   └── Transaction.java <- Execute things in transaction
+│   │   └── resources
+│   │       └── log4j.properties <- Log configuration
+
+```
