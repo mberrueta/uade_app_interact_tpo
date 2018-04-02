@@ -12,7 +12,7 @@
 
 ```shell
 git clone https://github.com/mberrueta/uade_app_interact_tpo.git
-cd clone uade_app_interact_tpo
+cd uade_app_interact_tpo
 docker-compose up
 mvn install
 ```
