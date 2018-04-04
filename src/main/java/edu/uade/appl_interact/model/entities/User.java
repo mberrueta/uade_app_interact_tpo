@@ -1,8 +1,9 @@
 package edu.uade.appl_interact.model.entities;
 
-public class User extends Base{
+public class User extends Base {
 
   private String name;
+  private String pass;
 
   public String getName() {
     return name;
@@ -10,5 +11,13 @@ public class User extends Base{
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getPass() {
+    return pass;
+  }
+
+  public void setPass(String pass) {
+    this.pass = pass;
   }
 }
