@@ -1,4 +1,4 @@
-package edu.uade.appl_interact.model.dao.impl;
+package edu.uade.appl_interact.data_access.dao.impl;
 
 import java.sql.ResultSet;
 

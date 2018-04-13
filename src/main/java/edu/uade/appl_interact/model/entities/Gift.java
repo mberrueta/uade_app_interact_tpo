@@ -2,6 +2,8 @@ package edu.uade.appl_interact.model.entities;
 
 public class Gift extends Base {
 
+  private Integer product_id;
+  private Integer person_id;
   private Product product;
   private GiftList giftList;
   private Float percent;
@@ -37,5 +39,21 @@ public class Gift extends Base {
 
   public void setFrom(Person from) {
     this.from = from;
+  }
+
+  public Integer getProduct_id() {
+    return product_id;
+  }
+
+  public void setProduct_id(Integer product_id) {
+    this.product_id = product_id;
+  }
+
+  public Integer getPerson_id() {
+    return person_id;
+  }
+
+  public void setPerson_id(Integer person_id) {
+    this.person_id = person_id;
   }
 }

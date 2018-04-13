@@ -1,4 +1,4 @@
-package edu.uade.appl_interact.model.dao;
+package edu.uade.appl_interact.data_access.dao;
 
 import java.util.List;
 

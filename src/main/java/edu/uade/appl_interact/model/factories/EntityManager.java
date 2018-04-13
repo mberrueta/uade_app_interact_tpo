@@ -3,6 +3,7 @@ package edu.uade.appl_interact.model.factories;
 import java.util.List;
 
 import edu.uade.appl_interact.model.entities.Base;
+import edu.uade.appl_interact.data_access.factories.DaoFactory;
 
 public class EntityManager {
   private static EntityManager instance = null;
