@@ -4,30 +4,10 @@ import java.util.List;
 
 public class Person extends Base {
 
-  private String firstName;
-  private String lastName;
+  private String name;
   private String email;
-  private String phone;
-  private String address;
-  private User user;
+  private String password;
   private List<Role> roles;
-  private List<GiftList> giftLists;
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
 
   public String getEmail() {
     return email;
@@ -35,30 +15,6 @@ public class Person extends Base {
 
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  public String getPhone() {
-    return phone;
-  }
-
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
-
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
   }
 
   public List<Role> getRoles() {
@@ -69,11 +25,24 @@ public class Person extends Base {
     this.roles = roles;
   }
 
-  public List<GiftList> getGiftLists() {
-    return giftLists;
+  public String getName() {
+    return name;
   }
 
-  public void setGiftLists(List<GiftList> giftLists) {
-    this.giftLists = giftLists;
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public Boolean validPassword(String password){
+    // TODO: encript and check
+    return true;
   }
 }

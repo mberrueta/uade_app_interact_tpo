@@ -2,16 +2,16 @@ package edu.uade.appl_interact.model.dao;
 
 import java.util.List;
 
-import edu.uade.appl_interact.model.entities.User;
+import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.factories.EntityManager;
 import junit.framework.TestCase;
 
-public final class UserTest extends TestCase {
+public final class GiftListTest extends TestCase {
 
   public void testFindById() {
     try {
-      User result = EntityManager.getInstance().find(User.class, 1);
-      assertEquals(result.getName(), "matt");
+      GiftList result = EntityManager.getInstance().find(GiftList.class, 1);
+      assertEquals(result.getListName(), "matt");
       assertEquals(result.getId().intValue(), 1);
     } catch (Exception e) {
       e.printStackTrace();
@@ -21,8 +21,8 @@ public final class UserTest extends TestCase {
 
   public void testGetByName() {
     try {
-      User result = EntityManager.getInstance().findBy(User.class, "name", "matt");
-      assertEquals(result.getName(), "matt");
+      GiftList result = EntityManager.getInstance().findBy(GiftList.class, "name", "matt");
+      assertEquals(result.getListName(), "matt");
       assertEquals(result.getId().intValue(), 1);
     } catch (Exception e) {
       e.printStackTrace();
@@ -32,9 +32,9 @@ public final class UserTest extends TestCase {
 
   public void testCreate() {
     try {
-      User user = new User();
-      user.setName("qwerty");
-      EntityManager.getInstance().create(user);
+      GiftList giftList = new GiftList();
+      giftList.setListName("qwerty");
+      EntityManager.getInstance().create(giftList);
     } catch (Exception e) {
       e.printStackTrace();
       assertNull(e);
@@ -44,12 +44,12 @@ public final class UserTest extends TestCase {
   public void testUpdate() {
     try {
       EntityManager em = EntityManager.getInstance();
-      User user = new User();
-      user.setName("qwerty");
-      EntityManager.getInstance().create(user);
-      user = em.findBy(User.class, "name", "qwerty");
-      user.setName("querty updated");
-      em.update(user);
+      GiftList GiftList = new GiftList();
+      GiftList.setListName("qwerty");
+      EntityManager.getInstance().create(GiftList);
+      GiftList = em.findBy(GiftList.class, "name", "qwerty");
+      GiftList.setListName("querty updated");
+      em.update(GiftList);
     } catch (Exception e) {
       e.printStackTrace();
       assertNull(e);
@@ -59,11 +59,11 @@ public final class UserTest extends TestCase {
   public void testDelete() {
     try {
       EntityManager em = EntityManager.getInstance();
-      User user = new User();
-      user.setName("qwerty");
-      EntityManager.getInstance().create(user);
-      user = em.findBy(User.class, "name", "qwerty");
-      em.delete(user);
+      GiftList GiftList = new GiftList();
+      GiftList.setListName("qwerty");
+      EntityManager.getInstance().create(GiftList);
+      GiftList = em.findBy(GiftList.class, "name", "qwerty");
+      em.delete(GiftList);
     } catch (Exception e) {
       e.printStackTrace();
       assertNull(e);
@@ -72,8 +72,8 @@ public final class UserTest extends TestCase {
 
   public void testFindManyByName() {
     try {
-      List<User> result = EntityManager.getInstance().findManyBy(User.class, "name", "matt");
-      assertEquals(result.get(0).getName(), "matt");
+      List<GiftList> result = EntityManager.getInstance().findManyBy(GiftList.class, "name", "matt");
+      assertEquals(result.get(0).getListName(), "matt");
       assertEquals(result.get(0).getId().intValue(), 1);
     } catch (Exception e) {
       e.printStackTrace();
@@ -83,11 +83,11 @@ public final class UserTest extends TestCase {
 
   public void testFindManyLikeContainsName() {
     try {
-      List<User> result = EntityManager.getInstance().findManyLike(User.class, "name", "matt");
-      assertEquals(result.get(0).getName(), "matt");
+      List<GiftList> result = EntityManager.getInstance().findManyLike(GiftList.class, "name", "matt");
+      assertEquals(result.get(0).getListName(), "matt");
       assertEquals(result.get(0).getId().intValue(), 1);
-      result = EntityManager.getInstance().findManyLike(User.class, "name", "er");
-      assertEquals(result.get(0).getName(), "vero");
+      result = EntityManager.getInstance().findManyLike(GiftList.class, "name", "er");
+      assertEquals(result.get(0).getListName(), "vero");
       assertEquals(result.get(0).getId().intValue(), 2);
     } catch (Exception e) {
       e.printStackTrace();

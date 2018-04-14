@@ -7,9 +7,13 @@ public class GiftList extends Base {
 
   private String listName;
   private Date dueDate;
-  private Person to;
-  private List<Product> wishList;
-  private List<Gift> gifts;
+  private String toName;
+  private String toMail;
+  private ListAdmin owner;
+  private Float expectedAmount;
+  private List<Payment> payments;
+  private List<Gifter> gifters;
+  private Boolean delivered;
 
   public String getListName() {
     return listName;
@@ -27,27 +31,71 @@ public class GiftList extends Base {
     this.dueDate = dueDate;
   }
 
-  public Person getTo() {
-    return to;
+  public String getToName() {
+    return toName;
   }
 
-  public void setTo(Person to) {
-    this.to = to;
+  public void setToName(String toName) {
+    this.toName = toName;
   }
 
-  public List<Product> getWishList() {
-    return wishList;
+  public String getToMail() {
+    return toMail;
   }
 
-  public void setWishList(List<Product> wishList) {
-    this.wishList = wishList;
+  public void setToMail(String toMail) {
+    this.toMail = toMail;
   }
 
-  public List<Gift> getGifts() {
-    return gifts;
+  public ListAdmin getOwner() {
+    return owner;
   }
 
-  public void setGifts(List<Gift> gifts) {
-    this.gifts = gifts;
+  public void setOwner(ListAdmin owner) {
+    this.owner = owner;
+  }
+
+  public Float getExpectedAmount() {
+    return expectedAmount;
+  }
+
+  public void setExpectedAmount(Float expectedAmount) {
+    this.expectedAmount = expectedAmount;
+  }
+
+  public List<Payment> getPayments() {
+    return payments;
+  }
+
+  public void setPayments(List<Payment> payments) {
+    this.payments = payments;
+  }
+
+  public List<Gifter> getGifters() {
+    return gifters;
+  }
+
+  public void setGifters(List<Gifter> gifters) {
+    this.gifters = gifters;
+  }
+
+  public Boolean getDelivered() {
+    return delivered;
+  }
+
+  public void setDelivered(Boolean delivered) {
+    this.delivered = delivered;
+  }
+
+  public Boolean archieved(){
+    return false;
+  }
+
+  public Boolean collected(){
+    return false;
+  }
+
+  public Float amountPerGifter(){
+    return 0.0f;
   }
 }
