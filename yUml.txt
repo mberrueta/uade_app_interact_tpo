@@ -1,0 +1,34 @@
+example
+```
+<img src="http://yuml.me/diagram/scruffy/class/[note: You can stick notes on diagrams too!{bg:cornsilk}],[Customer]<>1-orders 0..*>[Order], [Order]++*-*>[LineItem], [Order]-1>[DeliveryMethod], [Order]*-*>[Product], [Category]<->[Product], [DeliveryMethod]^[National], [DeliveryMethod]^[International]" >
+```
+
+
+url 
+`http://yuml.me/diagram/scruffy/class/`
+
+
+Uml:
+```
+[Base]^-[Gift], 
+[Base]^-[GifList], 
+[Base]^-[Payment], 
+[Base]^-[Person], 
+[Base]^-[Product], 
+[Base]^-[ProductCategory], 
+[Base]^-[User], 
+[Gift]<>->[Product], 
+[GiftList]1-wish list 0..*>[Product], 
+[GiftList]1-0..*>[Gift], 
+[Payment]<>->[Person], 
+[Payment]<>->[Product], 
+[Product]<>->[ProductCategory], 
+[Person]<>->[User], 
+[Person]1-0..*>[Role], 
+[Person]1-0..*>[GifList]
+```
+
+
+result
+
+http://yuml.me/diagram/scruffy/class/ [Base]^-[Gift], [Base]^-[GifList], [Base]^-[Payment], [Base]^-[Person], [Base]^-[Product], [Base]^-[ProductCategory], [Base]^-[User], [Gift]<>->[Product], [GiftList]1-wish list 0..*>[Product], [GiftList]1-0..*>[Gift], [Payment]<>->[Person], [Payment]<>->[Product], [Product]<>->[ProductCategory], [Person]<>->[User], [Person]1-0..*>[Role], [Person]1-0..*>[GifList]

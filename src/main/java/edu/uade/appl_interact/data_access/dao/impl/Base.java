@@ -1,4 +1,4 @@
-package edu.uade.appl_interact.model.dao.impl;
+package edu.uade.appl_interact.data_access.dao.impl;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.uade.appl_interact.model.dao.GenericDao;
+import edu.uade.appl_interact.data_access.dao.GenericDao;
 import edu.uade.lib.db.DBConnection;
 
 public abstract class Base<T extends edu.uade.appl_interact.model.entities.Base> implements GenericDao<T> {
