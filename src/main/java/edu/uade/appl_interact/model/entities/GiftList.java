@@ -3,19 +3,30 @@ package edu.uade.appl_interact.model.entities;
 import java.util.Date;
 import java.util.List;
 
-public class GiftList extends Base {
+import edu.uade.appl_interact.model.services.helpers.*;
 
+public class GiftList extends PaymentObserver {
+
+  private Integer id;
   private String listName;
   private Date dueDate;
   private String toName;
   private String toMail;
-  private ListAdmin owner;
-  private Float expectedAmount;
+  private User owner;
+  private Float expectedAmount = 0f;
+  private Float currentAmount = 0f;
   private List<Payment> payments;
-  private List<Gifter> gifters;
+  private List<User> gifters;
   private Boolean delivered;
 
-  public String getListName() {
+  public GiftList(String name, User user) {
+}
+
+public GiftList() {
+}
+
+
+public String getListName() {
     return listName;
   }
 
@@ -47,11 +58,11 @@ public class GiftList extends Base {
     this.toMail = toMail;
   }
 
-  public ListAdmin getOwner() {
+  public User getOwner() {
     return owner;
   }
 
-  public void setOwner(ListAdmin owner) {
+  public void setOwner(User owner) {
     this.owner = owner;
   }
 
@@ -71,11 +82,11 @@ public class GiftList extends Base {
     this.payments = payments;
   }
 
-  public List<Gifter> getGifters() {
+  public List<User> getGifters() {
     return gifters;
   }
 
-  public void setGifters(List<Gifter> gifters) {
+  public void setGifters(List<User> gifters) {
     this.gifters = gifters;
   }
 
@@ -87,15 +98,48 @@ public class GiftList extends Base {
     this.delivered = delivered;
   }
 
-  public Boolean archieved(){
+  public Boolean archieved() {
     return false;
   }
 
-  public Boolean collected(){
+  public Boolean collected() {
     return false;
   }
 
-  public Float amountPerGifter(){
+  public Float amountPerGifter() {
     return 0.0f;
   }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  /**
+   * @return the currentAmount
+   */
+  public Float getCurrentAmount() {
+    return currentAmount;
+  }
+
+  /**
+   * @param currentAmount the currentAmount to set
+   */
+  public void setCurrentAmount(Float currentAmount) {
+    this.currentAmount = currentAmount;
+  }
+
+  @Override
+  public void update() {
+    addPayment(getObservable().getPayment());
+  }
+
+  public void addPayment(Payment payment) {
+    getPayments().add(payment);
+    currentAmount = currentAmount + payment.getAmount();
+  }
+
 }

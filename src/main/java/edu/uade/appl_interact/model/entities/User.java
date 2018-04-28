@@ -1,13 +1,11 @@
 package edu.uade.appl_interact.model.entities;
 
-import java.util.List;
+public class User {
 
-public class Person extends Base {
-
+  private Integer id;
   private String name;
   private String email;
   private String password;
-  private List<Role> roles;
 
   public String getEmail() {
     return email;
@@ -15,14 +13,6 @@ public class Person extends Base {
 
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  public List<Role> getRoles() {
-    return roles;
-  }
-
-  public void setRoles(List<Role> roles) {
-    this.roles = roles;
   }
 
   public String getName() {
@@ -41,8 +31,16 @@ public class Person extends Base {
     this.password = password;
   }
 
-  public Boolean validPassword(String password){
+  public Boolean validPassword(String password) {
     // TODO: encript and check
     return true;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
   }
 }

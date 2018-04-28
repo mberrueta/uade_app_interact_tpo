@@ -96,6 +96,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.0.5</version>
           </dependency>
+          <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+          </dependency>
+
         </dependencies>
         <configuration>
           <url>jdbc:mysql://localhost:3306/app_interact_tpo</url>

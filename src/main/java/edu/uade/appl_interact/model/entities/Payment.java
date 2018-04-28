@@ -2,10 +2,11 @@ package edu.uade.appl_interact.model.entities;
 
 import java.util.Date;
 
-public class Payment extends Base {
+public class Payment {
 
+    private Integer id;
     private Float amount;
-    private Gifter person;
+    private User payer;
     private Date date;
 
     public Float getAmount() {
@@ -16,14 +17,6 @@ public class Payment extends Base {
         this.amount = amount;
     }
 
-    public Gifter getPerson() {
-        return person;
-    }
-
-    public void setPerson(Gifter person) {
-        this.person = person;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -32,7 +25,23 @@ public class Payment extends Base {
         this.date = date;
     }
 
-    public Float expectedAmountPercent(){
+    public Float expectedAmountPercent() {
         return 0.0f;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getPayer() {
+        return payer;
+    }
+
+    public void setPayer(User payer) {
+        this.payer = payer;
     }
 }
