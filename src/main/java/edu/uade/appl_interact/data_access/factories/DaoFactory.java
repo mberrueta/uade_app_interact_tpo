@@ -1,22 +1,22 @@
-// package edu.uade.appl_interact.data_access.factories;
+package edu.uade.appl_interact.data_access.factories;
 
-// import edu.uade.appl_interact.data_access.dao.impl.Base;
+import edu.uade.appl_interact.data_access.dao.impl.Base;
 
-// public class DaoFactory {
-//   private static DaoFactory instance = null;
+public class DaoFactory {
+  private static DaoFactory instance = null;
 
-//   private DaoFactory() {
-//   }
+  private DaoFactory() {
+  }
 
-//   public static DaoFactory getInstance() {
-//     if (instance == null) {
-//       instance = new DaoFactory();
-//     }
-//     return instance;
-//   }
+  public static DaoFactory getInstance() {
+    if (instance == null) {
+      instance = new DaoFactory();
+    }
+    return instance;
+  }
 
-//   public <T extends Base> T getDaoFor(edu.uade.appl_interact.model.entities.Base entity) throws Exception {
-//     String className = "edu.uade.appl_interact.data_access.dao.impl." + entity.getClass().getSimpleName() + "Dao";
-//     return (T) Class.forName(className).newInstance();
-//   }
-// }
+  public <T extends Base> T getDaoFor(Object entity) throws Exception {
+    String className = "edu.uade.appl_interact.data_access.dao.impl." + entity.getClass().getSimpleName() + "Dao";
+    return (T) Class.forName(className).newInstance();
+  }
+}

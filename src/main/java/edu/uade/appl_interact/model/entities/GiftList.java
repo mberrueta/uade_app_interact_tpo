@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.uade.appl_interact.model.services.helpers.*;
 
-public class GiftList extends PaymentObserver {
+public class GiftList extends PaymentObserver{
 
   private Integer id;
   private String listName;
@@ -35,6 +35,8 @@ public String getListName() {
   }
 
   public Date getDueDate() {
+    if(dueDate == null)
+      return new Date();
     return dueDate;
   }
 
