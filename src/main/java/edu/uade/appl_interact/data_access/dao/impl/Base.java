@@ -8,11 +8,15 @@ import org.apache.log4j.Logger;
 
 import edu.uade.appl_interact.data_access.dao.GenericDao;
 import edu.uade.lib.db.DBConnection;
+import java.text.SimpleDateFormat;
+import java.text.Format;
 
 public abstract class Base<T> implements GenericDao<T> {
 
   static Logger log = Logger.getLogger("DAO");
 
+  protected Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    
   public abstract String getTableName();
 
   public abstract String getCreateQuery(T entity);
