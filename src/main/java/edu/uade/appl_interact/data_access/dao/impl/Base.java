@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.uade.lib.db.PoolConnection;
 import org.apache.log4j.Logger;
 
 import edu.uade.appl_interact.data_access.dao.GenericDao;
@@ -27,29 +28,29 @@ public abstract class Base<T> implements GenericDao<T> {
 
   public T findBy(String field, String value) throws Exception {
     log.debug("Seeking " + getTableName() + " by " + field + ": " + value);
-    ResultSet resultSet = DBConnection.getInstance().execute(getFindByQuery(field, value));
+    ResultSet resultSet = getConnection().execute(getFindByQuery(field, value));
     resultSet.next();
     return toObject(resultSet);
   }
 
   public void create(T entity) throws Exception {
     log.debug("Creating a " + getTableName());
-    DBConnection.getInstance().execute(getCreateQuery(entity));
+    getConnection().execute(getCreateQuery(entity));
   }
 
   public void update(T entity) throws Exception {
     log.debug("Updating a " + getTableName());
-    DBConnection.getInstance().execute(getUpdateQuery(entity));
+    getConnection().execute(getUpdateQuery(entity));
   }
 
   public void delete(Integer id) throws Exception {
     log.debug("Deleting a " + getTableName() + " by id:" + id);
-    DBConnection.getInstance().execute(getDeleteQuery(id));
+    getConnection().execute(getDeleteQuery(id));
   }
 
   public List<T> findManyBy(String field, String value) throws Exception {
     log.debug("Seeking " + getTableName() + " by " + field + ": " + value);
-    ResultSet resultSet = DBConnection.getInstance().execute(getFindByQuery(field, value));
+    ResultSet resultSet = getConnection().execute(getFindByQuery(field, value));
     List<T> list = new ArrayList<T>();
     while (resultSet.next()) {
       list.add(toObject(resultSet));
@@ -59,7 +60,7 @@ public abstract class Base<T> implements GenericDao<T> {
 
   public List<T> findManyLike(String field, String value) throws Exception {
     log.debug("Seeking (using like)" + getTableName() + " by " + field + ": " + value);
-    ResultSet resultSet = DBConnection.getInstance().execute(getFindManyLikeQuery(field, value));
+    ResultSet resultSet = getConnection().execute(getFindManyLikeQuery(field, value));
     List<T> list = new ArrayList<T>();
     while (resultSet.next()) {
       list.add(toObject(resultSet));
@@ -84,4 +85,10 @@ public abstract class Base<T> implements GenericDao<T> {
                .append(String.format(" WHERE ID = %d", value))
                .toString();
   }
+
+  private DBConnection getConnection() {
+      PoolConnection pool = PoolConnection.getIntance();
+      return pool.getConnection();
+  }
+
 }

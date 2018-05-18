@@ -5,28 +5,33 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
-
 import javax.sql.DataSource;
-
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-
 import org.apache.log4j.Logger;
 
 public class DBConnection {
 
   static final Logger log = Logger.getLogger("DBConnection");
-
-  private final DataSource dataSource;
   private static DBConnection instance;
+  private final DataSource dataSource;
   private Connection connection;
 
-  public static DBConnection getInstance() throws Exception {
-    if (instance == null) {
-      instance = new DBConnection();
-    }
-    return instance;
+
+  public DBConnection() throws Exception {
+    dataSource = getDatasSource();
+    connection = dataSource.getConnection();
   }
-  
+
+
+  public void close() {
+      try {
+          connection.close();
+      } catch (Exception e) {
+          System.out.println("Mensaje Error: " + e.getMessage());
+      }
+
+  }
+
   public ResultSet execute(String query) throws Exception {
     log.debug(String.format("Executing '%s'", query));
     ResultSet result_set = null;
@@ -39,11 +44,6 @@ public class DBConnection {
       statement.executeUpdate(query);
     }
     return result_set;
-  }
-
-  protected DBConnection() throws Exception {
-    dataSource = getDatasSource();
-    connection = dataSource.getConnection();
   }
 
   private Statement getAStatement() throws Exception {
