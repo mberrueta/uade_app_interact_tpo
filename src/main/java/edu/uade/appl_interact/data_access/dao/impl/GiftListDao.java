@@ -1,8 +1,6 @@
 package edu.uade.appl_interact.data_access.dao.impl;
 
 import java.sql.ResultSet;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 
 import edu.uade.appl_interact.model.entities.GiftList;
 
@@ -15,7 +13,6 @@ public class GiftListDao extends Base<GiftList> {
 
   @Override
   public String getCreateQuery(GiftList entity) {
-    Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
     return new StringBuilder("INSERT INTO gift_lists (list_name, due_date, to_name, to_mail, owner_id) VALUES ( ")
           .append(String.format("'%s', ", entity.getListName()))
@@ -29,7 +26,6 @@ public class GiftListDao extends Base<GiftList> {
         
   @Override
   public String getUpdateQuery(GiftList entity) {
-    Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     return new StringBuilder("UPDATE gift_lists SET ")
           .append(String.format("list_name = '%s', ", entity.getListName()))
           .append(String.format("due_date = '%s', ", formatter.format(entity.getDueDate())))
