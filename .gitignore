@@ -28,3 +28,4 @@ target/**
 target
 .history/*
 .idea/
+.DS_Store
