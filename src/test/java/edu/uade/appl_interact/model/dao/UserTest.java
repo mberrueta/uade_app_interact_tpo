@@ -53,7 +53,7 @@ public final class UserTest extends TestCase {
       EntityManager em = EntityManager.getInstance();
       User user = new User();
       user.setName("qwerty");
-      EntityManager.getInstance().create(user);
+      em.create(user);
       user = em.findBy(User.class, "name", "qwerty");
       user.setName("qwerty updated");
       em.update(user);
@@ -71,7 +71,7 @@ public final class UserTest extends TestCase {
       EntityManager em = EntityManager.getInstance();
       User user = new User();
       user.setName("qwerty");
-      EntityManager.getInstance().create(user);
+      em.create(user);
       user = em.findBy(User.class, "name", "qwerty");
       em.delete(user, user.getId());
 

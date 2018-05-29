@@ -44,12 +44,15 @@ public final class GiftListTest extends TestCase {
   public void testUpdate() {
     try {
       EntityManager em = EntityManager.getInstance();
-      GiftList GiftList = new GiftList();
-      GiftList.setListName("qwerty");
-      EntityManager.getInstance().create(GiftList);
-      GiftList = em.findBy(GiftList.class, "list_name", "qwerty");
-      GiftList.setListName("querty updated");
-      em.update(GiftList);
+      GiftList giftList = new GiftList();
+      giftList.setListName("qwerty");
+      em.create(giftList);
+      giftList = em.findBy(GiftList.class, "list_name", "qwerty");
+      giftList.setListName("qwerty updated");
+      em.update(giftList);
+      giftList = em.findBy(GiftList.class, "list_name", "qwerty updated");
+      assertNotNull(giftList);
+      assertEquals(giftList.getListName(), "qwerty updated");
     } catch (Exception e) {
       e.printStackTrace();
       assertNull(e);
@@ -59,11 +62,11 @@ public final class GiftListTest extends TestCase {
   public void testDelete() {
     try {
       EntityManager em = EntityManager.getInstance();
-      GiftList GiftList = new GiftList();
-      GiftList.setListName("qwerty");
-      EntityManager.getInstance().create(GiftList);
-      GiftList = em.findBy(GiftList.class, "list_name", "qwerty");
-      em.delete(GiftList, GiftList.getId());
+      GiftList giftList = new GiftList();
+      giftList.setListName("qwerty");
+      em.create(giftList);
+      giftList = em.findBy(GiftList.class, "list_name", "qwerty");
+      em.delete(giftList, giftList.getId());
     } catch (Exception e) {
       e.printStackTrace();
       assertNull(e);

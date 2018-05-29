@@ -8,6 +8,7 @@ public class Payment {
     private Float amount;
     private User payer;
     private Date date;
+    private Integer giftListId;
 
     public Float getAmount() {
         return amount;
@@ -44,4 +45,19 @@ public class Payment {
     public void setPayer(User payer) {
         this.payer = payer;
     }
+
+	public Integer getGiftListId() {
+		return giftListId;
+	}
+
+	public void setGiftListId(Integer giftListId) {
+		this.giftListId = giftListId;
+	}
+
+	public Integer getPayerId() {
+        if(payer == null)
+            return 0;
+		return payer.getId();
+	}
+
 }
