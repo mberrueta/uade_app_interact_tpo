@@ -6,18 +6,12 @@ public class PoolConnection {
     protected String password;
     private static PoolConnection pool;
 
-    private PoolConnection() {
-        try {
-            // Mover a un .config
-            for (int i = 0; i < 10; i++)
-                connections.add(new DBConnection());
-        } catch (Exception e) {
-            System.out.println("Mensaje Error: " + e.getMessage());
-
-        }
+    private PoolConnection() throws Exception {
+        for (int i = 0; i < 10; i++)
+            connections.add(new DBConnection());
     }
 
-    public static PoolConnection getIntance() {
+    public static PoolConnection getIntance() throws Exception {
         if (pool == null)
             pool = new PoolConnection();
         return pool;
@@ -34,16 +28,12 @@ public class PoolConnection {
         }
     }
 
-    public DBConnection getConnection() {
+    public DBConnection getConnection() throws Exception {
         DBConnection c = null;
         if (connections.size() > 0)
             c = connections.remove(0);
         else {
-            try {
-                c = new DBConnection();
-            } catch (Exception e) {
-                System.out.println("Mensaje Error: " + e.getMessage());
-            }
+            c = new DBConnection();
         }
         return c;
     }

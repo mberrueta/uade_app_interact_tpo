@@ -29,7 +29,6 @@ public class DBConnection {
       } catch (Exception e) {
           System.out.println("Mensaje Error: " + e.getMessage());
       }
-
   }
 
   public ResultSet execute(String query) throws Exception {
@@ -54,12 +53,13 @@ public class DBConnection {
     Properties props = new Properties();
     FileInputStream fis = null;
     MysqlDataSource mysqlDS = null;
-    fis = new FileInputStream(".properties");
+
+    fis = new FileInputStream("resources/db.properties");
     props.load(fis);
     mysqlDS = new MysqlDataSource();
-    mysqlDS.setURL(props.getProperty("JDBC_DATABASE_URL"));
-    mysqlDS.setUser(props.getProperty("JDBC_DATABASE_USER"));
-    mysqlDS.setPassword(props.getProperty("JDBC_DATABASE_PASS"));
+    mysqlDS.setURL(props.getProperty("jdbc.url"));
+    mysqlDS.setUser(props.getProperty("jdbc.username"));
+    mysqlDS.setPassword(props.getProperty("jdbc.password"));
     return mysqlDS;
   }
 }

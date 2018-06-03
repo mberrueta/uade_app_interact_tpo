@@ -20,8 +20,19 @@ mvn install
 ## Access db
 
 ```shell
+# create schema
+$ docker exec tpo-app-interact-mysql /bin/sh -c 'mysql -u tpo -psecret app_interact_tpo < /tmp/tp_sql/db/schema.sql'
+
+# seed
+$ docker exec tpo-app-interact-mysql /bin/sh -c 'mysql -u tpo -psecret app_interact_tpo < /tmp/tp_sql/db/seed.sql'
+
+# get inside mysql 
 $ docker exec -it uadeappinteracttpo_db_1 mysql -utpo -psecret
 mysql> USE app_interact_tpo;
+-- show databases;
+-- show tables;
+# get into image bash
+$ docker exec tpo-app-interact-mysql bash
 ```
 
 ## Organization

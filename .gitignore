@@ -29,3 +29,4 @@ target
 .history/*
 .idea/
 .DS_Store
+.gradle/

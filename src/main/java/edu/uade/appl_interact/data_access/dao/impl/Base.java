@@ -90,7 +90,7 @@ public abstract class Base<T> implements GenericDao<T> {
                .toString();
   }
 
-  private DBConnection getConnection() {
+  private DBConnection getConnection() throws Exception {
       PoolConnection pool = PoolConnection.getIntance();
       return pool.getConnection();
   }

@@ -11,22 +11,21 @@ public class App
 {
     static Logger log = Logger.getLogger(App.class.getName());
 
-    public static void main( String[] args ) throws ClassNotFoundException, SQLException
-    {
+    public static void main( String[] args ) throws Exception {
         System.out.println( "Hello World!" );
         log.debug("Hello this is a debug message");
         log.info("Hello this is an info message");
         testCreate();
     }
 
-    public static void testCreate() {
-        try {
+    public static void testCreate() throws Exception {
+//        try {
           GiftList giftList = new GiftList();
           giftList.setListName("qwerty");
           EntityManager.getInstance().create(giftList);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }  
+//        } catch (Exception e) {
+//          e.printStackTrace();
+//        }
       }  
     
 }
