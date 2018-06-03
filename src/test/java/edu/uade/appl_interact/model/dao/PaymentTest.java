@@ -9,9 +9,11 @@ import junit.framework.TestCase;
 
 public final class PaymentTest extends TestCase {
 
+  EntityManager em = EntityManager.getInstance();
+
   public void testFindById() {
     try {
-      Payment result = EntityManager.getInstance().find(Payment.class, 1);
+      Payment result = em.find(Payment.class, 1);
       assertEquals(result.getAmount(), 12.21f);
       assertEquals(result.getId().intValue(), 1);
     } catch (Exception e) {
@@ -20,10 +22,10 @@ public final class PaymentTest extends TestCase {
     }
   }
 
-  public void testGetByName() {
+  public void testGetByUser() {
     try {
-      Payment result = EntityManager.getInstance().findBy(Payment.class, "amount", "12.21");
-      assertEquals(result.getAmount(), 12.21);
+      Payment result = em.findBy(Payment.class, "payer_id", 1);
+      assertEquals(result.getAmount(), 12.21f);
       assertEquals(result.getId().intValue(), 1);
     } catch (Exception e) {
       e.printStackTrace();
@@ -33,10 +35,11 @@ public final class PaymentTest extends TestCase {
 
   public void testCreate() {
     try {
-      Payment payment = new Payment();
-      payment.setAmount(666f);
-      payment.setDate(new Date());
-      EntityManager.getInstance().create(payment);
+      Payment payment = dummyPayment();
+      payment.setAmount(888f);
+      em.create(payment);
+      Payment result = em.findBy(Payment.class, "amount", 888);
+      em.delete(payment, result.getId());
     } catch (Exception e) {
       e.printStackTrace();
       assertNull(e);
@@ -45,16 +48,10 @@ public final class PaymentTest extends TestCase {
 
   public void testUpdate() {
     try {
-      EntityManager em = EntityManager.getInstance();
-      Payment payment = new Payment();
-      payment.setAmount(666f);
-      payment.setDate(new Date());
-      em.create(payment);
-      payment = em.findBy(Payment.class, "amoount", "666");
-      payment.setAmount(999f);
+      Payment payment = dummyPayment();
       em.update(payment);
-      payment = em.findBy(Payment.class, "amoount", "999");
-      assertEquals(payment.getAmount(), 999);
+      payment = em.findBy(Payment.class, "amount", "666");
+      assertEquals(payment.getAmount(), 666f);
     } catch (Exception e) {
       e.printStackTrace();
       assertNull(e);
@@ -63,9 +60,7 @@ public final class PaymentTest extends TestCase {
 
   public void testDelete() {
     try {
-      EntityManager em = EntityManager.getInstance();
-      Payment payment = new Payment();
-      payment.setAmount(666f);
+      Payment payment = dummyPayment();
       em.create(payment);
       payment = em.findBy(Payment.class, "amount", "666");
       em.delete(payment, payment.getId());
@@ -75,13 +70,23 @@ public final class PaymentTest extends TestCase {
     }  
   }  
 
-  public void testFindManyByName() {
+  public void testFindManyByPayer() {
     try {
-      List<Payment> result = EntityManager.getInstance().findManyBy(Payment.class, "payer_id", "1");
+      List<Payment> result = em.findManyBy(Payment.class, "payer_id", 2);
       assertEquals(result.size(), 3);
     } catch (Exception e) {
       e.printStackTrace();
       assertNull(e);
     }
   }
+
+  private Payment dummyPayment(){
+    Payment payment = new Payment();
+    payment.setAmount(666f);
+    payment.setDate(new Date());
+    payment.setGiftListId(1);
+    payment.setPayer_id(1);
+    return payment;
+  }
+
 }

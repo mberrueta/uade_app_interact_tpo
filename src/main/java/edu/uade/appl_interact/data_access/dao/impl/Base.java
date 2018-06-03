@@ -33,8 +33,11 @@ public abstract class Base<T> implements GenericDao<T> {
   public T findBy(String field, String value) throws Exception {
     log.debug("Seeking " + getTableName() + " by " + field + ": " + value);
     ResultSet resultSet = getConnection().execute(getFindByQuery(field, value));
-    resultSet.next();
-    return toObject(resultSet);
+    boolean any = resultSet.next();
+    if (any)
+      return toObject(resultSet);
+    else
+      return null;
   }
 
   public void create(T entity) throws Exception {

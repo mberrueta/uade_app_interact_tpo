@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>2b443570-c451-488b-9bb0-cdff4f24a303.SCHEMA:app_interact_tpo</OriginalElement>
+  <nodes>
+    <node x="20.895310657196916" y="309.53616688622543">2b443570-c451-488b-9bb0-cdff4f24a303.TABLE:app_interact_tpo.payments</node>
+    <node x="0.0" y="0.0">2b443570-c451-488b-9bb0-cdff4f24a303.TABLE:app_interact_tpo.gift_lists</node>
+    <node x="300.6042790764902" y="197.56393313537026">2b443570-c451-488b-9bb0-cdff4f24a303.TABLE:app_interact_tpo.users</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="2b443570-c451-488b-9bb0-cdff4f24a303.TABLE:app_interact_tpo.payments" target="2b443570-c451-488b-9bb0-cdff4f24a303.TABLE:app_interact_tpo.gift_lists">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="2b443570-c451-488b-9bb0-cdff4f24a303.TABLE:app_interact_tpo.gift_lists" target="2b443570-c451-488b-9bb0-cdff4f24a303.TABLE:app_interact_tpo.users">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="2b443570-c451-488b-9bb0-cdff4f24a303.TABLE:app_interact_tpo.payments" target="2b443570-c451-488b-9bb0-cdff4f24a303.TABLE:app_interact_tpo.users">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.1435852372583482" x="279.33548486245576" y="449.1386199477485" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+

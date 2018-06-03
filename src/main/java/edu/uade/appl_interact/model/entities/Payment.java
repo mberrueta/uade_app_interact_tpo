@@ -7,6 +7,7 @@ public class Payment {
     private Integer id;
     private Float amount;
     private User payer;
+    private Integer payerId;
     private Date date;
     private Integer giftListId;
 
@@ -54,10 +55,11 @@ public class Payment {
 		this.giftListId = giftListId;
 	}
 
-	public Integer getPayerId() {
-        if(payer == null)
-            return 0;
-		return payer.getId();
-	}
+    public Integer getPayerId() {
+        return payerId;
+    }
 
+    public void setPayer_id(Integer payerId) {
+        this.payerId = payerId;
+    }
 }

@@ -18,7 +18,7 @@ public class DBConnection {
 
 
   public DBConnection() throws Exception {
-    dataSource = getDatasSource();
+    dataSource = getDataSource();
     connection = dataSource.getConnection();
   }
 
@@ -49,7 +49,7 @@ public class DBConnection {
     return connection.createStatement();
   }
 
-  private DataSource getDatasSource() throws Exception {
+  private DataSource getDataSource() throws Exception {
     Properties props = new Properties();
     FileInputStream fis = null;
     MysqlDataSource mysqlDS = null;

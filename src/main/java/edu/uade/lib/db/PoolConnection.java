@@ -7,7 +7,7 @@ public class PoolConnection {
     private static PoolConnection pool;
 
     private PoolConnection() throws Exception {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 30; i++)
             connections.add(new DBConnection());
     }
 

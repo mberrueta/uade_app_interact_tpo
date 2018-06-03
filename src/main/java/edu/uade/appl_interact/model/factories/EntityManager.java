@@ -21,6 +21,10 @@ public class EntityManager {
     return (T) DaoFactory.getInstance().getDaoFor(klass.newInstance()).findById(id);
   }
 
+  public <T> T findBy(Class<?> klass, String field, Integer value) throws Exception {
+    return findBy(klass, field, value.toString());
+  }
+
   public <T> T findBy(Class<?> klass, String field, String value) throws Exception {
     return (T) DaoFactory.getInstance().getDaoFor(klass.newInstance()).findBy(field, value);
   }
@@ -40,8 +44,16 @@ public class EntityManager {
     return true;
   }
 
+  public <T> List<T> findManyBy(Class<?> klass, String field, Integer value) throws Exception {
+    return findManyBy(klass, field, value.toString());
+  }
+
   public <T> List<T> findManyBy(Class<?> klass, String field, String value) throws Exception {
     return DaoFactory.getInstance().getDaoFor(klass.newInstance()).findManyBy(field, value);
+  }
+
+  public <T> List<T> findManyLike(Class<?> klass, String field, Integer value) throws Exception {
+    return findManyLike(klass, field, value.toString());
   }
 
   public <T> List<T> findManyLike(Class<?> klass, String field, String value) throws Exception {

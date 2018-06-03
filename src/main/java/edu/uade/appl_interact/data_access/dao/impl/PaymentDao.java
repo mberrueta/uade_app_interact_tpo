@@ -28,7 +28,7 @@ public class PaymentDao extends Base<Payment> {
           .append(String.format("amount = '%s', ", entity.getAmount()))
           .append(String.format("payer_id = '%s', ", entity.getPayerId()))
           .append(String.format("date = '%s', ", formatter.format(entity.getDate())))
-          .append(String.format("gift_list_id = '%s', ", entity.getGiftListId()))
+          .append(String.format("gift_list_id = '%s' ", entity.getGiftListId()))
           .append(String.format("WHERE id = %d", entity.getId()))
           .toString();
   }
