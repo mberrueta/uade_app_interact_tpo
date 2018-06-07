@@ -29,9 +29,8 @@ public class EntityManager {
     return (T) DaoFactory.getInstance().getDaoFor(klass.newInstance()).findBy(field, value);
   }
 
-  public Boolean create(Object object) throws Exception {
+  public void create(Object object) throws Exception {
     DaoFactory.getInstance().getDaoFor(object).create(object);
-    return true;
   }
 
   public Boolean update(Object object) throws Exception {

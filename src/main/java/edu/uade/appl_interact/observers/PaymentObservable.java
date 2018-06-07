@@ -1,4 +1,4 @@
-package edu.uade.appl_interact.model.services.helpers;
+package edu.uade.appl_interact.observers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import edu.uade.appl_interact.model.entities.Payment;
 
 public abstract class PaymentObservable {
-  private List<PaymentObserver> observers = new ArrayList<PaymentObserver>();
+  private final List<PaymentObserver> observers = new ArrayList<PaymentObserver>();
 
   public void add(PaymentObserver o) {
       observers.add(o);

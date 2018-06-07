@@ -1,15 +1,13 @@
 package edu.uade.appl_interact;
 
-import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
 
 import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.factories.EntityManager;
 
-public class App
+class App
 {
-    static Logger log = Logger.getLogger(App.class.getName());
+    static final Logger log = Logger.getLogger(App.class.getName());
 
     public static void main( String[] args ) throws Exception {
         System.out.println( "Hello World!" );

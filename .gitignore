@@ -31,3 +31,6 @@ target
 .DS_Store
 .gradle/
 out/
+bin/
+build/
+.idea/

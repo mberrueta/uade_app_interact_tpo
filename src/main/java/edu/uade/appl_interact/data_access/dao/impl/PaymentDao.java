@@ -40,6 +40,7 @@ public class PaymentDao extends Base<Payment> {
     result.setAmount(resultSet.getFloat("amount"));
     result.setDate(resultSet.getDate("date"));
     result.setGiftListId(resultSet.getInt("gift_list_id"));
+    result.setPayer_id(resultSet.getInt("payer_id"));
     // result.setEmail(resultSet.getString("email"));
     return result;
   }

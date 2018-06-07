@@ -2,7 +2,7 @@ package edu.uade.lib.db;
 import java.util.Vector;
 
 public class PoolConnection {
-    private Vector<DBConnection> connections = new Vector<DBConnection>();
+    private final Vector<DBConnection> connections = new Vector<DBConnection>();
     protected String password;
     private static PoolConnection pool;
 
