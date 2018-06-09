@@ -6,7 +6,7 @@ public class Transaction {
   static Logger log = Logger.getLogger(Transaction.class.getName());
   private static Transaction instance = null;
 
-  protected Transaction() {
+  private Transaction() {
   }
 
   public static Transaction getInstance() {
@@ -24,7 +24,7 @@ public class Transaction {
     return true;
   }
 
-  public Boolean begin() throws Exception {
+  public Boolean begin() {
     // ResultSet result = DBConnection.getInstance().execute("SELECT * FROM test_table");
     //   while (result.next()) {
     //     System.out.println(result);

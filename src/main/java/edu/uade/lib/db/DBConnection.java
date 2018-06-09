@@ -11,15 +11,15 @@ import org.apache.log4j.Logger;
 
 public class DBConnection {
 
-  static final Logger log = Logger.getLogger("DBConnection");
+  private static final Logger log = Logger.getLogger("DBConnection");
   private static DBConnection instance;
   private final DataSource dataSource;
   private Connection connection;
 
 
   public DBConnection() throws Exception {
-    dataSource = getDataSource();
-    connection = dataSource.getConnection();
+    this.dataSource = getDataSource();
+    this.connection = dataSource.getConnection();
   }
 
 
