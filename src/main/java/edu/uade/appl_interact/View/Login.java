@@ -3,22 +3,6 @@ package edu.uade.appl_interact.View;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.Component;
-import javax.swing.Box;
-import java.awt.Dimension;
-import javax.swing.JTextField;
-import javax.swing.JToolBar;
 import java.awt.TextField;
 import java.awt.Button;
 import javax.swing.JPasswordField;
@@ -31,16 +15,18 @@ public class Login extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPasswordField passwordField;
+	private TextField userField;
+    private final Button loginButton;
 
-	/**
+    /**
 	 * Create the panel.
 	 */
 	public Login() {
 		setLayout(null);
 		
-		TextField User = new TextField();
-		User.setBounds(242, 41, 123, 21);
-		add(User);
+		userField = new TextField();
+        userField.setBounds(242, 41, 123, 21);
+		add(userField);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(242, 91, 123, 21);
@@ -57,17 +43,40 @@ public class Login extends JPanel {
 		Button forgotPassword = new Button("Forgot password?");
 		forgotPassword.setBounds(248, 168, 117, 21);
 		add(forgotPassword);
-		
-		Button LoginButton = new Button("Login");
-		LoginButton.setBounds(109, 168, 86, 21);
-		add(LoginButton);
+
+        loginButton = new Button("Login");
+		loginButton.setBounds(109, 168, 86, 21);
+		add(loginButton);
+
 		
 		JLabel lblCreateNewAccount = new JLabel("Create new account ");
 		lblCreateNewAccount.setBounds(170, 220, 146, 15);
 		add(lblCreateNewAccount);
+
 		setForeground(Color.GRAY);
 		JButton Lgoin = new JButton("");
 		add(Lgoin, "1, 2, fill, default");
-
 	}
+
+	public String[] getLoginContent() {
+	    String[] loginContent = {userField.getText(), passwordField.getText()};
+        return loginContent;
+    }
+
+
+	public void showEmptyFieldLabel() {
+        Label emptyField = new Label("User or Password cannot be empty");
+        emptyField.setBounds(109, 120, 250, 15);
+        add(emptyField);
+    }
+
+    public Button getLoginButton() {
+        return loginButton;
+    }
+
+    public void showWrongUserOrPassword() {
+        Label emptyField = new Label("User or Password does not match");
+        emptyField.setBounds(109, 120, 250, 15);
+        add(emptyField);
+    }
 }

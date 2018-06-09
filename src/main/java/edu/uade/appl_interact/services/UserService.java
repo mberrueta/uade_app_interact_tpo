@@ -1,5 +1,7 @@
 package edu.uade.appl_interact.services;
 
+import edu.uade.appl_interact.model.entities.User;
+
 import java.util.List;
 
 public class UserService {
@@ -7,7 +9,7 @@ public class UserService {
     private static UserService instance = null;
     public List cachedUsers;
 
-    private UserService() {
+    public UserService() {
     }
 
     public static UserService getInstance() {
@@ -17,7 +19,16 @@ public class UserService {
         return instance;
     }
 
+    public User getUser(String userName, String password) {
+        // TODO User Dao to getRealUser;
+        User user = new User();
+        user.setName("Pepe Jamaica");
+        user.setUsername(userName);
+        return user;
+    }
+
     public boolean login(String userName, String password) {
+
         return false;
     }
 

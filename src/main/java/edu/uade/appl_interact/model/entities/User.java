@@ -6,6 +6,7 @@ public class User {
   private String name;
   private String email;
   private String password;
+  private String userName;
 
   public String getEmail() {
     return email;
@@ -43,4 +44,12 @@ public class User {
   public void setId(Integer id) {
     this.id = id;
   }
+
+    public void setUsername(String userName) {
+      this.userName = userName;
+    }
+
+    public String getUserName() {
+      return userName;
+    }
 }
