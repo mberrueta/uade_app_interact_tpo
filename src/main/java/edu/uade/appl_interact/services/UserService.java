@@ -1,13 +1,19 @@
 package edu.uade.appl_interact.services;
 
+import edu.uade.appl_interact.data_access.dao.impl.UserDao;
+import edu.uade.appl_interact.model.entities.GiftList;
+import edu.uade.appl_interact.model.entities.User;
+
 import java.util.List;
 
 public class UserService {
 
     private static UserService instance = null;
     public List cachedUsers;
+    private UserDao userDao;
 
-    private UserService() {
+    public UserService() {
+        userDao = new UserDao();
     }
 
     public static UserService getInstance() {
@@ -17,19 +23,47 @@ public class UserService {
         return instance;
     }
 
-    public boolean login(String userName, String password) {
-        return false;
+    public Boolean login(String userEmail, String password) {
+        try {
+            User user = this.userDao.findBy("email", userEmail);
+            if (user.getPassword().equals(password)) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void inviteUser(int listId, String mail) {
+    public void inviteUser(GiftList list, String mail) {
+        //TODO:: Send Invite
     }
 
-    public void acceptUser(int listId, String mail) {
+    public  User getUserFromEmail(String email) {
+        try {
+            return  this.userDao.findBy("email", email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public void addToList(int listId, int userId) {
+    public void acceptUser(GiftList list, String mail) {
+        //TODO:: add to list and create if not exist
     }
 
-    public void createUser(String mail, String name) {
+    private void addToList(GiftList list, User user) {
+    }
+
+
+    private void createUser(User user) {
+    }
+
+    public void saveUser(User user) throws Exception {
+        if (user.getId() == null) {
+            userDao.create(user);
+        } else {
+            userDao.update(user);
+        }
     }
 }
