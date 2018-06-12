@@ -19,7 +19,7 @@ public class ListView extends JPanel {
 		setLayout(null);
 		
 		JLabel listName = new JLabel("List name placeHolder");
-		listName.setBounds(284, 12, 172, 38);
+		listName.setBounds(134, 12, 172, 38);
 		add(listName);
 		
 		Label giftTarget = new Label("Gift is for: {placeholder}");

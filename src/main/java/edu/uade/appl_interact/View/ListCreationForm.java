@@ -8,8 +8,9 @@ import javax.swing.JTable;
 import java.awt.List;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
-public class listCreationForm extends JPanel {
+public class ListCreationForm extends JPanel implements ActionListener {
 	private JTextField nameField;
 	private JTextField targetEmailField;
 	private JTextField targetNameFielld;
@@ -19,19 +20,19 @@ public class listCreationForm extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public listCreationForm() {
+	public ListCreationForm() {
 		setLayout(null);
 		
 		JButton create = new JButton("Create");
-		create.setBounds(424, 388, 117, 25);
+		create.setBounds(450, 504, 117, 25);
 		add(create);
 		
 		JButton Cancel = new JButton("Cancel");
-		Cancel.setBounds(575, 388, 117, 25);
+		Cancel.setBounds(591, 504, 117, 25);
 		add(Cancel);
 		
 		JLabel lblNewList = new JLabel("New List");
-		lblNewList.setBounds(338, 12, 70, 15);
+		lblNewList.setBounds(334, 36, 70, 15);
 		add(lblNewList);
 		
 		nameField = new JTextField();
@@ -71,33 +72,45 @@ public class listCreationForm extends JPanel {
 		lblExpectedAmount.setBounds(12, 181, 129, 15);
 		add(lblExpectedAmount);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(29, 259, 427, 164);
+		add(scrollPane);
+        String[] columnNames = { "id","UserName", "Email"};
+        String[][] tableData = {{"1", "un",     "uno@asd"},
+                                {"2", "deux",   "dos@asd"},
+                                {"3", "trois",  "tres@asd"},
+                                {"4", "quatre", "cuatro@asd"}};
+		table = new JTable(tableData, columnNames);
+        table.getColumnModel().getColumn(0).setMinWidth(0);
+        table.getColumnModel().getColumn(0).setMaxWidth(0);
+        table.getColumnModel().getColumn(0).setWidth(0);
+		scrollPane.setViewportView(table);
 		
-		JButton addParticipant = new JButton("Add person");
-		addParticipant.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		addParticipant.setBounds(424, 294, 117, 25);
-		add(addParticipant);
+		JButton addUser = new JButton("Add user");
+		addUser.setBounds(465, 324, 117, 37);
+        addUser.addActionListener(this);
+		add(addUser);
 		
-
-        String[] columnNames = { "French", "Spanish", "Italian" };
-        String[][] tableData = {{"un",     "uno",     "uno"     },
-                                {"deux",   "dos",     "due"     },
-                                {"trois",  "tres",    "tre"     },
-                                { "quatre", "cuatro",  "quattro"},
-                                { "cinq",   "cinco",   "cinque" },
-                                { "six",    "seis",    "sei"    },
-                                { "sept",   "siete",   "sette"  } };
-        
-        JButton removePerson = new JButton("Remove person");
-        removePerson.setBounds(424, 245, 117, 25);
-        add(removePerson);
- 
-        table = new JTable(tableData, columnNames);
-		table.setToolTipText("");
-		table.setBounds(58, 377, 279, -129);
-		add(table);
+		JLabel lblGifters = new JLabel("Gifters:");
+		lblGifters.setBounds(29, 232, 70, 15);
+		add(lblGifters);
+		
+		JButton btnRemoveUser = new JButton("Remove user");
+		btnRemoveUser.setBounds(468, 398, 117, 25);
+		btnRemoveUser.addActionListener(this);
+		add(btnRemoveUser);
 
 	}
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getActionCommand());
+        switch (e.getActionCommand()) {
+            default:
+                // GET SELECTED ID
+                //table.getValueAt(table.getSelectedRow(),0);
+                System.out.println("show user form");
+        }
+    }
+
 }

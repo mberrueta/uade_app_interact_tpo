@@ -82,6 +82,7 @@ public abstract class Base<T> implements GenericDao<T> {
               .toString();
   }
 
+
   private String getFindManyLikeQuery(String field, String value) {
     return getFindByQuery(field, String.format("%%%s%%", value)).replace("=", "LIKE");
   }

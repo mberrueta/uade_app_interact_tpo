@@ -2,22 +2,25 @@ package edu.uade.controller;
 
 import edu.uade.appl_interact.Main;
 import edu.uade.appl_interact.View.Login;
+import edu.uade.appl_interact.View.UserForm;
 import edu.uade.appl_interact.model.entities.User;
 import edu.uade.appl_interact.services.UserService;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
-public class LoginController extends Controller implements ActionListener {
+public class LoginController  implements  IuserController {
 
     private JFrame frame;
     private Login login;
+    private UserForm userForm;
+    private JPanel currentView;
+    private Main main;
 
     public LoginController(JFrame frame) {
         this.frame = frame;
         login = new Login();
+        userForm = new UserForm();
     }
 
     public void addMain(Main main) {
@@ -25,33 +28,76 @@ public class LoginController extends Controller implements ActionListener {
     }
 
     public void updateView() {
-        login.getLoginButton().addActionListener(this);
-        frame.setContentPane(login);
+        frame.setContentPane(this.getCurrentView());
+        frame.repaint();
         frame.setVisible(true);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()) {
-            case "Login":
-                String[] loginInfo = login.getLoginContent();
-                if (loginInfo[0].isEmpty() || loginInfo[1].isEmpty()) {
-                    login.showEmptyFieldLabel();
-                } else  {
-                    this.doLogin(loginInfo[0], loginInfo[1]);
-                }
-                break;
-            case "Forgot password?":
-                System.out.println("Forgot password");
-                break;
-            default:
-                System.out.println(e.getActionCommand());
-                break;
-        }
+    @Override
+    public void setMain(Main main) {
+        this.main = main;
     }
 
-    private void doLogin(String username, String password) {
+    @Override
+    public void renderMain() {
+        renderLoginForm();
+    }
+
+    private JPanel getCurrentView() {
+        if (currentView == null) {
+            renderLoginForm();
+        }
+        return currentView;
+    }
+
+    public void renderLoginForm() {
+        currentView = login;
+        login.setLoginController(this);
+        this.updateView();
+    }
+
+    public void renderUserForm() {
+        currentView = userForm;
+        userForm.setUserController(this);
+        this.updateView();
+    }
+
+    public void doLogin(String userEmail, String password) {
         UserService us = UserService.getInstance();
-        User user = us.getUser(username, password);
-        main.OnUserLogin(user);
+        if ( us.login(userEmail, password)) {
+            User user = us.getUserFromEmail(userEmail);
+            if (user != null) {
+                main.OnUserLogin(user);
+            }
+            login.showWrongUserOrPassword();
+            frame.repaint();
+        }
+        login.showWrongUserOrPassword();
+        frame.repaint();
+    }
+
+    @Override
+    public boolean saveNewUser(String name,String userEmail, String password) {
+        User user  = new User();
+        user.setName(name);
+        user.setEmail(userEmail);
+        user.setPassword(password);
+        UserService manager = UserService.getInstance();
+        try {
+            manager.saveUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean saveUser(String name,  String userEmail, String password, int id) {
+        return false;
+    }
+
+    @Override
+    public boolean userNameInUse() {
+        return false;
     }
 }

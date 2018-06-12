@@ -34,3 +34,5 @@ out/
 bin/
 build/
 .idea/
+.metadata/
+

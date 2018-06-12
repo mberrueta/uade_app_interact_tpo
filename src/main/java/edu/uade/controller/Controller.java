@@ -2,14 +2,13 @@ package edu.uade.controller;
 
 import edu.uade.appl_interact.Main;
 
-abstract public class Controller {
+public interface Controller {
 
-    protected Main main;
 
-    abstract public void updateView();
+    public void updateView();
 
-    public void setMain(Main main) {
-        this.main = main;
-    }
+    public void setMain(Main main);
+
+    public void renderMain();
 
 }

@@ -1,5 +1,7 @@
 package edu.uade.appl_interact.services;
 
+import edu.uade.appl_interact.data_access.dao.impl.UserDao;
+import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.entities.User;
 
 import java.util.List;
@@ -8,8 +10,10 @@ public class UserService {
 
     private static UserService instance = null;
     public List cachedUsers;
+    private UserDao userDao;
 
     public UserService() {
+        userDao = new UserDao();
     }
 
     public static UserService getInstance() {
@@ -19,28 +23,47 @@ public class UserService {
         return instance;
     }
 
-    public User getUser(String userName, String password) {
-        // TODO User Dao to getRealUser;
-        User user = new User();
-        user.setName("Pepe Jamaica");
-        user.setUsername(userName);
-        return user;
+    public Boolean login(String userEmail, String password) {
+        try {
+            User user = this.userDao.findBy("email", userEmail);
+            if (user.getPassword().equals(password)) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public boolean login(String userName, String password) {
-
-        return false;
+    public void inviteUser(GiftList list, String mail) {
+        //TODO:: Send Invite
     }
 
-    public void inviteUser(int listId, String mail) {
+    public  User getUserFromEmail(String email) {
+        try {
+            return  this.userDao.findBy("email", email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public void acceptUser(int listId, String mail) {
+    public void acceptUser(GiftList list, String mail) {
+        //TODO:: add to list and create if not exist
     }
 
-    public void addToList(int listId, int userId) {
+    private void addToList(GiftList list, User user) {
     }
 
-    public void createUser(String mail, String name) {
+
+    private void createUser(User user) {
+    }
+
+    public void saveUser(User user) throws Exception {
+        if (user.getId() == null) {
+            userDao.create(user);
+        } else {
+            userDao.update(user);
+        }
     }
 }
