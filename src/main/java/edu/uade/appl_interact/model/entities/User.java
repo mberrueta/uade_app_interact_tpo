@@ -1,5 +1,7 @@
 package edu.uade.appl_interact.model.entities;
 
+import java.util.Date;
+
 public class User {
 
   private Integer id;
@@ -7,6 +9,7 @@ public class User {
   private String email;
   private String password;
   private String userName;
+  private Date birthDate;
 
   public String getEmail() {
     return email;
@@ -52,4 +55,16 @@ public class User {
     public String getUserName() {
       return userName;
     }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  public Date getBirthDate() {
+    return birthDate;
+  }
+
+  public void setBirthDate(Date birthDate) {
+    this.birthDate = birthDate;
+  }
 }
