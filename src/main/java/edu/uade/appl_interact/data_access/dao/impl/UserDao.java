@@ -15,7 +15,7 @@ public class UserDao extends Base<User> {
   @Override
   public String getCreateQuery(User entity) {
     
-    return new StringBuilder("INSERT INTO users (name, email, password) VALUES ( ")
+    return new StringBuilder("INSERT INTO user (name, email, password) VALUES ( ")
           .append(String.format("'%s', ", entity.getName()))
           .append(String.format("'%s', ", entity.getEmail()))
           .append(String.format("'%s')", entity.getPassword()))
@@ -24,7 +24,7 @@ public class UserDao extends Base<User> {
         
   @Override
   public String getUpdateQuery(User entity) {
-    return new StringBuilder("UPDATE users SET ")
+    return new StringBuilder("UPDATE user SET ")
           .append(String.format("name = '%s', ", entity.getName()))
           .append(String.format("email = '%s' ", entity.getEmail()))
           .append(String.format("WHERE id = %d", entity.getId()))
@@ -32,7 +32,7 @@ public class UserDao extends Base<User> {
   }
 
   public String getUpdatePassQuery(User entity) {
-    return new StringBuilder("UPDATE users SET ")
+    return new StringBuilder("UPDATE user SET ")
           .append(String.format("password = '%s', ", entity.getPassword()))
           .append(String.format("WHERE id = %d", entity.getId()))
           .toString();

@@ -174,6 +174,7 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
                     userIdsToAdd.add(giftersTableModel.getValueAt(i,0).toString());
                 }
                 this.controller.saveList(nameField.getText(), targetEmailField.getText(), targetNameField.getText(), expectedAmountField.getText(), dueDate.getText(), userIdsToAdd);
+                this.controller.onActionPerformed();
             default:
                 // GET SELECTED ID
                 //table.getValueAt(table.getSelectedRow(),0);
@@ -203,6 +204,7 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
             }
         }
 	}
+
 
     public void setController(MainController mainController) {
 	    controller = mainController;

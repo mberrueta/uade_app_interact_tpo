@@ -2,6 +2,7 @@ package edu.uade.lib.db;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
@@ -43,8 +44,14 @@ public class DBConnection {
 
   public int  execute(String query) throws Exception {
       log.debug(String.format("Executing '%s'", query));
-      Statement statement = getAStatement();
-      return statement.executeUpdate(query);
+      PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+      statement.executeUpdate();
+       ResultSet keys = statement.getGeneratedKeys();
+      if(keys.next()) {
+        int key = keys.getInt(1);
+        return key;
+      }
+      return 0;
   }
 
   private Statement getAStatement() throws Exception {

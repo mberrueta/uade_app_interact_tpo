@@ -14,6 +14,7 @@ public class UserDashboard extends JPanel implements ActionListener {
 	private JPanel mainPanel;
     private CardLayout cardLayout;
     private MainController controller;
+    private JPanel defaultPanel;
 
     public void addToCardLayout(JPanel panel, String identifier) {
         mainPanel.add(panel, identifier);
@@ -34,7 +35,8 @@ public class UserDashboard extends JPanel implements ActionListener {
 		cardLayout = new CardLayout(0, 0);
 		JPanel cardLayout2 = new ListCreationForm();
 		mainPanel.setLayout(cardLayout);
-
+		defaultPanel = new JPanel();
+		mainPanel.add(defaultPanel, "default");
 
 		Button listsIOwn = new Button("Lists I own");
 		listsIOwn.addActionListener(this);
@@ -86,4 +88,8 @@ public class UserDashboard extends JPanel implements ActionListener {
                 cardLayout.show(mainPanel, "editUser");
         }
     }
+
+    public void  showDefault() {
+		cardLayout.show(mainPanel, "default");
+	}
 }

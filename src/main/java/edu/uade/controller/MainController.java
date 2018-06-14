@@ -21,7 +21,9 @@ public class MainController implements ActionListener, IuserController {
     private User loggedUser;
     private UserForm userForm;
     private ListCreationForm listCreationForm;
+    private UserDashboard dashboard;
     private ListService listService;
+
 
     public MainController(JFrame frame, User loggedUser) {
         this.frame = frame;
@@ -52,7 +54,7 @@ public class MainController implements ActionListener, IuserController {
 
     @Override
     public void renderMain() {
-        UserDashboard dashboard = new UserDashboard(loggedUser.getName());
+        dashboard = new UserDashboard(loggedUser.getName());
         dashboard.setController(this);
         dashboard.addToCardLayout(listCreationForm, "CreateNew");
         dashboard.addToCardLayout(userForm, "editUser");
@@ -120,5 +122,9 @@ public class MainController implements ActionListener, IuserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void onActionPerformed() {
+        dashboard.showDefault();
     }
 }
