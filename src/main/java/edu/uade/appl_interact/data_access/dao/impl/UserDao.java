@@ -9,7 +9,7 @@ public class UserDao extends Base<User> {
 
   @Override
   public String getTableName() {
-    return "users";
+    return "user";
   }
 
   @Override

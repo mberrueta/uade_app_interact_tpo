@@ -29,7 +29,7 @@ public class UserDashboard extends JPanel implements ActionListener {
 		//** TODO GENERATE ABSTRACT CLASS FROM JPANEL TO SHOW CONTENT
         //** EMPTY first time
 		mainPanel = new JPanel();
-		mainPanel.setBounds(118, 65, 704, 466);
+		mainPanel.setBounds(125, 59, 887, 697);
 		add(mainPanel);
 		cardLayout = new CardLayout(0, 0);
 		JPanel cardLayout2 = new ListCreationForm();
@@ -38,30 +38,30 @@ public class UserDashboard extends JPanel implements ActionListener {
 
 		Button listsIOwn = new Button("Lists I own");
 		listsIOwn.addActionListener(this);
-		listsIOwn.setBounds(13, 59, 99, 23);
+		listsIOwn.setBounds(10, 87, 99, 23);
 		add(listsIOwn);
 		
 		Button subscriptions = new Button("Subscriptions");
 		subscriptions.addActionListener(this);
-		subscriptions.setBounds(13, 90, 99, 23);
+		subscriptions.setBounds(10, 118, 99, 23);
 		add(subscriptions);
 		
 		Button myPayments = new Button("My payments");
 		myPayments.addActionListener(this);
-		myPayments.setBounds(13, 119, 99, 23);
+		myPayments.setBounds(10, 147, 99, 23);
 		add(myPayments);
 		
 		Button createNewList = new Button("Create new");
-		createNewList.setBounds(13, 31, 99, 23);
+		createNewList.setBounds(10, 59, 99, 23);
 		createNewList.addActionListener(this);
 		add(createNewList);
 		
 		Label welcomeMsg = new Label("Hello  " + userName);
-		welcomeMsg.setBounds(350, 31, 219, 21);
+		welcomeMsg.setBounds(461, 26, 219, 21);
 		add(welcomeMsg);
 		
 		Button editUser = new Button("editUser");
-		editUser.setBounds(13, 148, 99, 23);
+		editUser.setBounds(10, 176, 99, 23);
 		editUser.addActionListener(this);
 		add(editUser);
 	}

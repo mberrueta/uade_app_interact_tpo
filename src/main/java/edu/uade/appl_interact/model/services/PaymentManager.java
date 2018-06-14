@@ -38,7 +38,7 @@ public class PaymentManager extends PaymentObservable {
         list = getListByName(list_name);
         user = getUserById(user_id);
         payment = new Payment();
-        payment.setPayer(user);
+     //   payment.setPayer(user);
         notifyAllObservers();
     }
 

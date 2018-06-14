@@ -4,25 +4,34 @@ import edu.uade.appl_interact.Main;
 import edu.uade.appl_interact.View.ListCreationForm;
 import edu.uade.appl_interact.View.UserDashboard;
 import edu.uade.appl_interact.View.UserForm;
+import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.entities.User;
+import edu.uade.appl_interact.services.ListService;
 import edu.uade.appl_interact.services.UserService;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class MainController implements ActionListener, IuserController {
+    private final UserService userService;
     private JFrame frame;
     private User loggedUser;
     private UserForm userForm;
     private ListCreationForm listCreationForm;
+    private ListService listService;
 
     public MainController(JFrame frame, User loggedUser) {
         this.frame = frame;
         this.loggedUser = loggedUser;
         this.listCreationForm = new ListCreationForm();
+        this.listCreationForm.setController(this);
         this.userForm = new UserForm();
+        userService = UserService.getInstance();
         userForm.setUserController(this);
+        listService = ListService.getInstance();
     }
 
     // TODO Add action permformed Events.
@@ -83,9 +92,33 @@ public class MainController implements ActionListener, IuserController {
         return false;
     }
 
-
     @Override
     public boolean userNameInUse() {
         return false;
+    }
+
+    public ArrayList<String[]> getUserInfoForList(String text) {
+        return userService.findMatchesByName(text);
+    }
+
+    public void saveList(String name, String email, String targetName, String expectedAmount, String dueDate, ArrayList<String> userIdsToAdd) {
+        GiftList newList = new GiftList();
+        newList.setListName(name);
+        newList.setToMail(email);
+        newList.setToName(targetName);
+        newList.setExpectedAmount(Float.valueOf(expectedAmount));
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        for (String userId :userIdsToAdd) {
+            User user = UserService.getInstance().getUserFromId(Integer.parseInt(userId));
+            if (user != null) {
+                newList.addGifter(user);
+            }
+        }
+        try {
+            newList.setDueDate(format.parse(dueDate));
+            listService.createList(newList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

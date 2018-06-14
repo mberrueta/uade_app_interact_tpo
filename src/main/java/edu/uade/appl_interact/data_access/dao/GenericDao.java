@@ -8,9 +8,9 @@ public interface GenericDao<T> {
 
     T findBy(String field, String value) throws Exception;
 
-    void create(T t) throws Exception;
+    int create(T t) throws Exception;
 
-    void update(T t) throws Exception;
+    int update(T t) throws Exception;
 
     void delete(Integer id) throws Exception;
 

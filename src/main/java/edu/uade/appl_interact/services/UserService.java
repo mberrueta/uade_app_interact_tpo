@@ -4,6 +4,7 @@ import edu.uade.appl_interact.data_access.dao.impl.UserDao;
 import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.entities.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
@@ -39,6 +40,20 @@ public class UserService {
         //TODO:: Send Invite
     }
 
+    public ArrayList<String[]> findMatchesByName(String partialName) {
+        ArrayList<String[]> matches=  new ArrayList<>();
+        try {
+            List<User> results = userDao.findManyLike("name", partialName);
+
+            for (User user : results) {
+                String[] data = {user.getId().toString(), user.getName(), user.getEmail()};
+                matches.add(data);
+            }
+        } catch (Exception e) {
+        }
+        return matches;
+    }
+
     public  User getUserFromEmail(String email) {
         try {
             return  this.userDao.findBy("email", email);
@@ -64,6 +79,14 @@ public class UserService {
             userDao.create(user);
         } else {
             userDao.update(user);
+        }
+    }
+
+    public User getUserFromId(int id) {
+        try {
+            return userDao.findById(id);
+        } catch (Exception e) {
+            return null;
         }
     }
 }

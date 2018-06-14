@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
 import javax.sql.DataSource;
+import javax.xml.transform.Result;
+
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.apache.log4j.Logger;
 
@@ -31,18 +33,18 @@ public class DBConnection {
       }
   }
 
-  public ResultSet execute(String query) throws Exception {
+
+  public ResultSet getResults(String query)  throws Exception {
     log.debug(String.format("Executing '%s'", query));
     ResultSet result_set = null;
     Statement statement = getAStatement();
-    if (query.contains("SELECT")){
-      result_set = statement.executeQuery(query);
-    }
-    else
-    {
-      statement.executeUpdate(query);
-    }
-    return result_set;
+    return statement.executeQuery(query);
+  }
+
+  public int  execute(String query) throws Exception {
+      log.debug(String.format("Executing '%s'", query));
+      Statement statement = getAStatement();
+      return statement.executeUpdate(query);
   }
 
   private Statement getAStatement() throws Exception {

@@ -3,10 +3,11 @@ package edu.uade.appl_interact.model.entities;
 
 import edu.uade.appl_interact.observers.PaymentObserver;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class GiftList extends PaymentObserver {
+
 
     private Integer id;
     private String listName;
@@ -16,14 +17,11 @@ public class GiftList extends PaymentObserver {
     private User owner;
     private Float expectedAmount = 0f;
     private Float currentAmount = 0f;
-    private List<Payment> payments;
-    private List<User> gifters;
+    private ArrayList<Subscrtiption> gifters;
     private Boolean delivered;
 
-    public GiftList(String name, User user) {
-    }
-
     public GiftList() {
+        gifters = new ArrayList<>();
     }
 
     public String getListName() {
@@ -76,19 +74,11 @@ public class GiftList extends PaymentObserver {
         this.expectedAmount = expectedAmount;
     }
 
-    private List<Payment> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(List<Payment> payments) {
-        this.payments = payments;
-    }
-
-    public List<User> getGifters() {
+    public ArrayList<Subscrtiption> getGifters() {
         return gifters;
     }
 
-    public void setGifters(List<User> gifters) {
+    public void setGifters(ArrayList<Subscrtiption> gifters) {
         this.gifters = gifters;
     }
 
@@ -134,8 +124,11 @@ public class GiftList extends PaymentObserver {
     }
 
     public void addPayment(Payment payment) {
-        getPayments().add(payment);
         currentAmount = currentAmount + payment.getAmount();
+    }
+
+    public void addGifter(User user) {
+        gifters.add(new Subscrtiption(user));
     }
 
 }

@@ -18,7 +18,7 @@ public class Main  {
     public Main () {
         frame  = new JFrame("Regalitos");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+        frame.setSize(1024, 768);
         controller = new LoginController(frame);
         controller.setMain(this);
     }

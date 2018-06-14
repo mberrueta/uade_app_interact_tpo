@@ -32,7 +32,7 @@ public abstract class Base<T> implements GenericDao<T> {
 
   public T findBy(String field, String value) throws Exception {
     log.debug("Seeking " + getTableName() + " by " + field + ": " + value);
-    ResultSet resultSet = getConnection().execute(getFindByQuery(field, value));
+    ResultSet resultSet = getConnection().getResults(getFindByQuery(field, value));
     boolean any = resultSet.next();
     if (any)
       return toObject(resultSet);
@@ -40,14 +40,14 @@ public abstract class Base<T> implements GenericDao<T> {
       return null;
   }
 
-  public void create(T entity) throws Exception {
+  public int create(T entity) throws Exception {
     log.debug("Creating a " + getTableName());
-    getConnection().execute(getCreateQuery(entity));
+    return getConnection().execute(getCreateQuery(entity));
   }
 
-  public void update(T entity) throws Exception {
+  public int update(T entity) throws Exception {
     log.debug("Updating a " + getTableName());
-    getConnection().execute(getUpdateQuery(entity));
+    return getConnection().execute(getUpdateQuery(entity));
   }
 
   public void delete(Integer id) throws Exception {
@@ -57,7 +57,7 @@ public abstract class Base<T> implements GenericDao<T> {
 
   public List<T> findManyBy(String field, String value) throws Exception {
     log.debug("Seeking " + getTableName() + " by " + field + ": " + value);
-    ResultSet resultSet = getConnection().execute(getFindByQuery(field, value));
+    ResultSet resultSet = getConnection().getResults(getFindByQuery(field, value));
     List<T> list = new ArrayList<T>();
     while (resultSet.next()) {
       list.add(toObject(resultSet));
@@ -67,7 +67,7 @@ public abstract class Base<T> implements GenericDao<T> {
 
   public List<T> findManyLike(String field, String value) throws Exception {
     log.debug("Seeking (using like)" + getTableName() + " by " + field + ": " + value);
-    ResultSet resultSet = getConnection().execute(getFindManyLikeQuery(field, value));
+    ResultSet resultSet = getConnection().getResults(getFindManyLikeQuery(field, value));
     List<T> list = new ArrayList<T>();
     while (resultSet.next()) {
       list.add(toObject(resultSet));
@@ -94,7 +94,7 @@ public abstract class Base<T> implements GenericDao<T> {
                .toString();
   }
 
-  private DBConnection getConnection() throws Exception {
+  protected DBConnection getConnection() throws Exception {
       PoolConnection pool = PoolConnection.getIntance();
       return pool.getConnection();
   }
