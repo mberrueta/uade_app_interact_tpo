@@ -14,17 +14,17 @@ public class PaymentDao extends Base<Payment> {
   @Override
   public String getCreateQuery(Payment entity) {
     
-    return new StringBuilder("INSERT INTO payments (amount, payer_id, date, gift_list_id) VALUES ( ")
+    return new StringBuilder("INSERT INTO payment (amount, date) VALUES ( ")
           .append(String.format("'%s', ", entity.getAmount()))
-          .append(String.format("'%s', ", formatter.format(entity.getDate())))
+          .append(String.format("'%s') ", formatter.format(entity.getDate())))
           .toString();
         }
         
   @Override
   public String getUpdateQuery(Payment entity) {
-    return new StringBuilder("UPDATE payments SET ")
+    return new StringBuilder("UPDATE payment SET ")
           .append(String.format("amount = '%s', ", entity.getAmount()))
-          .append(String.format("date = '%s', ", formatter.format(entity.getDate())))
+          .append(String.format("date = '%s' ", formatter.format(entity.getDate())))
           .append(String.format("WHERE id = %d", entity.getId()))
           .toString();
   }

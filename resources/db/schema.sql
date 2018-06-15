@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS app_interact_tpo
+CREATE DATABASE IF NOT EXISTS app_interact_tpo;
 
 DROP TABLE IF EXISTS payment;
 DROP TABLE IF EXISTS gift_list;
