@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS subscription;
    name VARCHAR(40) NOT NULL,
    email VARCHAR(40) NOT NULL,
    password VARCHAR(250) NOT NULL,
-   birth_date DATE DEFAULT null;
+   birth_date DATE DEFAULT null
  );
 
 CREATE TABLE IF NOT EXISTS gift_list (
@@ -27,6 +27,13 @@ CREATE TABLE IF NOT EXISTS gift_list (
   FOREIGN KEY (owner_id) REFERENCES user(id)
 );
 
+CREATE TABLE IF NOT EXISTS payment (
+  id INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  amount FLOAT(8,2) NOT NULL DEFAULT 0,
+  date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+  );
+
+
 CREATE TABLE IF NOT EXISTS subscription (
   id INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   user_id INT(8) NOT NULL,
@@ -35,16 +42,6 @@ CREATE TABLE IF NOT EXISTS subscription (
   FOREIGN KEY (user_id) REFERENCES user(id),
   FOREIGN KEY (payment_id) REFERENCES payment(id)
 );
-
-
-CREATE TABLE IF NOT EXISTS payment (
-  id INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  amount FLOAT(8,2) NOT NULL DEFAULT 0,
-  subscription_id INT(8) NOT NULL,
-  date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (subscription_id) REFERENCES subscription(id))
-  ;
-
 
 CREATE TABLE IF NOT EXISTS gift_list_subscription (
   gift_list_id INT(8) NOT NULL,

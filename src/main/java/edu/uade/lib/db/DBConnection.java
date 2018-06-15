@@ -7,9 +7,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
 import javax.sql.DataSource;
-import javax.xml.transform.Result;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import com.mysql.cj.jdbc.MysqlDataSource;
 import org.apache.log4j.Logger;
 
 public class DBConnection {
@@ -69,6 +68,7 @@ public class DBConnection {
     mysqlDS.setURL(props.getProperty("jdbc.url"));
     mysqlDS.setUser(props.getProperty("jdbc.username"));
     mysqlDS.setPassword(props.getProperty("jdbc.password"));
+    mysqlDS.setUseSSL(false);
     return mysqlDS;
   }
 }

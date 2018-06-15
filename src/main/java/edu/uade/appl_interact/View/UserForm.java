@@ -17,6 +17,7 @@ public class UserForm extends JPanel implements ActionListener{
 	private JPasswordField passwordField_1;
 	private IuserController controller;
 	private int usrId;
+	private JTextField birthday;
 
 	/**
 	 * Create the panel.
@@ -26,49 +27,58 @@ public class UserForm extends JPanel implements ActionListener{
 		setLayout(null);
 		
 		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(134, 411, 117, 25);
+		btnSave.setBounds(189, 420, 117, 25);
 		btnSave.addActionListener(this);
 		add(btnSave);
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(352, 411, 117, 25);
+		btnCancel.setBounds(373, 420, 117, 25);
 		btnCancel.addActionListener(this);
 		add(btnCancel);
 		
 		name = new JTextField();
-		name.setBounds(285, 80, 114, 19);
+		name.setBounds(376, 85, 114, 19);
 		add(name);
 		name.setColumns(10);
 
 
 		userEmail = new JTextField();
 		userEmail.setColumns(10);
-		userEmail.setBounds(285, 131, 114, 19);
+		userEmail.setBounds(376, 136, 114, 19);
 		add(userEmail);
 		
 		JLabel Name = new JLabel("name:");
-		Name.setBounds(98, 82, 70, 15);
+		Name.setBounds(189, 87, 70, 15);
 		add(Name);
 
 		JLabel lblEmail = new JLabel("email:");
-		lblEmail.setBounds(98, 133, 70, 15);
+		lblEmail.setBounds(189, 138, 70, 15);
 		add(lblEmail);
 		
 		JLabel lblPassword = new JLabel("password:");
-		lblPassword.setBounds(98, 192, 94, 15);
+		lblPassword.setBounds(189, 251, 94, 15);
 		add(lblPassword);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(285, 190, 114, 19);
+		passwordField.setBounds(376, 249, 114, 19);
 		add(passwordField);
 		
 		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(285, 248, 114, 19);
+		passwordField_1.setBounds(376, 307, 114, 19);
 		add(passwordField_1);
 		
 		JLabel label = new JLabel("re-enter password:");
-		label.setBounds(98, 250, 153, 15);
+		label.setBounds(189, 309, 153, 15);
 		add(label);
+		
+		JLabel lblBirthday = new JLabel("Birthday :");
+		lblBirthday.setBounds(189, 193, 70, 15);
+		add(lblBirthday);
+		
+		birthday = new JTextField();
+		birthday.setColumns(10);
+		birthday.setBounds(376, 191, 114, 19);
+		add(birthday);
 
 	}
 
