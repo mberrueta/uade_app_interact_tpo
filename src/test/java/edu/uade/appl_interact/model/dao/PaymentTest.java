@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 public final class PaymentTest extends TestCase {
 
-  EntityManager em = EntityManager.getInstance();
+  private final EntityManager em = EntityManager.getInstance();
 
   public void testFindById() {
     try {
@@ -48,10 +48,11 @@ public final class PaymentTest extends TestCase {
 
   public void testUpdate() {
     try {
-      Payment payment = dummyPayment();
+      Payment payment = em.findBy(Payment.class, "id", "5");
+      payment.setAmount(1116f);
       em.update(payment);
-      payment = em.findBy(Payment.class, "amount", "666");
-      assertEquals(payment.getAmount(), 666f);
+      payment = em.findBy(Payment.class, "id", "5");
+      assertEquals(payment.getAmount(), 1116f);
     } catch (Exception e) {
       e.printStackTrace();
       assertNull(e);

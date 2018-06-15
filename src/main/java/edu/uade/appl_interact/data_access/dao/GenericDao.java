@@ -4,17 +4,17 @@ import java.util.List;
 
 public interface GenericDao<T> {
 
-    public T findById(Integer id) throws Exception;
+    T findById(Integer id) throws Exception;
 
-    public T findBy(String field, String value) throws Exception;
+    T findBy(String field, String value) throws Exception;
 
-    public void create(T t) throws Exception;
+    int create(T t) throws Exception;
 
-    public void update(T t) throws Exception;
+    int update(T t) throws Exception;
 
-    public void delete(Integer id) throws Exception;
+    void delete(Integer id) throws Exception;
 
-    public List<T> findManyBy(String field, String value) throws Exception;
+    List<T> findManyBy(String field, String value) throws Exception;
 
-    public List<T> findManyLike(String field, String value) throws Exception;
+    List<T> findManyLike(String field, String value) throws Exception;
 }

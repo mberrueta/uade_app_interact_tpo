@@ -31,4 +31,12 @@ target
 .DS_Store
 .gradle/
 out/
+<<<<<<< HEAD
 build/
+=======
+bin/
+build/
+.idea/
+.metadata/
+
+>>>>>>> e1d5fd6711990524eb6fa8d65a43551b3d77a42b

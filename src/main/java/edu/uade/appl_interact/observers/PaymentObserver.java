@@ -1,7 +1,7 @@
-package edu.uade.appl_interact.model.services.helpers;
+package edu.uade.appl_interact.observers;
 
 public abstract class PaymentObserver {
-  protected PaymentObservable observable;
+  private PaymentObservable observable;
 
   public abstract void update();
 

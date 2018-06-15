@@ -8,7 +8,7 @@ public class PaymentDao extends Base<Payment> {
 
   @Override
   public String getTableName() {
-    return "payments";
+    return "payment";
   }
 
   @Override
@@ -16,9 +16,7 @@ public class PaymentDao extends Base<Payment> {
     
     return new StringBuilder("INSERT INTO payments (amount, payer_id, date, gift_list_id) VALUES ( ")
           .append(String.format("'%s', ", entity.getAmount()))
-          .append(String.format("'%s', ", entity.getPayerId()))
           .append(String.format("'%s', ", formatter.format(entity.getDate())))
-          .append(String.format("'%s') ", entity.getGiftListId()))
           .toString();
         }
         
@@ -26,9 +24,7 @@ public class PaymentDao extends Base<Payment> {
   public String getUpdateQuery(Payment entity) {
     return new StringBuilder("UPDATE payments SET ")
           .append(String.format("amount = '%s', ", entity.getAmount()))
-          .append(String.format("payer_id = '%s', ", entity.getPayerId()))
           .append(String.format("date = '%s', ", formatter.format(entity.getDate())))
-          .append(String.format("gift_list_id = '%s' ", entity.getGiftListId()))
           .append(String.format("WHERE id = %d", entity.getId()))
           .toString();
   }
@@ -39,7 +35,6 @@ public class PaymentDao extends Base<Payment> {
     result.setId(resultSet.getInt("id"));
     result.setAmount(resultSet.getFloat("amount"));
     result.setDate(resultSet.getDate("date"));
-    result.setGiftListId(resultSet.getInt("gift_list_id"));
     // result.setEmail(resultSet.getString("email"));
     return result;
   }

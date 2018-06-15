@@ -1,17 +1,37 @@
 package edu.uade.appl_interact;
 
-
-import sun.rmi.runtime.Log;
+import edu.uade.appl_interact.model.entities.User;
+import edu.uade.appl_interact.services.UserService;
+import edu.uade.controller.Controller;
+import edu.uade.controller.LoginController;
+import edu.uade.controller.MainController;
 
 import javax.swing.*;
-public class Main {
 
-    public static void main(String[] args) {
-        JFrame mainFrame = new JFrame("Regalitos");
-        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        mainFrame.setSize(800, 600);
 
-        mainFrame.setVisible(true);
+public class Main  {
 
+    private Controller controller;
+    private JFrame frame;
+    private User loggedUser;
+
+    public Main () {
+        frame  = new JFrame("Regalitos");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setSize(1024, 768);
+        controller = new LoginController(frame);
+        controller.setMain(this);
+    }
+
+
+    public void run() {
+        controller.updateView();
+
+    }
+
+    public void OnUserLogin(User user) {
+        loggedUser = user;
+        controller = new MainController(frame, user);
+        run();
     }
 }

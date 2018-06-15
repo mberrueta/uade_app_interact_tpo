@@ -9,22 +9,22 @@ public class UserDao extends Base<User> {
 
   @Override
   public String getTableName() {
-    return "users";
+    return "user";
   }
 
   @Override
   public String getCreateQuery(User entity) {
     
-    return new StringBuilder("INSERT INTO users (name, email, password) VALUES ( ")
+    return new StringBuilder("INSERT INTO user (name, email, password) VALUES ( ")
           .append(String.format("'%s', ", entity.getName()))
           .append(String.format("'%s', ", entity.getEmail()))
-          .append(String.format("'%s')", Encriptor.encript(entity.getPassword())))
+          .append(String.format("'%s')", entity.getPassword()))
           .toString();
         }
         
   @Override
   public String getUpdateQuery(User entity) {
-    return new StringBuilder("UPDATE users SET ")
+    return new StringBuilder("UPDATE user SET ")
           .append(String.format("name = '%s', ", entity.getName()))
           .append(String.format("email = '%s' ", entity.getEmail()))
           .append(String.format("WHERE id = %d", entity.getId()))
@@ -32,8 +32,8 @@ public class UserDao extends Base<User> {
   }
 
   public String getUpdatePassQuery(User entity) {
-    return new StringBuilder("UPDATE users SET ")
-          .append(String.format("password = '%s', ", Encriptor.encript(entity.getPassword())))
+    return new StringBuilder("UPDATE user SET ")
+          .append(String.format("password = '%s', ", entity.getPassword()))
           .append(String.format("WHERE id = %d", entity.getId()))
           .toString();
   }
@@ -47,4 +47,14 @@ public class UserDao extends Base<User> {
     result.setPassword(resultSet.getString("password"));
     return result;
   }
+
+  public String getUserFromEmail(String field, String value) {
+    return new StringBuilder("SELECT * FROM ")
+            .append(getTableName())
+            .append(String.format(" WHERE %s = '%s' ", field, value))
+            .toString();
+  }
+
+
+
 }

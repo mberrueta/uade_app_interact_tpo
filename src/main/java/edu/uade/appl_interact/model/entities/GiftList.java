@@ -1,147 +1,134 @@
 package edu.uade.appl_interact.model.entities;
 
+
+import edu.uade.appl_interact.observers.PaymentObserver;
+
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import edu.uade.appl_interact.model.services.helpers.*;
-
-public class GiftList extends PaymentObserver{
-
-  private Integer id;
-  private String listName;
-  private Date dueDate;
-  private String toName;
-  private String toMail;
-  private User owner;
-  private Float expectedAmount = 0f;
-  private Float currentAmount = 0f;
-  private List<Payment> payments;
-  private List<User> gifters;
-  private Boolean delivered;
-
-  public GiftList(String name, User user) {
-}
-
-public GiftList() {
-}
+public class GiftList extends PaymentObserver {
 
 
-public String getListName() {
-    return listName;
-  }
+    private Integer id;
+    private String listName;
+    private Date dueDate;
+    private String toName;
+    private String toMail;
+    private User owner;
+    private Float expectedAmount = 0f;
+    private Float currentAmount = 0f;
+    private ArrayList<Subscrtiption> gifters;
+    private Boolean delivered;
 
-  public void setListName(String listName) {
-    this.listName = listName;
-  }
+    public GiftList() {
+        gifters = new ArrayList<>();
+    }
 
-  public Date getDueDate() {
-    if(dueDate == null)
-      return new Date();
-    return dueDate;
-  }
+    public String getListName() {
+        return listName;
+    }
 
-  public void setDueDate(Date dueDate) {
-    this.dueDate = dueDate;
-  }
+    public void setListName(String listName) {
+        this.listName = listName;
+    }
 
-  public String getToName() {
-    return toName;
-  }
+    public Date getDueDate() {
+        if (dueDate == null)
+            return new Date();
+        return dueDate;
+    }
 
-  public void setToName(String toName) {
-    this.toName = toName;
-  }
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
 
-  public String getToMail() {
-    return toMail;
-  }
+    public String getToName() {
+        return toName;
+    }
 
-  public void setToMail(String toMail) {
-    this.toMail = toMail;
-  }
+    public void setToName(String toName) {
+        this.toName = toName;
+    }
 
-  public User getOwner() {
-    return owner;
-  }
+    public String getToMail() {
+        return toMail;
+    }
 
-  public void setOwner(User owner) {
-    this.owner = owner;
-  }
+    public void setToMail(String toMail) {
+        this.toMail = toMail;
+    }
 
-  public Float getExpectedAmount() {
-    return expectedAmount;
-  }
+    public User getOwner() {
+        return owner;
+    }
 
-  public void setExpectedAmount(Float expectedAmount) {
-    this.expectedAmount = expectedAmount;
-  }
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
-  public List<Payment> getPayments() {
-    return payments;
-  }
+    public Float getExpectedAmount() {
+        return expectedAmount;
+    }
 
-  public void setPayments(List<Payment> payments) {
-    this.payments = payments;
-  }
+    public void setExpectedAmount(Float expectedAmount) {
+        this.expectedAmount = expectedAmount;
+    }
 
-  public List<User> getGifters() {
-    return gifters;
-  }
+    public ArrayList<Subscrtiption> getGifters() {
+        return gifters;
+    }
 
-  public void setGifters(List<User> gifters) {
-    this.gifters = gifters;
-  }
+    public void setGifters(ArrayList<Subscrtiption> gifters) {
+        this.gifters = gifters;
+    }
 
-  public Boolean getDelivered() {
-    return delivered;
-  }
+    public Boolean getDelivered() {
+        return delivered;
+    }
 
-  public void setDelivered(Boolean delivered) {
-    this.delivered = delivered;
-  }
+    public void setDelivered(Boolean delivered) {
+        this.delivered = delivered;
+    }
 
-  public Boolean archieved() {
-    return false;
-  }
+    public Boolean archieved() {
+        return false;
+    }
 
-  public Boolean collected() {
-    return false;
-  }
+    public Boolean collected() {
+        return false;
+    }
 
-  public Float amountPerGifter() {
-    return 0.0f;
-  }
+    public Float amountPerGifter() {
+        return 0.0f;
+    }
 
-  public Integer getId() {
-    return id;
-  }
+    public Integer getId() {
+        return id;
+    }
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-  /**
-   * @return the currentAmount
-   */
-  public Float getCurrentAmount() {
-    return currentAmount;
-  }
+    public Float getCurrentAmount() {
+        return currentAmount;
+    }
 
-  /**
-   * @param currentAmount the currentAmount to set
-   */
-  public void setCurrentAmount(Float currentAmount) {
-    this.currentAmount = currentAmount;
-  }
+    public void setCurrentAmount(Float currentAmount) {
+        this.currentAmount = currentAmount;
+    }
 
-  @Override
-  public void update() {
-    addPayment(getObservable().getPayment());
-  }
+    @Override
+    public void update() {
+        addPayment(getObservable().getPayment());
+    }
 
-  public void addPayment(Payment payment) {
-    getPayments().add(payment);
-    currentAmount = currentAmount + payment.getAmount();
-  }
+    public void addPayment(Payment payment) {
+        currentAmount = currentAmount + payment.getAmount();
+    }
+
+    public void addGifter(User user) {
+        gifters.add(new Subscrtiption(user));
+    }
 
 }
