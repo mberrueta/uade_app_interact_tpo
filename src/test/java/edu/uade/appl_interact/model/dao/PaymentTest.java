@@ -15,7 +15,7 @@ public final class PaymentTest extends TestCase {
     try {
       Payment result = em.find(Payment.class, 1);
       assertEquals(result.getAmount(), 12.21f);
-      assertEquals(result.getId().intValue(), 1);
+      assertEquals(result.getId(), 1);
     } catch (Exception e) {
       e.printStackTrace();
       assertNull(e);
@@ -26,7 +26,7 @@ public final class PaymentTest extends TestCase {
     try {
       Payment result = em.findBy(Payment.class, "payer_id", 1);
       assertEquals(result.getAmount(), 12.21f);
-      assertEquals(result.getId().intValue(), 1);
+      assertEquals(result.getId(), 1);
     } catch (Exception e) {
       e.printStackTrace();
       assertNull(e);
@@ -85,8 +85,8 @@ public final class PaymentTest extends TestCase {
     Payment payment = new Payment();
     payment.setAmount(666f);
     payment.setDate(new Date());
-    payment.setGiftListId(1);
-    payment.setPayer_id(1);
+//    payment.setGiftListId(1);
+//    payment.setPayer_id(1);
     return payment;
   }
 
