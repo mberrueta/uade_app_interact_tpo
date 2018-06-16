@@ -17,7 +17,7 @@ public class GiftList extends PaymentObserver {
     private User owner;
     private Float expectedAmount = 0f;
     private Float currentAmount = 0f;
-    private ArrayList<Subscrtiption> gifters;
+    private ArrayList<Subscription> gifters;
     private Boolean delivered;
 
     public GiftList() {
@@ -74,11 +74,11 @@ public class GiftList extends PaymentObserver {
         this.expectedAmount = expectedAmount;
     }
 
-    public ArrayList<Subscrtiption> getGifters() {
+    public ArrayList<Subscription> getGifters() {
         return gifters;
     }
 
-    public void setGifters(ArrayList<Subscrtiption> gifters) {
+    public void setGifters(ArrayList<Subscription> gifters) {
         this.gifters = gifters;
     }
 
@@ -128,7 +128,9 @@ public class GiftList extends PaymentObserver {
     }
 
     public void addGifter(User user) {
-        gifters.add(new Subscrtiption(user));
+        Subscription s = new Subscription();
+        s.setUser(user);
+        gifters.add(s);
     }
 
 }

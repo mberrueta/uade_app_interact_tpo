@@ -3,7 +3,7 @@ package edu.uade.appl_interact.data_access.dao.impl;
 import java.sql.ResultSet;
 
 import edu.uade.appl_interact.model.entities.GiftList;
-import edu.uade.appl_interact.model.entities.Subscrtiption;
+import edu.uade.appl_interact.model.entities.Subscription;
 
 public class GiftListDao extends Base<GiftList> {
 
@@ -48,13 +48,13 @@ public class GiftListDao extends Base<GiftList> {
     return result;
   }
 
-  private String getSubscriptionCreationQuery(Subscrtiption subscrtiption) {
-    int active = subscrtiption.isActive() ? 1 : 0;
+  private String getSubscriptionCreationQuery(Subscription subscription) {
+    int active = subscription.isActive() ? 1 : 0;
     StringBuilder builder = new StringBuilder("INSERT INTO subscription (user_id, active, payment_id) VALUES (")
-            .append(String.format("'%s', ", subscrtiption.getUser().getId()));
-    if (subscrtiption.getPayment() != null) {
+            .append(String.format("'%s', ", subscription.getUser().getId()));
+    if (subscription.getPayment() != null) {
             builder.append(String.format("'%s', ", String.valueOf(active)));
-            builder.append(String.format("'%s')", String.valueOf(subscrtiption.getPaymentId())));
+            builder.append(String.format("'%s')", String.valueOf(subscription.getPaymentId())));
     } else {
       builder.append(String.format("'%s', NULL) ", String.valueOf(active)));
     }     return builder.toString();
@@ -76,9 +76,9 @@ public class GiftListDao extends Base<GiftList> {
   private void saveSubsCriptionsRelation(GiftList list) throws Exception {
     StringBuilder builder = new  StringBuilder("INSERT INTO gift_list_subscription (gift_list_id, subscription_id) VALUES (");
     int i = 0;
-    for (Subscrtiption subscrtiption : list.getGifters()) {
+    for (Subscription subscription : list.getGifters()) {
       builder.append(String.format("'%s', ", list.getId()))
-              .append(String.format("'%s')", subscrtiption.getId()));
+              .append(String.format("'%s')", subscription.getId()));
       if (i< list.getGifters().size()-1) {
         builder.append(",");
       } else {
@@ -92,8 +92,8 @@ public class GiftListDao extends Base<GiftList> {
 }
 
   private void saveSubscriptions(GiftList list) throws Exception {
-    for (Subscrtiption subscrtiption : list.getGifters()) {
-       subscrtiption.setId(getConnection().execute(getSubscriptionCreationQuery(subscrtiption)));
+    for (Subscription subscription : list.getGifters()) {
+       subscription.setId(getConnection().execute(getSubscriptionCreationQuery(subscription)));
     }
   }
 

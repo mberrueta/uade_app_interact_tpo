@@ -1,13 +1,15 @@
 package edu.uade.appl_interact.model.entities;
 
-public class Subscrtiption {
+public class Subscription {
     private int id;
     private User user;
     private Payment payment;
     private boolean active;
+    private int userId;
+    private int paymentId;
 
-    public Subscrtiption(User user) {
-        this.user = user;
+    public Subscription() {
+//        this.user = user;
         active = true;
     }
 
@@ -43,11 +45,21 @@ public class Subscrtiption {
         this.active = active;
     }
 
-    public Integer getPaymentId() {
-        if (payment != null) {
-            return payment.getId();
-        } else {
-            return  null;
-        }
+
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public int getPaymentId() {
+        return paymentId;
     }
 }
