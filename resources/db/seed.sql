@@ -1,3 +1,5 @@
+USE app_interact_tpo;
+
 DELETE from payment;
 DELETE from gift_list;
 DELETE from user;

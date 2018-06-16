@@ -1,5 +1,7 @@
 CREATE DATABASE IF NOT EXISTS app_interact_tpo;
 
+USE app_interact_tpo;
+
 DROP TABLE IF EXISTS payment;
 DROP TABLE IF EXISTS gift_list;
 DROP TABLE IF EXISTS user;
