@@ -1,27 +1,31 @@
 package edu.uade.appl_interact.model.entities;
 
-public class Subscription {
-    private int id;
+
+import edu.uade.appl_interact.data_access.dao.impl.SubscriptionDao;
+
+public class Subscription implements Persistible {
+    private Integer id;
     private User user;
     private Payment payment;
     private boolean active;
-    private int userId;
-    private int paymentId;
 
     public Subscription() {
-//        this.user = user;
         active = true;
     }
 
-    public int getId() {
+    @Override
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    @Override
+    public void setId(Integer id) {
         this.id = id;
     }
 
     public User getUser() {
+        if (user == null)
+            user = SubscriptionDao.getInstance().getUser(id);
         return user;
     }
 
@@ -37,29 +41,9 @@ public class Subscription {
         this.payment = payment;
     }
 
-    public boolean isActive() {
-        return active;
-    }
 
     public void setActive(boolean active) {
         this.active = active;
     }
 
-
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public void setPaymentId(int paymentId) {
-        this.paymentId = paymentId;
-    }
-
-    public int getPaymentId() {
-        return paymentId;
-    }
 }

@@ -1,6 +1,10 @@
 package edu.uade.lib.security;
 
+import org.apache.log4j.Logger;
+
 public class Encriptor{
+    private static final Logger log = Logger.getLogger("Encriptor");
+
     public static String encript(String md5) {
         if(md5 == null)
           return "";
@@ -13,7 +17,8 @@ public class Encriptor{
             }
              return sb.toString();
          } catch (java.security.NoSuchAlgorithmException e) {
-         }
+            log.error("error encrypting", e);
+        }
          return null;
      }
 }

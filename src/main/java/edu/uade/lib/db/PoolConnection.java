@@ -1,10 +1,13 @@
 package edu.uade.lib.db;
+import org.apache.log4j.Logger;
+
 import java.util.Vector;
 
 public class PoolConnection {
     private final Vector<DBConnection> connections = new Vector<DBConnection>();
     protected String password;
     private static PoolConnection pool;
+    private static final Logger log = Logger.getLogger("PoolConnection");
 
     private PoolConnection() throws Exception {
         for (int i = 0; i < 30; i++)
@@ -24,6 +27,8 @@ public class PoolConnection {
             } catch (Exception e) {
                 System.out.println("Mensaje Error: " + e.getMessage());
                 System.out.println("Stack Trace: " + e.getStackTrace());
+                log.error("closing db connection", e);
+
             }
         }
     }

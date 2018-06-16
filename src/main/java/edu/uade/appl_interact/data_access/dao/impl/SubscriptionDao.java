@@ -2,10 +2,24 @@ package edu.uade.appl_interact.data_access.dao.impl;
 
 import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.entities.Subscription;
+import edu.uade.appl_interact.model.entities.User;
 
 import java.sql.ResultSet;
 
 public class SubscriptionDao extends Base<Subscription> {
+
+    private static SubscriptionDao instance;
+
+    private SubscriptionDao() {
+    }
+
+    public static SubscriptionDao getInstance() {
+        if (instance == null) {
+            instance = new SubscriptionDao();
+        }
+        return instance;
+    }
+
 
     @Override
     public String getTableName() {
@@ -13,12 +27,17 @@ public class SubscriptionDao extends Base<Subscription> {
     }
 
     @Override
-    public String getCreateQuery(Subscription entity) {
-        return new StringBuilder("INSERT INTO subscription (user_id, active, payment_id) VALUES (")
-                .append(String.format("'%s', ", entity.getUser().getId()))
-                .append(String.format("1, "))
-                .append(String.format("'%s')", String.valueOf(entity.getPaymentId())))
-                .toString();
+    public String getCreateQuery(Subscription subscription) {
+        StringBuilder builder = new StringBuilder("INSERT INTO subscription (user_id, payment_id) VALUES (")
+                .append(String.format("'%s', ", subscription.getUser().getId()));
+
+        if (subscription.getPayment() != null) {
+            builder.append(String.format("'%s')", String.valueOf(subscription.getPayment().getId())));
+        } else {
+            builder.append(" NULL)");
+        }
+
+        return builder.toString();
     }
 
     @Override
@@ -30,8 +49,6 @@ public class SubscriptionDao extends Base<Subscription> {
     public Subscription toObject(ResultSet resultSet) throws Exception {
         Subscription result = new Subscription();
         result.setId(resultSet.getInt("id"));
-        result.setUserId(resultSet.getInt("user_id"));
-        result.setPaymentId(resultSet.getInt("payment_id"));
         result.setActive(resultSet.getBoolean("active"));
         return result;
     }
@@ -71,4 +88,8 @@ public class SubscriptionDao extends Base<Subscription> {
         }
     }
 
+    public User getUser(Integer id) {
+        //TODO: implement
+        return null;
+    }
 }

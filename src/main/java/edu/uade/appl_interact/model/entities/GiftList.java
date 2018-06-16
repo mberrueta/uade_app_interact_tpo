@@ -1,27 +1,37 @@
 package edu.uade.appl_interact.model.entities;
 
 
+import edu.uade.appl_interact.data_access.dao.impl.GiftListDao;
+import edu.uade.appl_interact.data_access.dao.impl.SubscriptionDao;
 import edu.uade.appl_interact.observers.PaymentObserver;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class GiftList extends PaymentObserver {
-
+public class GiftList extends PaymentObserver implements Persistible {
 
     private Integer id;
     private String listName;
+    private User owner;
     private Date dueDate;
     private String toName;
     private String toMail;
-    private User owner;
     private Float expectedAmount = 0f;
     private Float currentAmount = 0f;
-    private ArrayList<Subscription> gifters;
+    private List<Subscription> gifters;
     private Boolean delivered;
 
     public GiftList() {
         gifters = new ArrayList<>();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getListName() {
@@ -30,6 +40,18 @@ public class GiftList extends PaymentObserver {
 
     public void setListName(String listName) {
         this.listName = listName;
+    }
+
+    public User getOwner() {
+        if (owner == null) {
+            owner = GiftListDao.getInstance().getOwner(id);
+        }
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+
     }
 
     public Date getDueDate() {
@@ -58,14 +80,6 @@ public class GiftList extends PaymentObserver {
         this.toMail = toMail;
     }
 
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
     public Float getExpectedAmount() {
         return expectedAmount;
     }
@@ -74,12 +88,19 @@ public class GiftList extends PaymentObserver {
         this.expectedAmount = expectedAmount;
     }
 
-    public ArrayList<Subscription> getGifters() {
-        return gifters;
+    public Float getCurrentAmount() {
+        return currentAmount;
     }
 
-    public void setGifters(ArrayList<Subscription> gifters) {
-        this.gifters = gifters;
+    public void setCurrentAmount(Float currentAmount) {
+        this.currentAmount = currentAmount;
+    }
+
+    public List<Subscription> getGifters() throws Exception {
+        if (gifters == null) {
+            gifters = SubscriptionDao.getInstance().findManyBy("gift_list_id", id.toString());
+        }
+        return gifters;
     }
 
     public Boolean getDelivered() {
@@ -90,7 +111,7 @@ public class GiftList extends PaymentObserver {
         this.delivered = delivered;
     }
 
-    public Boolean archieved() {
+    public Boolean achieved() {
         return false;
     }
 
@@ -102,35 +123,15 @@ public class GiftList extends PaymentObserver {
         return 0.0f;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Float getCurrentAmount() {
-        return currentAmount;
-    }
-
-    public void setCurrentAmount(Float currentAmount) {
-        this.currentAmount = currentAmount;
-    }
-
-    @Override
-    public void update() {
-        addPayment(getObservable().getPayment());
-    }
-
-    public void addPayment(Payment payment) {
-        currentAmount = currentAmount + payment.getAmount();
-    }
-
     public void addGifter(User user) {
         Subscription s = new Subscription();
         s.setUser(user);
         gifters.add(s);
     }
 
+    @Override
+    public void update(Payment payment) throws Exception {
+        currentAmount = currentAmount + payment.getAmount();
+        GiftListDao.getInstance().update(this);
+    }
 }

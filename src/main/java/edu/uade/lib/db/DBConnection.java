@@ -30,6 +30,7 @@ public class DBConnection {
           connection.close();
       } catch (Exception e) {
           System.out.println("Mensaje Error: " + e.getMessage());
+          log.error("closing db connection", e);
       }
   }
 
