@@ -2,11 +2,22 @@ package edu.uade.appl_interact.model.entities;
 
 import java.util.Date;
 
-public class Payment {
+public class Payment implements Persistible {
 
     private int id;
+    private int subscriptionId;
     private Float amount;
     private Date date;
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Float getAmount() {
         return amount;
@@ -24,12 +35,11 @@ public class Payment {
         this.date = date;
     }
 
-    public int getId() {
-        return id;
+    public int getSubscriptionId() {
+        return subscriptionId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSubscriptionId(int subscriptionId) {
+        this.subscriptionId = subscriptionId;
     }
-
 }

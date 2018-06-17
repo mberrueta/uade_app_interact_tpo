@@ -2,6 +2,7 @@ package edu.uade.appl_interact.services;
 
 import edu.uade.appl_interact.data_access.dao.impl.GiftListDao;
 import edu.uade.appl_interact.model.entities.GiftList;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ public class ListService {
     private ListService() {
         cachedList = new ArrayList();
         emailService = EmailService.getInstance();
-        listDao = new GiftListDao();
+        listDao = GiftListDao.getInstance();
     }
 
     public static ListService getInstance() {
@@ -29,7 +30,7 @@ public class ListService {
     public void createList(GiftList newList) {
         try {
             listDao.createList(newList);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.print("BOOOOOM!");
         }

@@ -4,23 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.uade.appl_interact.model.entities.Payment;
+import org.apache.log4j.Logger;
 
 public abstract class PaymentObservable {
-  private final List<PaymentObserver> observers = new ArrayList<PaymentObserver>();
+    private static final Logger log = Logger.getLogger("PaymentObservable");
 
-  public void add(PaymentObserver o) {
-      observers.add(o);
-  }
+    private final List<PaymentObserver> observers = new ArrayList<>();
 
-  public void remove(PaymentObserver o) {
-    observers.remove(o);
-  }
+    public void add(PaymentObserver o) {
+        observers.add(o);
+    }
 
-  protected void notifyAllObservers(){
-      for (PaymentObserver observer : observers) {
-          observer.update();
-      }
-  }
+    public void remove(PaymentObserver o) {
+        observers.remove(o);
+    }
 
-  abstract public Payment getPayment();
+    protected void notifyAllObservers(Payment payment) {
+        for (PaymentObserver observer : observers) {
+            try {
+                observer.update(payment);
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.error("fail notify observer", e);
+            }
+        }
+    }
 }

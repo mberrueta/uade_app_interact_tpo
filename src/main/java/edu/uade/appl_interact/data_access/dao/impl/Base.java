@@ -14,7 +14,7 @@ import java.text.Format;
 
 public abstract class Base<T> implements GenericDao<T> {
 
-  private static final Logger log = Logger.getLogger("DAO");
+  protected static final Logger log = Logger.getLogger("DAO");
 
   protected Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     
@@ -31,6 +31,9 @@ public abstract class Base<T> implements GenericDao<T> {
   }
 
   public T findBy(String field, String value) throws Exception {
+    if (value==null)
+      return null;
+
     log.debug("Seeking " + getTableName() + " by " + field + ": " + value);
     ResultSet resultSet = getConnection().getResults(getFindByQuery(field, value));
     boolean any = resultSet.next();
@@ -78,7 +81,7 @@ public abstract class Base<T> implements GenericDao<T> {
   private String getFindByQuery(String field, String value) {
     return new StringBuilder("SELECT * FROM ")
               .append(getTableName())
-              .append(String.format(" WHERE %s = '%s' ", field, value))
+              .append(String.format(" WHERE active = 1 AND %s = '%s' ", field, value))
               .toString();
   }
 
@@ -88,8 +91,9 @@ public abstract class Base<T> implements GenericDao<T> {
   }
 
   private String getDeleteQuery(Integer value) {
-    return new StringBuilder("DELETE FROM ")
+    return new StringBuilder("UPDATE ")
                .append(getTableName())
+               .append(" SET active = 0 ")
                .append(String.format(" WHERE ID = %d", value))
                .toString();
   }

@@ -14,7 +14,7 @@ public class UserService {
     private UserDao userDao;
 
     public UserService() {
-        userDao = new UserDao();
+        userDao = UserDao.getInstance();
     }
 
     public static UserService getInstance() {
@@ -41,7 +41,7 @@ public class UserService {
     }
 
     public ArrayList<String[]> findMatchesByName(String partialName) {
-        ArrayList<String[]> matches=  new ArrayList<>();
+        ArrayList<String[]> matches = new ArrayList<>();
         try {
             List<User> results = userDao.findManyLike("name", partialName);
 
@@ -54,9 +54,9 @@ public class UserService {
         return matches;
     }
 
-    public  User getUserFromEmail(String email) {
+    public User getUserFromEmail(String email) {
         try {
-            return  this.userDao.findBy("email", email);
+            return this.userDao.findBy("email", email);
         } catch (Exception e) {
             e.printStackTrace();
         }
