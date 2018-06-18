@@ -8,6 +8,7 @@ INSERT INTO user (id, name, email, password) VALUES (1, 'marian', 'mariano.grima
 INSERT INTO user (id, name, email, password) VALUES (2, 'matt', 'matiasberrueta@gmail.com', '1234');
 INSERT INTO user (id, name, email, password) VALUES (3, 'dummy1', 'dm@gmail.com', '1234');
 INSERT INTO user (id, name, email, password) VALUES (4, 'dummy2', 'dm2@gmail.com', '1234');
+INSERT INTO user (id, name, email, password) VALUES (5, 'admin', 'admin@admin.com', '1');
 
 INSERT INTO gift_list (id, list_name, due_date, to_name, to_mail, owner_id) VALUES (1, 'pp gift',   '20181231', 'pp', 'pp@hotmail.com', 1);
 INSERT INTO gift_list (id, list_name, due_date, to_name, to_mail, owner_id) VALUES (2, 'moni gift', '20181231', 'moni', 'moni@hotmail.com', 2);
