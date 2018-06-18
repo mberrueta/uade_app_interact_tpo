@@ -46,4 +46,7 @@ public class Subscription implements Persistible {
         this.active = active;
     }
 
+    public boolean isActive() {
+        return active;
+    }
 }
