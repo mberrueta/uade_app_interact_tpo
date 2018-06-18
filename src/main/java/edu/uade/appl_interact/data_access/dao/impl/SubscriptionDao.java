@@ -28,15 +28,9 @@ public class SubscriptionDao extends Base<Subscription> {
 
     @Override
     public String getCreateQuery(Subscription subscription) {
-        StringBuilder builder = new StringBuilder("INSERT INTO subscription (user_id, payment_id) VALUES (")
-                .append(String.format("'%s', ", subscription.getUser().getId()));
-
-        if (subscription.getPayment() != null) {
-            builder.append(String.format("'%s')", String.valueOf(subscription.getPayment().getId())));
-        } else {
-            builder.append(" NULL)");
-        }
-
+        StringBuilder builder = new StringBuilder("INSERT INTO subscription (user_id, active, gift_list_id) VALUES (")
+                .append(String.format("'%s', ", subscription.getUser().getId()))
+                .append(String.format("'%s', ", subscription.isActive() ? 1 : 0));
         return builder.toString();
     }
 
@@ -54,37 +48,11 @@ public class SubscriptionDao extends Base<Subscription> {
     }
 
 
-//
-//  public void createList(GiftList list) {
-//    try {
-//      list.setId(this.create(list));
-//      saveSubscriptions(list);
-//      saveSubsCriptionsRelation(list);
-//    } catch (Exception e) {
-//        e.printStackTrace();
-//    }
-//  }
-
-    private void saveSubscriptionsRelation(GiftList list) throws Exception {
-        StringBuilder builder = new StringBuilder("INSERT INTO gift_list_subscription (gift_list_id, subscription_id) VALUES (");
-        int i = 0;
+    public void saveSubscriptions(GiftList list) throws Exception {
         for (Subscription subscription : list.getGifters()) {
-            builder.append(String.format("'%s', ", list.getId()))
-                    .append(String.format("'%s')", subscription.getId()));
-            if (i < list.getGifters().size() - 1) {
-                builder.append(",");
-            } else {
-                builder.append(";");
-            }
-            getConnection().execute(builder.toString());
-        }
-
-
-    }
-
-    private void saveSubscriptions(GiftList list) throws Exception {
-        for (Subscription subscription : list.getGifters()) {
-            subscription.setId(getConnection().execute(getCreateQuery(subscription)));
+            StringBuilder builder = new StringBuilder(getCreateQuery(subscription))
+                    .append(String.format("'%s') ", list.getId()));
+            subscription.setId(getConnection().execute(builder.toString()));
         }
     }
 

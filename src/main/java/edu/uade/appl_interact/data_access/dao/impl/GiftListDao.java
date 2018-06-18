@@ -1,7 +1,6 @@
 package edu.uade.appl_interact.data_access.dao.impl;
 
 import java.sql.ResultSet;
-
 import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.model.entities.User;
@@ -77,34 +76,9 @@ public class GiftListDao extends Base<GiftList> {
     public void createList(GiftList list) {
         try {
             list.setId(this.create(list));
-            saveSubscriptions(list);
-            saveSubsCriptionsRelation(list);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("createList", e);
-        }
-    }
-
-    private void saveSubsCriptionsRelation(GiftList list) throws Exception {
-        StringBuilder builder = new StringBuilder("INSERT INTO gift_list_subscription (gift_list_id, subscription_id) VALUES (");
-        int i = 0;
-        for (Subscription subscription : list.getGifters()) {
-            builder.append(String.format("'%s', ", list.getId()))
-                    .append(String.format("'%s')", subscription.getId()));
-            if (i < list.getGifters().size() - 1) {
-                builder.append(",");
-            } else {
-                builder.append(";");
-            }
-            getConnection().execute(builder.toString());
-        }
-
-
-    }
-
-    private void saveSubscriptions(GiftList list) throws Exception {
-        for (Subscription subscription : list.getGifters()) {
-            subscription.setId(getConnection().execute(SubscriptionDao.getInstance().getCreateQuery(subscription)));
         }
     }
 
