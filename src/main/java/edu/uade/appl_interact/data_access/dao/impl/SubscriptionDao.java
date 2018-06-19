@@ -36,7 +36,10 @@ public class SubscriptionDao extends Base<Subscription> {
 
     @Override
     public String getUpdateQuery(Subscription entity) {
-        return "";
+        StringBuilder builder = new StringBuilder("UPDATE subscription set ")
+                .append(String.format("active" + entity.isActive()))
+                .append(String.format("WHERE id = " + entity.getId()));
+        return builder.toString();
     }
 
     @Override
@@ -47,6 +50,12 @@ public class SubscriptionDao extends Base<Subscription> {
         return result;
     }
 
+
+    public void updateSubsCriptions(GiftList list) throws Exception {
+        for (Subscription subscription : list.getGifters()) {
+            this.update(subscription);
+        }
+    }
 
     public void saveSubscriptions(GiftList list) throws Exception {
         for (Subscription subscription : list.getGifters()) {
