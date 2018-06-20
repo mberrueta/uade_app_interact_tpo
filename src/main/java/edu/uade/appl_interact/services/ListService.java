@@ -22,7 +22,6 @@ public class ListService {
         emailService = EmailService.getInstance();
         listDao = GiftListDao.getInstance();
         subscriptionDao = SubscriptionDao.getInstance();
-
     }
 
     public static ListService getInstance() {
@@ -33,6 +32,24 @@ public class ListService {
     }
 
     public void saveList(GiftList giftList) {
+        if (giftList.getId() != null) {
+            updateList(giftList);
+        } else {
+            createList(giftList);
+        }
+    }
+
+    private void updateList(GiftList giftList) {
+        try {
+            listDao.update(giftList);
+            subscriptionDao.saveSubscriptions(giftList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("BOOOOOM!");
+        }
+    }
+
+    private void createList(GiftList giftList) {
         try {
             listDao.createList(giftList);
             subscriptionDao.saveSubscriptions(giftList);
