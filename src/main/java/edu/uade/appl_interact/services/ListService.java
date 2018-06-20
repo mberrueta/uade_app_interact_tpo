@@ -3,9 +3,11 @@ package edu.uade.appl_interact.services;
 import edu.uade.appl_interact.data_access.dao.impl.GiftListDao;
 import edu.uade.appl_interact.data_access.dao.impl.SubscriptionDao;
 import edu.uade.appl_interact.model.entities.GiftList;
+import edu.uade.appl_interact.model.entities.User;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ListService {
 
@@ -30,18 +32,32 @@ public class ListService {
         return instance;
     }
 
-    public void createList(GiftList newList) {
+    public void saveList(GiftList giftList) {
         try {
-            listDao.createList(newList);
-            subscriptionDao.saveSubscriptions(newList);
-
+            listDao.createList(giftList);
+            subscriptionDao.saveSubscriptions(giftList);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.print("BOOOOOM!");
         }
     }
 
-    public void getListFromId(int id) {
+    public GiftList getListFromId(int id) {
+        try {
+            return listDao.findById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<GiftList> getLoggedUserLists(User user) {
+        try {
+            return this.listDao.findManyBy("owner_id", String.valueOf(user.getId()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void getListWhereUserIsSubscriber(int userId) {

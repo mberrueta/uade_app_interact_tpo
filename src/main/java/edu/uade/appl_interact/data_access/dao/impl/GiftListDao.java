@@ -2,7 +2,6 @@ package edu.uade.appl_interact.data_access.dao.impl;
 
 import java.sql.ResultSet;
 import edu.uade.appl_interact.model.entities.GiftList;
-import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.model.entities.User;
 
 public class GiftListDao extends Base<GiftList> {
@@ -30,8 +29,7 @@ public class GiftListDao extends Base<GiftList> {
                 .append(String.format("'%s', ", formatter.format(entity.getDueDate())))
                 .append(String.format("'%s', ", entity.getToName()))
                 .append(String.format("'%s', ", entity.getToMail()))
-                // .append(String.format("'%s')", entity.getOwner().getId()))
-                .append(String.format("'%s')", 1))
+                .append(String.format("'%s')", entity.getOwner().getId()))
                 .toString();
     }
 
@@ -58,19 +56,6 @@ public class GiftListDao extends Base<GiftList> {
         //TODO: nested object result.setOwner(resultSet.getString("to_mail"));
         return result;
     }
-
-//    private String getSubscriptionCreationQuery(Subscription subscription) {
-//        StringBuilder builder = new StringBuilder("INSERT INTO subscription (user_id, payment_id) VALUES (")
-//                .append(String.format("'%s', ", subscription.getUser().getId()));
-//
-//        if (subscription.getPayment() != null) {
-//            builder.append(String.format("'%s')", String.valueOf(subscription.getPayment().getId())));
-//        } else {
-//            builder.append(" NULL)");
-//        }
-//
-//        return builder.toString();
-//    }
 
 
     public void createList(GiftList list) {

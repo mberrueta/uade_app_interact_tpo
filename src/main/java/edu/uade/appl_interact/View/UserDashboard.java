@@ -82,8 +82,13 @@ public class UserDashboard extends JPanel implements ActionListener {
                 System.out.println("show list form");
                 cardLayout.show(mainPanel, "CreateNew");
                 break;
+			case "Lists I own":
+				System.out.println("User lists");
+				this.controller.redirectToLoggedUserLists();
+				break;
+
             default:
-                System.out.println("show user form");
+                System.out.println(e.getActionCommand());
                 this.controller.preFillUserForm();
                 cardLayout.show(mainPanel, "editUser");
         }
@@ -91,5 +96,9 @@ public class UserDashboard extends JPanel implements ActionListener {
 
     public void  showDefault() {
 		cardLayout.show(mainPanel, "default");
+	}
+
+	public void showPanel(String panelName) {
+    	cardLayout.show(mainPanel, panelName);
 	}
 }

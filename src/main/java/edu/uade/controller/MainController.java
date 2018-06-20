@@ -4,6 +4,7 @@ import edu.uade.appl_interact.Main;
 import edu.uade.appl_interact.View.ListCreationForm;
 import edu.uade.appl_interact.View.UserDashboard;
 import edu.uade.appl_interact.View.UserForm;
+import edu.uade.appl_interact.View.UserListsView;
 import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.entities.User;
 import edu.uade.appl_interact.services.ListService;
@@ -14,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainController implements ActionListener, IuserController {
     private final UserService userService;
@@ -22,6 +24,7 @@ public class MainController implements ActionListener, IuserController {
     private UserForm userForm;
     private ListCreationForm listCreationForm;
     private UserDashboard dashboard;
+    private UserListsView userLists;
     private ListService listService;
 
 
@@ -33,6 +36,7 @@ public class MainController implements ActionListener, IuserController {
         this.userForm = new UserForm();
         userService = UserService.getInstance();
         userForm.setUserController(this);
+        userLists = new UserListsView();
         listService = ListService.getInstance();
     }
 
@@ -58,6 +62,7 @@ public class MainController implements ActionListener, IuserController {
         dashboard.setController(this);
         dashboard.addToCardLayout(listCreationForm, "CreateNew");
         dashboard.addToCardLayout(userForm, "editUser");
+        dashboard.addToCardLayout(userLists, "userLists");
         frame.setContentPane(dashboard);
         frame.revalidate();
         frame.repaint();
@@ -103,25 +108,35 @@ public class MainController implements ActionListener, IuserController {
         return userService.findMatchesByName(text);
     }
 
+
     public void saveList(String name, String email, String targetName, String expectedAmount, String dueDate, ArrayList<String> userIdsToAdd) {
-        GiftList newList = new GiftList();
-        newList.setListName(name);
-        newList.setToMail(email);
-        newList.setToName(targetName);
-        newList.setExpectedAmount(Float.valueOf(expectedAmount));
+        GiftList list = new GiftList();
+        list.setListName(name);
+        list.setToMail(email);
+        list.setToName(targetName);
+        list.setExpectedAmount(Float.valueOf(expectedAmount));
+        list.setOwner(loggedUser);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         for (String userId :userIdsToAdd) {
             User user = UserService.getInstance().getUserFromId(Integer.parseInt(userId));
             if (user != null) {
-                newList.addGifter(user);
+                list.addGifter(user);
             }
         }
         try {
-            newList.setDueDate(format.parse(dueDate));
-            listService.createList(newList);
+            list.setDueDate(format.parse(dueDate));
+            listService.saveList(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void redirectToLoggedUserLists() {
+        List<GiftList> userGiftLists = listService.getLoggedUserLists(loggedUser);
+        for( GiftList userList : userGiftLists) {
+            userLists.addItem(userList.getId(), userList.getListName(), String.valueOf(userList.getCurrentAmount()));
+        }
+        dashboard.showPanel("userLists");
     }
 
     public void onActionPerformed() {
