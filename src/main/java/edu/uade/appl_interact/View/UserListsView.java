@@ -13,23 +13,13 @@ public class UserListsView extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	}
 
-
-	public void setItems() {
-		for(int i = 1 ; i< 10; i++) {
-			GiftListResultItem item = new GiftListResultItem(1, "test", "test", "test");
-			this.add(item);
-		}
-	}
-
 	public void setController(MainController controller) {
 		this.controller = controller;
 	}
 
 	public void addItem(int id, String listName, String currentAmount) {
-		GiftListResultItem item  = new GiftListResultItem(1, listName, "due date", currentAmount);
+		GiftListResultItem item  = new GiftListResultItem(id, listName, "due date", currentAmount);
 		item.setController(controller);
 		this.add(item);
 	}
-
-
 }
