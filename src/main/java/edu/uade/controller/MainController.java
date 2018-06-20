@@ -119,7 +119,7 @@ public class MainController implements ActionListener, IuserController {
         list.setToName(targetName);
         list.setExpectedAmount(Float.valueOf(expectedAmount));
         list.setOwner(loggedUser);
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         for (String userId :userIdsToAdd) {
             User user = UserService.getInstance().getUserFromId(Integer.parseInt(userId));
             if (user != null) {
