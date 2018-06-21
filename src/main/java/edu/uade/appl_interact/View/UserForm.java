@@ -111,6 +111,7 @@ public class UserForm extends JPanel implements ActionListener{
 				if (saved) {
 					this.controller.renderMain();
 				}
+				break;
 			case "Cancel":
 				this.controller.renderMain();
 		}

@@ -47,6 +47,8 @@ public class SubscriptionDao extends Base<Subscription> {
         Subscription result = new Subscription();
         result.setId(resultSet.getInt("id"));
         result.setActive(resultSet.getBoolean("active"));
+        User user = UserDao.getInstance().findById(resultSet.getInt("user_id"));
+        result.setUser(user);
         return result;
     }
 
@@ -59,9 +61,8 @@ public class SubscriptionDao extends Base<Subscription> {
                         .append(String.format("'%s') ", list.getId()));
                 getConnection().execute(builder.toString());
             } else {
-                builder.append(getUpdateQuery(subscription))
-                        .append(String.format("'%s') ", list.getId()));
-                subscription.setId(getConnection().execute(builder.toString()));
+                builder.append(getUpdateQuery(subscription));
+                getConnection().execute(builder.toString());
             }
         }
     }

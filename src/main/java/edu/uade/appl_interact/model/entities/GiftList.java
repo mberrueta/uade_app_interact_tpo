@@ -97,7 +97,7 @@ public class GiftList extends PaymentObserver {
     }
 
     public List<Subscription> getGifters() throws Exception {
-        if (gifters == null) {
+        if (gifters.size() == 0) {
             gifters = SubscriptionDao.getInstance().findManyBy("gift_list_id", id.toString());
         }
         return gifters;
@@ -123,10 +123,12 @@ public class GiftList extends PaymentObserver {
         return 0.0f;
     }
 
-    public void addGifter(User user) {
-        Subscription s = new Subscription();
-        s.setUser(user);
-        gifters.add(s);
+    public void setGifters(List<Subscription> gifters) {
+        this.gifters = gifters;
+    }
+
+    public void addGifter(Subscription subscription) {
+        gifters.add(subscription);
     }
 
     @Override

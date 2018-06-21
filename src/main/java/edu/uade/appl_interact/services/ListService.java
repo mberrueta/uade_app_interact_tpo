@@ -3,6 +3,7 @@ package edu.uade.appl_interact.services;
 import edu.uade.appl_interact.data_access.dao.impl.GiftListDao;
 import edu.uade.appl_interact.data_access.dao.impl.SubscriptionDao;
 import edu.uade.appl_interact.model.entities.GiftList;
+import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.model.entities.User;
 
 import java.util.ArrayList;
@@ -22,7 +23,6 @@ public class ListService {
         emailService = EmailService.getInstance();
         listDao = GiftListDao.getInstance();
         subscriptionDao = SubscriptionDao.getInstance();
-
     }
 
     public static ListService getInstance() {
@@ -33,6 +33,24 @@ public class ListService {
     }
 
     public void saveList(GiftList giftList) {
+        if (giftList.getId() != null) {
+            updateList(giftList);
+        } else {
+            createList(giftList);
+        }
+    }
+
+    private void updateList(GiftList giftList) {
+        try {
+            listDao.update(giftList);
+            subscriptionDao.saveSubscriptions(giftList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("BOOOOOM!");
+        }
+    }
+
+    private void createList(GiftList giftList) {
         try {
             listDao.createList(giftList);
             subscriptionDao.saveSubscriptions(giftList);
@@ -44,7 +62,8 @@ public class ListService {
 
     public GiftList getListFromId(int id) {
         try {
-            return listDao.findById(id);
+            GiftList list =  listDao.findById(id);
+            return list;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -73,5 +92,13 @@ public class ListService {
     }
 
     public void pay(int usbscriptionId, float amount, Date date) {
+    }
+
+    public void deleteListFromId(int listId) {
+        try {
+            listDao.delete(listId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

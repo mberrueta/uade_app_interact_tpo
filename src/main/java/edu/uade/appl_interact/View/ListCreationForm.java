@@ -102,7 +102,7 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(396, 87, 427, 213);
 		add(scrollPane);
-        String[] columnNames = { "id","UserName", "Email"};
+        String[] columnNames = { "id","UserName", "Email", "active", "subscription Id"};
         Object[][] tableData = {};
         DefaultTableModel model = new DefaultTableModel(tableData, columnNames);
 		giftersTable = new JTable(model);
@@ -134,7 +134,7 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
 		
         String[] columnNames2 = { "id","UserName", "Email"};
         Object[][] tableData2 = {{}};
-        DefaultTableModel searchModel = new DefaultTableModel(tableData2, columnNames);
+        DefaultTableModel searchModel = new DefaultTableModel(tableData2, columnNames2);
 		searchTable = new JTable(searchModel);
 		searchTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
@@ -156,9 +156,9 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
         System.out.println(e.getActionCommand());
         DefaultTableModel giftersTableModel = (DefaultTableModel) giftersTable.getModel();
         switch (e.getActionCommand()) {
-			case "Remove":
+			case "-":
                 int gifterToRemove = giftersTable.getSelectedRow();
-                giftersTableModel.removeRow(gifterToRemove);
+                giftersTableModel.setValueAt("false", gifterToRemove, 3);
                 revalidate();
                 break;
 			case "+":
@@ -166,17 +166,27 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
                 int selectedColumn = searchTable.getSelectedColumn();
                 DefaultTableModel searchTableModel = (DefaultTableModel) searchTable.getModel();
                 int selectedRow = searchTable.getSelectedRow();
-                Object[] dataToAdd =  new Object[]{searchTableModel.getValueAt(selectedRow,0), searchTableModel.getValueAt(selectedRow,1), searchTableModel.getValueAt(selectedRow,2)};
+                Object[] dataToAdd =  new Object[]{searchTableModel.getValueAt(selectedRow,0), searchTableModel.getValueAt(selectedRow,1), searchTableModel.getValueAt(selectedRow,2), "true", ""};
                 DefaultTableModel giftersModel = (DefaultTableModel) giftersTable.getModel();
                 giftersModel.addRow(dataToAdd);
             break;
             case "Save":
-                ArrayList<String> userIdsToAdd = new ArrayList<>();
+                ArrayList<String[]> userIdsToAdd = new ArrayList<>();
                 for (int i = 0 ; i < giftersTable.getRowCount() ; i++) {
-                    userIdsToAdd.add(giftersTableModel.getValueAt(i,0).toString());
+                    userIdsToAdd.add(
+                            new String[]{
+                                    giftersTableModel.getValueAt(i, 0).toString(),
+                                    giftersTableModel.getValueAt(i, 1).toString(),
+                                    giftersTableModel.getValueAt(i, 2).toString(),
+                                    giftersTableModel.getValueAt(i, 3).toString(),
+                                    giftersTableModel.getValueAt(i, 4).toString(),
+
+                            }
+                    );
                 }
                 this.controller.saveList(nameField.getText(), targetEmailField.getText(), targetNameField.getText(), expectedAmountField.getText(), dueDate.getText(), userIdsToAdd, listId);
                 this.controller.onActionPerformed();
+                break;
             default:
                 // GET SELECTED ID
                 //table.getValueAt(table.getSelectedRow(),0);
@@ -207,13 +217,18 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
         }
 	}
 
-	public void fillValues(int listId, String listName, String targetEmail, String targetName, String expectedAmount, String dueDate ) {
+	public void fillValues(int listId, String listName, String targetEmail, String targetName, String expectedAmount, String dueDate, ArrayList<String[]> subscriptions ) {
 		this.listId = listId;
 		this.nameField.setText(listName);
 		this.targetEmailField.setText(targetEmail);
 		this.targetNameField.setText(targetName);
 		this.expectedAmountField.setText(expectedAmount);
 		this.dueDate.setText(dueDate);
+        DefaultTableModel giftersModel = (DefaultTableModel) giftersTable.getModel();
+		for (Object[] arraySubscription : subscriptions) {
+            giftersModel.addRow(arraySubscription);
+
+        }
 	}
 
 
