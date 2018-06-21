@@ -25,7 +25,7 @@ public class PaymentWorkerTest {
     }
 
     @Test
-    public void check_payments() throws Exception {
+    public void run() throws Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("1,12.22,2012-12-31\n");
         sb.append("2,23.45,2012-01-01\n");
@@ -33,7 +33,7 @@ public class PaymentWorkerTest {
         Helper.saveToFile(sb, "resources/payments.csv");
 
 
-        String result = paymentWorker.check_payments();
+        String result = paymentWorker.run();
         assertEquals(sb.toString(), result);
 
         verify(paymentService).processPayment(1, 12.22f, Helper.fromString("2012-12-31"));
@@ -54,7 +54,7 @@ public class PaymentWorkerTest {
         Helper.saveToFile(sb, "resources/payments.csv");
 
 
-        String result = paymentWorker.check_payments();
+        String result = paymentWorker.run();
 
         // ok
         assertEquals("3,432.21,2014-02-17\n", result);
