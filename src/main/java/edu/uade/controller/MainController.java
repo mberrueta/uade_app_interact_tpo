@@ -6,6 +6,7 @@ import edu.uade.appl_interact.View.UserDashboard;
 import edu.uade.appl_interact.View.UserForm;
 import edu.uade.appl_interact.View.UserListsView;
 import edu.uade.appl_interact.model.entities.GiftList;
+import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.model.entities.User;
 import edu.uade.appl_interact.services.ListService;
 import edu.uade.appl_interact.services.UserService;
@@ -109,7 +110,7 @@ public class MainController implements ActionListener, IuserController {
     }
 
 
-    public void saveList(String name, String email, String targetName, String expectedAmount, String dueDate, ArrayList<String> userIdsToAdd, int listId) {
+    public void saveList(String name, String email, String targetName, String expectedAmount, String dueDate, ArrayList<String[]> subscriptions, int listId) {
         GiftList list = new GiftList();
         if (listId >0 ) {
             list.setId(listId);
@@ -120,11 +121,15 @@ public class MainController implements ActionListener, IuserController {
         list.setExpectedAmount(Float.valueOf(expectedAmount));
         list.setOwner(loggedUser);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        for (String userId :userIdsToAdd) {
-            User user = UserService.getInstance().getUserFromId(Integer.parseInt(userId));
-            if (user != null) {
-                list.addGifter(user);
+        for (String[] subscription :subscriptions) {
+            Subscription subscriptionObj = new Subscription();
+            User user = UserService.getInstance().getUserFromId(Integer.parseInt(subscription[0]));
+            subscriptionObj.setUser(user);
+            subscriptionObj.setActive(subscription[3] == "true" ? true : false);
+            if (!subscription[4].isEmpty()) {
+                subscriptionObj.setId(Integer.parseInt(subscription[4]));
             }
+            list.addGifter(subscriptionObj);
         }
         try {
             list.setDueDate(format.parse(dueDate));
@@ -137,16 +142,35 @@ public class MainController implements ActionListener, IuserController {
     public void redirectToLoggedUserLists() {
         List<GiftList> userGiftLists = listService.getLoggedUserLists(loggedUser);
         this.userLists.removeAll();
+        this.dashboard.revalidate();
+        boolean loadedLists = false;
         for( GiftList userList : userGiftLists) {
+            loadedLists = true;
             userLists.addItem(userList.getId(), userList.getListName(), String.valueOf(userList.getCurrentAmount()));
         }
-        dashboard.showPanel("userLists");
+        if (loadedLists) {
+            dashboard.showPanel("userLists");
+        } else {
+            dashboard.showDefault();
+        }
     }
 
     public void redirectToListEdition(int listId) {
         cleanValues();
         GiftList list = listService.getListFromId(listId);
-        listCreationForm.fillValues(list.getId(), list.getListName(), list.getToMail(), list.getToName(), String.valueOf(list.getExpectedAmount()), list.getDueDate().toString());
+        ArrayList<String[]>  subscriptions =new ArrayList<>();
+        try {
+            for (Subscription subscription : list.getGifters()) {
+                String[] value = new String[]{String.valueOf(subscription.getUser().getId()), subscription.getUser().getName(), subscription.getUser().getEmail(), String.valueOf(subscription.isActive()), String.valueOf(subscription.getId())};
+                System.out.println(value);
+                subscriptions.add( value);
+            }
+        } catch (Exception e) {
+            System.out.println("Se pudrio todo");
+        }
+
+
+        listCreationForm.fillValues(list.getId(), list.getListName(), list.getToMail(), list.getToName(), String.valueOf(list.getExpectedAmount()), list.getDueDate().toString(), subscriptions);
         dashboard.showPanel("CreateNew");
     }
 
@@ -156,5 +180,10 @@ public class MainController implements ActionListener, IuserController {
 
     public void onActionPerformed() {
         dashboard.showDefault();
+    }
+
+    public void onListDelete(int listId) {
+        this.listService.deleteListFromId(listId);
+        this.redirectToLoggedUserLists();
     }
 }

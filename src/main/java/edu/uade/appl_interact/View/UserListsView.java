@@ -2,8 +2,8 @@ package edu.uade.appl_interact.View;
 
 import edu.uade.controller.MainController;
 
-import javax.swing.JPanel;
-import javax.swing.BoxLayout;
+import javax.swing.*;
+import java.awt.*;
 
 public class UserListsView extends JPanel {
 	private MainController controller;
@@ -22,4 +22,5 @@ public class UserListsView extends JPanel {
 		item.setController(controller);
 		this.add(item);
 	}
+
 }

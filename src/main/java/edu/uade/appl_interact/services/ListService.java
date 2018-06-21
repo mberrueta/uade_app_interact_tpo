@@ -3,6 +3,7 @@ package edu.uade.appl_interact.services;
 import edu.uade.appl_interact.data_access.dao.impl.GiftListDao;
 import edu.uade.appl_interact.data_access.dao.impl.SubscriptionDao;
 import edu.uade.appl_interact.model.entities.GiftList;
+import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.model.entities.User;
 
 import java.util.ArrayList;
@@ -61,7 +62,8 @@ public class ListService {
 
     public GiftList getListFromId(int id) {
         try {
-            return listDao.findById(id);
+            GiftList list =  listDao.findById(id);
+            return list;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -90,5 +92,13 @@ public class ListService {
     }
 
     public void pay(int usbscriptionId, float amount, Date date) {
+    }
+
+    public void deleteListFromId(int listId) {
+        try {
+            listDao.delete(listId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
