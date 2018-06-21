@@ -3,7 +3,7 @@ package edu.uade.appl_interact.model.entities;
 
 import edu.uade.appl_interact.data_access.dao.impl.SubscriptionDao;
 
-public class Subscription implements Persistible {
+public class Subscription {
     private Integer id;
     private User user;
     private Payment payment;
@@ -13,12 +13,10 @@ public class Subscription implements Persistible {
         active = true;
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }

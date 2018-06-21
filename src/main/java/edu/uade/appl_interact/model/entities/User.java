@@ -2,7 +2,7 @@ package edu.uade.appl_interact.model.entities;
 
 import java.util.Date;
 
-public class User implements Persistible {
+public class User {
 
     private Integer id;
     private String name;
@@ -11,12 +11,10 @@ public class User implements Persistible {
     private String userName;
     private Date birthDate;
 
-    @Override
     public Integer getId() {
         return id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }

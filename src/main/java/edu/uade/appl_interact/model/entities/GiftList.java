@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class GiftList extends PaymentObserver implements Persistible {
+public class GiftList extends PaymentObserver {
 
     private Integer id;
     private String listName;
