@@ -2,13 +2,14 @@ package edu.uade.appl_interact.workers;
 
 import edu.uade.appl_interact.services.PaymentService;
 import edu.uade.lib.Helper;
+import edu.uade.lib.threads.Task;
 import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.Date;
 import java.util.List;
 
-class PaymentWorker {
+public class PaymentWorker implements Task {
     private PaymentService paymentService;
     private final StringBuilder errors = new StringBuilder();
     private static final Logger log = Logger.getLogger("PaymentWorker");
@@ -24,13 +25,10 @@ class PaymentWorker {
         return instance;
     }
 
-    public void run() {
-    }
-
     // TODO: implent cron each 1 min
     // subscription_id, amount, date
     // 123,12.22,2012-12-31
-    public String check_payments() {
+    public String run() {
         StringBuilder sb = new StringBuilder();
         Boolean ok;
         List<String> b = Helper.readFile("resources/payments.csv");
@@ -69,7 +67,6 @@ class PaymentWorker {
             return false;
         }
     }
-
 
     // Allow mock
     public void setPaymentService(PaymentService paymentService) {
