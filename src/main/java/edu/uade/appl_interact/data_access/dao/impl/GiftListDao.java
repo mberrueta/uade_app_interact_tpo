@@ -24,12 +24,16 @@ public class GiftListDao extends Base<GiftList> {
 
     @Override
     public String getCreateQuery(GiftList entity) {
+        Integer ownerId = 0;
+        if(entity.getOwner() != null)
+            ownerId = entity.getOwner().getId();
+
         return new StringBuilder("INSERT INTO gift_list (list_name, due_date, to_name, to_mail, owner_id, expected_amount) VALUES ( ")
                 .append(String.format("'%s', ", entity.getListName()))
                 .append(String.format("'%s', ", formatter.format(entity.getDueDate())))
                 .append(String.format("'%s', ", entity.getToName()))
                 .append(String.format("'%s', ", entity.getToMail()))
-                .append(String.format("'%s', ", entity.getOwner().getId()))
+                .append(String.format("'%s', ", ownerId))
                 .append(String.format("'%s')", entity.getExpectedAmount()))
                 .toString();
     }

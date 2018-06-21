@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.uade.appl_interact.data_access.dao.impl.GiftListDao;
 import edu.uade.appl_interact.model.entities.GiftList;
+import edu.uade.appl_interact.model.entities.User;
 import junit.framework.TestCase;
 
 public final class GiftListTest extends TestCase {
@@ -34,6 +35,7 @@ public final class GiftListTest extends TestCase {
         try {
             GiftList giftList = new GiftList();
             giftList.setListName("qwerty");
+            giftList.setOwner(dummyUser());
             GiftListDao.getInstance().create(giftList);
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,6 +48,7 @@ public final class GiftListTest extends TestCase {
             GiftListDao em = GiftListDao.getInstance();
             GiftList giftList = new GiftList();
             giftList.setListName("qwerty");
+            giftList.setOwner(dummyUser());
             em.create(giftList);
             giftList = em.findBy("list_name", "qwerty");
             giftList.setListName("qwerty updated");
@@ -64,6 +67,7 @@ public final class GiftListTest extends TestCase {
             GiftListDao em = GiftListDao.getInstance();
             GiftList giftList = new GiftList();
             giftList.setListName("qwerty");
+            giftList.setOwner(dummyUser());
             em.create(giftList);
             giftList = em.findBy("list_name", "qwerty");
             em.delete(giftList.getId());
@@ -91,5 +95,11 @@ public final class GiftListTest extends TestCase {
             e.printStackTrace();
             assertNull(e);
         }
+    }
+
+    public User dummyUser(){
+        User tmp = new User();
+        tmp.setId(1);
+        return tmp;
     }
 }
