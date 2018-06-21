@@ -36,7 +36,7 @@ public class MainController implements ActionListener, IuserController {
         this.userForm = new UserForm();
         userService = UserService.getInstance();
         userForm.setUserController(this);
-        userLists = new UserListsView();
+        userLists = new UserListsView(this);
         listService = ListService.getInstance();
     }
 
@@ -109,8 +109,11 @@ public class MainController implements ActionListener, IuserController {
     }
 
 
-    public void saveList(String name, String email, String targetName, String expectedAmount, String dueDate, ArrayList<String> userIdsToAdd) {
+    public void saveList(String name, String email, String targetName, String expectedAmount, String dueDate, ArrayList<String> userIdsToAdd, int listId) {
         GiftList list = new GiftList();
+        if (listId >0 ) {
+            list.setId(listId);
+        }
         list.setListName(name);
         list.setToMail(email);
         list.setToName(targetName);
@@ -133,10 +136,22 @@ public class MainController implements ActionListener, IuserController {
 
     public void redirectToLoggedUserLists() {
         List<GiftList> userGiftLists = listService.getLoggedUserLists(loggedUser);
+        this.userLists.removeAll();
         for( GiftList userList : userGiftLists) {
             userLists.addItem(userList.getId(), userList.getListName(), String.valueOf(userList.getCurrentAmount()));
         }
         dashboard.showPanel("userLists");
+    }
+
+    public void redirectToListEdition(int listId) {
+        cleanValues();
+        GiftList list = listService.getListFromId(listId);
+        listCreationForm.fillValues(list.getId(), list.getListName(), list.getToMail(), list.getToName(), String.valueOf(list.getExpectedAmount()), list.getDueDate().toString());
+        dashboard.showPanel("CreateNew");
+    }
+
+    public void cleanValues() {
+        listCreationForm.clearValues();
     }
 
     public void onActionPerformed() {

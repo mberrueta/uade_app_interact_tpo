@@ -27,14 +27,16 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
 	private JTextField searchField;
     private MainController controller;
     private JTextField dueDate;
+    private int listId;
 
     /**
 	 * Create the panel.
 	 */
 	public ListCreationForm() {
+        listId = 0;
 		setLayout(null);
 		
-		JButton create = new JButton("Create");
+		JButton create = new JButton("Save");
 		create.setBounds(633, 632, 117, 25);
 		create.addActionListener(this);
 		add(create);
@@ -168,12 +170,12 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
                 DefaultTableModel giftersModel = (DefaultTableModel) giftersTable.getModel();
                 giftersModel.addRow(dataToAdd);
             break;
-            case "Create":
+            case "Save":
                 ArrayList<String> userIdsToAdd = new ArrayList<>();
                 for (int i = 0 ; i < giftersTable.getRowCount() ; i++) {
                     userIdsToAdd.add(giftersTableModel.getValueAt(i,0).toString());
                 }
-                this.controller.saveList(nameField.getText(), targetEmailField.getText(), targetNameField.getText(), expectedAmountField.getText(), dueDate.getText(), userIdsToAdd);
+                this.controller.saveList(nameField.getText(), targetEmailField.getText(), targetNameField.getText(), expectedAmountField.getText(), dueDate.getText(), userIdsToAdd, listId);
                 this.controller.onActionPerformed();
             default:
                 // GET SELECTED ID
@@ -205,9 +207,30 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
         }
 	}
 
+	public void fillValues(int listId, String listName, String targetEmail, String targetName, String expectedAmount, String dueDate ) {
+		this.listId = listId;
+		this.nameField.setText(listName);
+		this.targetEmailField.setText(targetEmail);
+		this.targetNameField.setText(targetName);
+		this.expectedAmountField.setText(expectedAmount);
+		this.dueDate.setText(dueDate);
+	}
+
 
     public void setController(MainController mainController) {
 	    controller = mainController;
+    }
+
+    public void clearValues() {
+        this.listId = -1;
+        this.nameField.setText("");
+        this.targetEmailField.setText("");
+        this.targetNameField.setText("");
+        this.expectedAmountField.setText("");
+        this.dueDate.setText("");
+        this.searchField.setText("");
+        DefaultTableModel giftersModel = (DefaultTableModel) giftersTable.getModel();
+        giftersModel.setRowCount(0);
     }
 }
 

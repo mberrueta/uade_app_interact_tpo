@@ -1,5 +1,7 @@
 package edu.uade.appl_interact.View;
 
+import edu.uade.controller.MainController;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -11,6 +13,7 @@ import javax.swing.JButton;
 public class GiftListResultItem extends JPanel implements ActionListener {
 
 	private int listId;
+	private MainController controller;
 	
 	public GiftListResultItem(int listId, String listName, String dueDate, String currentAmmount) {
 		
@@ -27,14 +30,19 @@ public class GiftListResultItem extends JPanel implements ActionListener {
 		add(lblNewLabel_2);
 		
 		JButton editButton = new JButton("Edit");
+		editButton.addActionListener(this);
 		add(editButton);
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+        System.out.println("action");
+		this.controller.redirectToListEdition(listId);
 		
 	}
 
+	public void setController(MainController controller) {
+		this.controller = controller;
+	}
 }
