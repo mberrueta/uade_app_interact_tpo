@@ -10,12 +10,11 @@ class App {
 
     public static void main(String[] args) {
         System.out.println("starting app!");
-        log.debug("Hello this is a debug message");
-        log.info("Hello this is an info message");
+        log.info("starting app!");
         new TaskExecutor(PaymentWorker.getInstance(), 5).startExecution();
         new TaskExecutor(EndingListWorker.getInstance(), 10).startExecution();
-
+        Main main = new Main();
+        main.run();
         System.out.println("workers running!");
-
     }
 }
