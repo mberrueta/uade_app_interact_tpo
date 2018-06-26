@@ -4,7 +4,7 @@
 
 - Docker
 - Docker Compose
-- Maven 3 or later
+- gradle (`brew install gradle`  or `apt install gradle`)
 - Java v 1.8
 - Git
 
@@ -14,7 +14,11 @@
 git clone https://github.com/mberrueta/uade_app_interact_tpo.git
 cd uade_app_interact_tpo
 docker-compose up
-mvn install
+
+gradle :test -i --tests "edu.uade.appl_interact.*"
+
+java -jar releases/uade_app_interact_tpo.jar
+
 ```
 
 ## Access db
