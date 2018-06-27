@@ -1,16 +1,15 @@
 package edu.uade.appl_interact.data_access.dao.impl;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-
+import edu.uade.appl_interact.data_access.dao.GenericDao;
+import edu.uade.lib.db.DBConnection;
 import edu.uade.lib.db.PoolConnection;
 import org.apache.log4j.Logger;
 
-import edu.uade.appl_interact.data_access.dao.GenericDao;
-import edu.uade.lib.db.DBConnection;
-import java.text.SimpleDateFormat;
+import java.sql.ResultSet;
 import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Base<T> implements GenericDao<T> {
 

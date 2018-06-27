@@ -1,10 +1,10 @@
 package edu.uade.appl_interact.model.dao;
 
-import java.util.List;
-
 import edu.uade.appl_interact.data_access.dao.impl.UserDao;
 import edu.uade.appl_interact.model.entities.User;
 import junit.framework.TestCase;
+
+import java.util.List;
 
 public final class UserTest extends TestCase {
 

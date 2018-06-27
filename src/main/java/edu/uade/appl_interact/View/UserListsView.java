@@ -3,7 +3,6 @@ package edu.uade.appl_interact.View;
 import edu.uade.controller.MainController;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class UserListsView extends JPanel {
 	private MainController controller;

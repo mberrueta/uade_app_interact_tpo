@@ -1,7 +1,6 @@
 package edu.uade.appl_interact;
 
 import edu.uade.appl_interact.model.entities.User;
-import edu.uade.appl_interact.services.UserService;
 import edu.uade.controller.Controller;
 import edu.uade.controller.LoginController;
 import edu.uade.controller.MainController;

@@ -1,9 +1,8 @@
 package edu.uade.appl_interact.data_access.dao.impl;
 
-import java.sql.ResultSet;
-
 import edu.uade.appl_interact.model.entities.User;
-import edu.uade.lib.security.Encriptor;
+
+import java.sql.ResultSet;
 
 public class UserDao extends Base<User> {
     private static UserDao instance;

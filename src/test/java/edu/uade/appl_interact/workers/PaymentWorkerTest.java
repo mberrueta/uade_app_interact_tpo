@@ -2,9 +2,12 @@ package edu.uade.appl_interact.workers;
 
 import edu.uade.appl_interact.services.PaymentService;
 import edu.uade.lib.Helper;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +19,7 @@ import static org.mockito.Mockito.verify;
 public class PaymentWorkerTest {
     private PaymentService paymentService;
     private PaymentWorker paymentWorker;
+    private static final String filename = "resources/payments.csv";
 
     @Before
     public void setUp() {
@@ -30,8 +34,7 @@ public class PaymentWorkerTest {
         sb.append("1,12.22,2012-12-31\n");
         sb.append("2,23.45,2012-01-01\n");
         sb.append("3,432.21,2014-02-17\n");
-        Helper.saveToFile(sb, "resources/payments.csv");
-
+        Helper.saveToFile(sb, filename);
 
         String result = paymentWorker.run();
         assertEquals(sb.toString(), result);
@@ -39,6 +42,9 @@ public class PaymentWorkerTest {
         verify(paymentService).processPayment(1, 12.22f, Helper.fromString("2012-12-31"));
         verify(paymentService).processPayment(2, 23.45f, Helper.fromString("2012-01-01"));
         verify(paymentService).processPayment(3, 432.21f, Helper.fromString("2014-02-17"));
+
+        Boolean exists = Files.exists(Paths.get(filename));
+        Assert.assertFalse(exists);
     }
 
     @Test
@@ -51,7 +57,7 @@ public class PaymentWorkerTest {
 
         sb.append(errors);
         sb.append("3,432.21,2014-02-17\n"); // valid
-        Helper.saveToFile(sb, "resources/payments.csv");
+        Helper.saveToFile(sb, filename);
 
 
         String result = paymentWorker.run();
