@@ -1,6 +1,8 @@
 package edu.uade.lib;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,6 +38,10 @@ public class Helper {
     public static List<String> readFile(String filename) {
         Scanner s = null;
         try {
+            Boolean exists = Files.exists(Paths.get(filename));
+            if (!exists)
+                return new ArrayList<>();
+
             s = new Scanner(new File(filename));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -46,5 +52,27 @@ public class Helper {
         }
         s.close();
         return list;
+    }
+
+    public static void removeFile(String filename) {
+        try {
+            Files.deleteIfExists(Paths.get(filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Date today(){
+        return addDays(0);
+    }
+
+    public static Date tomorrow(){
+        return addDays(1);
+    }
+
+    public static Date addDays(Integer days){
+        Date today = new Date();
+        Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24 * days));
+        return tomorrow;
     }
 }

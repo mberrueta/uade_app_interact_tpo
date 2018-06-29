@@ -5,7 +5,7 @@ import edu.uade.lib.Helper;
 import edu.uade.lib.threads.Task;
 import org.apache.log4j.Logger;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -49,6 +49,7 @@ public class PaymentWorker implements Task {
             }
         }
 
+        Helper.removeFile("resources/payments.csv");
         return sb.toString();
     }
 

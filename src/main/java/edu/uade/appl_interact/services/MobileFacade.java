@@ -1,6 +1,7 @@
 package edu.uade.appl_interact.services;
 
-import edu.uade.appl_interact.model.entities.*;
+import edu.uade.appl_interact.model.entities.GiftList;
+import edu.uade.appl_interact.model.entities.User;
 
 import java.util.Date;
 

@@ -1,15 +1,15 @@
 package edu.uade.lib.db;
 
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import org.apache.log4j.Logger;
+
+import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
-import javax.sql.DataSource;
-
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-import org.apache.log4j.Logger;
 
 public class DBConnection {
 

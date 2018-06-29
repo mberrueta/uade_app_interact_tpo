@@ -1,10 +1,13 @@
 package edu.uade.appl_interact.data_access.dao.impl;
 
 import edu.uade.appl_interact.model.entities.GiftList;
+import edu.uade.appl_interact.model.entities.Payment;
 import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.model.entities.User;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SubscriptionDao extends Base<Subscription> {
 
@@ -53,22 +56,52 @@ public class SubscriptionDao extends Base<Subscription> {
     }
 
 
-    public void saveSubscriptions(GiftList list) throws Exception {
+    public List<Subscription> saveSubscriptions(GiftList list) throws Exception {
+
+        List<Subscription> result = new ArrayList<>();
         for (Subscription subscription : list.getGifters()) {
-            StringBuilder builder  = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
             if (subscription.getId() == null) {
                 builder.append(getCreateQuery(subscription))
                         .append(String.format("'%s') ", list.getId()));
-                getConnection().execute(builder.toString());
+                Integer id = getConnection().execute(builder.toString());
+                subscription.setId(id);
             } else {
                 builder.append(getUpdateQuery(subscription));
                 getConnection().execute(builder.toString());
             }
+            result.add(subscription);
         }
+        return result;
     }
 
     public User getUser(Integer id) {
-        //TODO: implement
-        return null;
+        StringBuilder builder = new StringBuilder("SELECT user_id FROM subscription WHERE ")
+                .append(String.format("active = 0 AND "))
+                .append(String.format("WHERE id = " + id));
+        try {
+            ResultSet resultSet = getConnection().getResults(builder.toString());
+            Integer userId = resultSet.getInt("user_id");
+            return UserDao.getInstance().findById(userId);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Payment getPayment(Integer id){
+        StringBuilder builder = new StringBuilder("SELECT * FROM payment WHERE ")
+                .append(String.format("active = 0 AND "))
+                .append(String.format("WHERE subscription_id = " + id));
+        try {
+            ResultSet resultSet = getConnection().getResults(builder.toString());
+
+            boolean any = resultSet.next();
+            if (any)
+                return PaymentDao.getInstance().toObject(resultSet);
+            else
+                return null;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
