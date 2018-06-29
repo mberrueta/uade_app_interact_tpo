@@ -145,6 +145,7 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
 		add(searchField);
 		
 		dueDate = new JTextField();
+		dueDate.setText("yyyy-mm-dd");
 		dueDate.setColumns(10);
 		dueDate.setBounds(179, 208, 172, 19);
 		add(dueDate);

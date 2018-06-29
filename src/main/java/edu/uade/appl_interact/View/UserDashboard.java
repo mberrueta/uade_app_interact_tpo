@@ -114,6 +114,9 @@ public class UserDashboard extends JPanel implements ActionListener {
 			case "Log out":
 				this.controller.logout();
 				break;
+			case "My payments" :
+				this.controller.redirectToUserPaymentList();
+				break;
             default:
                 System.out.println(e.getActionCommand());
                 this.controller.preFillUserForm();

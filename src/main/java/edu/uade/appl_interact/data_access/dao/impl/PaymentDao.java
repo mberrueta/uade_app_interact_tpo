@@ -1,8 +1,11 @@
 package edu.uade.appl_interact.data_access.dao.impl;
 
 import edu.uade.appl_interact.model.entities.Payment;
+import edu.uade.appl_interact.model.entities.Subscription;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentDao extends Base<Payment> {
 
@@ -52,5 +55,20 @@ public class PaymentDao extends Base<Payment> {
     result.setDate(resultSet.getDate("date"));
     // result.setEmail(resultSet.getString("email"));
     return result;
+  }
+
+  public ArrayList<Payment> fromUserId(int id) {
+    ArrayList<Payment> userPayments = new ArrayList<>();
+    StringBuilder query = new StringBuilder("SELECT * FROM payment JOIN subscription ON (payment.subscription_id = subscription.id)")
+            .append("WHERE subscription.user_id = " +id);
+    try {
+      ResultSet result = getConnection().getResults(query.toString());
+      while (result.next()) {
+        userPayments.add(toObject(result));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return userPayments;
   }
 }

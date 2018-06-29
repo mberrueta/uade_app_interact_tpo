@@ -6,13 +6,16 @@ import edu.uade.appl_interact.model.entities.Payment;
 import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.observers.PaymentObservable;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class PaymentService extends PaymentObservable {
 
     private static PaymentService instance = null;
+    private PaymentDao paymentDao;
 
     private PaymentService() {
+        paymentDao = PaymentDao.getInstance();
     }
 
     public static PaymentService getInstance() {
@@ -39,5 +42,9 @@ public class PaymentService extends PaymentObservable {
         if (result == null) {
             throw new Exception(String.format("Subscription with id %s, not found", subscriptionId));
         }
+    }
+
+    public ArrayList<Payment> getUserPayments(int userId) {
+        return paymentDao.fromUserId(userId);
     }
 }

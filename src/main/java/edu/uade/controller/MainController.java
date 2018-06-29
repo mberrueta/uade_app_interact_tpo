@@ -3,9 +3,11 @@ package edu.uade.controller;
 import edu.uade.appl_interact.Main;
 import edu.uade.appl_interact.View.*;
 import edu.uade.appl_interact.model.entities.GiftList;
+import edu.uade.appl_interact.model.entities.Payment;
 import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.model.entities.User;
 import edu.uade.appl_interact.services.ListService;
+import edu.uade.appl_interact.services.PaymentService;
 import edu.uade.appl_interact.services.UserService;
 
 import javax.swing.*;
@@ -25,6 +27,8 @@ public class MainController implements ActionListener, IuserController {
     private UserListsView userLists;
     private ListService listService;
     private UserSubscriptionsView userSubscriptios;
+    private UserPaymentList paymentList;
+    private PaymentService paymentService;
     private Main main;
 
 
@@ -33,6 +37,8 @@ public class MainController implements ActionListener, IuserController {
         this.loggedUser = loggedUser;
         this.listCreationForm = new ListCreationForm();
         this.listCreationForm.setController(this);
+        this.paymentList = new UserPaymentList();
+        paymentService = PaymentService.getInstance();
         this.userForm = new UserForm();
         userService = UserService.getInstance();
         userForm.setUserController(this);
@@ -75,6 +81,7 @@ public class MainController implements ActionListener, IuserController {
         dashboard.addToCardLayout(userForm, "editUser");
         dashboard.addToCardLayout(userLists, "userLists");
         dashboard.addToCardLayout(userSubscriptios, "userSubscriptions");
+        dashboard.addToCardLayout(paymentList, "userPaymentList");
         frame.setContentPane(dashboard);
         frame.revalidate();
         frame.repaint();
@@ -217,6 +224,14 @@ public class MainController implements ActionListener, IuserController {
         } else {
             dashboard.showDefault();
         }
+    }
+
+    public void redirectToUserPaymentList() {
+        ArrayList<Payment> payments = paymentService.getUserPayments(loggedUser.getId());
+        for (Payment payment : payments) {
+            paymentList.addItem(String.valueOf(payment.getAmount()), payment.getDate().toString(), String.valueOf(payment.getSubscriptionId()));
+        }
+        dashboard.showPanel("userPaymentList");
     }
 
     public void logout() {
