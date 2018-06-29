@@ -2,16 +2,10 @@ package edu.uade.appl_interact.View;
 
 import edu.uade.controller.LoginController;
 
-import javax.swing.JPanel;
-import java.awt.Color;
-import javax.swing.JButton;
-import java.awt.TextField;
-import java.awt.Button;
-import javax.swing.JPasswordField;
-import java.awt.Label;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JLabel;
 
 public class Login extends JPanel implements ActionListener {
 	/**

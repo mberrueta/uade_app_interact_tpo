@@ -1,10 +1,10 @@
 package edu.uade.appl_interact.observers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import edu.uade.appl_interact.model.entities.Payment;
 import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class PaymentObservable {
     private static final Logger log = Logger.getLogger("PaymentObservable");

@@ -7,6 +7,8 @@ import java.util.List;
 import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.entities.User;
 
+import java.sql.ResultSet;
+
 public class GiftListDao extends Base<GiftList> {
     private static GiftListDao instance;
 
@@ -95,7 +97,15 @@ public class GiftListDao extends Base<GiftList> {
     }
 
     public User getOwner(Integer id) {
-        //TODO: implement
-        return null;
+        StringBuilder builder = new StringBuilder("SELECT owner_id FROM gift_list WHERE ")
+                .append(String.format("active = 0 AND "))
+                .append(String.format("WHERE id = " + id));
+        try {
+            ResultSet resultSet = getConnection().getResults(builder.toString());
+            Integer ownerId = resultSet.getInt("owner_id");
+            return UserDao.getInstance().findById(ownerId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

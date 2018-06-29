@@ -1,8 +1,8 @@
 package edu.uade.appl_interact.data_access.dao.impl;
 
-import java.sql.ResultSet;
-
 import edu.uade.appl_interact.model.entities.Payment;
+
+import java.sql.ResultSet;
 
 public class PaymentDao extends Base<Payment> {
 

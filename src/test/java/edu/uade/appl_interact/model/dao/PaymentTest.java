@@ -1,11 +1,11 @@
 package edu.uade.appl_interact.model.dao;
 
-import java.util.Date;
-import java.util.List;
-
 import edu.uade.appl_interact.data_access.dao.impl.PaymentDao;
 import edu.uade.appl_interact.model.entities.Payment;
 import junit.framework.TestCase;
+
+import java.util.Date;
+import java.util.List;
 
 public final class PaymentTest extends TestCase {
 

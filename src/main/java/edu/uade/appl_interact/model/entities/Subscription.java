@@ -32,6 +32,8 @@ public class Subscription {
     }
 
     public Payment getPayment() {
+        if (payment == null)
+            payment = SubscriptionDao.getInstance().getPayment(id);
         return payment;
     }
 
@@ -46,5 +48,9 @@ public class Subscription {
 
     public boolean isActive() {
         return active;
+    }
+
+    public boolean hasNotPayed() {
+        return this.getPayment() == null || this.getPayment().getAmount() == 0;
     }
 }

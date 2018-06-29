@@ -2,16 +2,16 @@ package edu.uade.appl_interact.View;
 
 import edu.uade.controller.MainController;
 
-import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Button;
-import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.Label;
 import java.awt.CardLayout;
 import javax.swing.border.BevelBorder;
 import java.awt.Font;
 import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+
 
 public class UserDashboard extends JPanel implements ActionListener {
 	private JPanel mainPanel;
