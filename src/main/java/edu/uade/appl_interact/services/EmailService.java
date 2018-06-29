@@ -56,8 +56,8 @@ public class EmailService {
 
     public void subscriptionEmail(GiftList giftList) {
         String subject = "TPO App Interactivas - Subscripción a nueva lista de regalos";
-        String body = "Bueno días %s, bienvenido a la lista de regalos %s para %s." +
-                "La lista finalizará el día %s con el objetivo de juntar $%s";
+        String body = "Bueno días '%s', bienvenido a la lista de regalos '%s' para '%s'." +
+                "La lista finalizará el día '%s' con el objetivo de juntar $ %s";
 
         try {
             for (Subscription s : giftList.getGifters()) {
@@ -75,6 +75,29 @@ public class EmailService {
     }
 
     public void completitionEmail(GiftList list) {
+        if (list == null)
+            return;
+        try {
+            String subject = "TPO App Interactivas- Lista completada";
+            String body = "Bueno días '%s', la lista de regalos '%s' a la que estas subscripto logro juntar $ %s." +
+                    "Muchas gracias por tu ayuda!! %s estará muy contento!";
+
+            List<Subscription> subscriptions = list.getGifters();
+            for (Iterator<Subscription> j = subscriptions.iterator(); j.hasNext(); ) {
+                Subscription subscription = j.next();
+                User user = subscription.getUser();
+                sendMail(user.getEmail(), subject, String.format(body, user.getName(), list.getListName(), list.getCurrentAmount(), list.getToName()));
+            }
+
+            subject = "TPO App Interactivas- Tenemos un regalo para ti!";
+            body = "Bueno días '%s', tu amigo '%s' ah creado una lista de regalos para juntar dinero por tu cumpleaños." +
+                    "Junto $ %s. Por favor comunicate con él para recibir el regalo! ";
+
+                sendMail(list.getToMail(), subject, String.format(body, list.getToName(), list.getOwner().getName(), list.getCurrentAmount()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

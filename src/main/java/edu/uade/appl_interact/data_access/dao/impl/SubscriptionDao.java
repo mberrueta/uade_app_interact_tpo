@@ -75,9 +75,9 @@ public class SubscriptionDao extends Base<Subscription> {
         return result;
     }
 
-    public void deleteFromUserAndList(int listId, int userId)  {
+    public void deleteFromUserAndList(int listId, int userId) {
         StringBuilder builder = new StringBuilder("UPDATE subscription set ")
-                .append(String.format("active = 0 " ))
+                .append(String.format("active = 0 "))
                 .append(String.format("WHERE gift_list_id = " + listId))
                 .append(String.format(" AND user_id = " + userId));
         try {
@@ -89,7 +89,7 @@ public class SubscriptionDao extends Base<Subscription> {
 
     public User getUser(Integer id) {
         StringBuilder builder = new StringBuilder("SELECT user_id FROM subscription WHERE ")
-                .append(String.format("active = 0 AND "))
+                .append(String.format("active = 1 AND "))
                 .append(String.format("WHERE id = " + id));
         try {
             ResultSet resultSet = getConnection().getResults(builder.toString());
@@ -100,9 +100,9 @@ public class SubscriptionDao extends Base<Subscription> {
         }
     }
 
-    public Payment getPayment(Integer id){
+    public Payment getPayment(Integer id) {
         StringBuilder builder = new StringBuilder("SELECT * FROM payment WHERE ")
-                .append(String.format("active = 0 AND "))
+                .append(String.format("active = 1 AND "))
                 .append(String.format("WHERE subscription_id = " + id));
         try {
             ResultSet resultSet = getConnection().getResults(builder.toString());
@@ -111,6 +111,23 @@ public class SubscriptionDao extends Base<Subscription> {
             if (any)
                 return PaymentDao.getInstance().toObject(resultSet);
             else
+                return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public GiftList getGiftList(int id) {
+        StringBuilder builder = new StringBuilder("SELECT gift_list_id FROM subscription WHERE ")
+                .append(String.format("active = 1 AND "))
+                .append(String.format("id = " + id));
+        try {
+            ResultSet resultSet = getConnection().getResults(builder.toString());
+            boolean any = resultSet.next();
+            if (any) {
+                Integer giftListId = resultSet.getInt("gift_list_id");
+                return GiftListDao.getInstance().findById(giftListId);
+            } else
                 return null;
         } catch (Exception e) {
             return null;

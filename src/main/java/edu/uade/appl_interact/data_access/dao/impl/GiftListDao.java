@@ -49,6 +49,7 @@ public class GiftListDao extends Base<GiftList> {
                 .append(String.format("to_name = '%s', ", entity.getToName()))
                 .append(String.format("to_mail = '%s' ,", entity.getToMail()))
                 .append(String.format("expected_amount = %s ", entity.getExpectedAmount()))
+                .append(String.format("current_amount = %s ", entity.getCurrentAmount()))
                 // .append(String.format("to_mail = '%s' ", entity.getOwner().getId()))
                 .append(String.format("WHERE id = %d", entity.getId()))
                 .toString();
@@ -63,6 +64,8 @@ public class GiftListDao extends Base<GiftList> {
         result.setToName(resultSet.getString("to_name"));
         result.setToMail(resultSet.getString("to_mail"));
         result.setExpectedAmount(resultSet.getFloat("expected_amount"));
+        result.setCurrentAmount(resultSet.getFloat("current_amount"));
+        result.setDelivered(resultSet.getBoolean("delivered"));
         //TODO: nested object result.setOwner(resultSet.getString("to_mail"));
         return result;
     }

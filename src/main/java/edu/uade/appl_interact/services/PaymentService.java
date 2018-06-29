@@ -2,6 +2,7 @@ package edu.uade.appl_interact.services;
 
 import edu.uade.appl_interact.data_access.dao.impl.PaymentDao;
 import edu.uade.appl_interact.data_access.dao.impl.SubscriptionDao;
+import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.entities.Payment;
 import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.observers.PaymentObservable;
@@ -35,6 +36,14 @@ public class PaymentService extends PaymentObservable {
         Integer id = PaymentDao.getInstance().create(payment);
         payment.setId(id);
         notifyAllObservers(payment);
+
+        GiftList giftList = SubscriptionDao.getInstance().getGiftList(subscriptionId);
+        if(giftList.collected())
+        {
+            giftList.setDelivered(true);
+            EmailService.getInstance().completitionEmail(giftList);
+            ListService.getInstance().saveList(giftList);
+        }
     }
 
     private void validateSubscription(int subscriptionId) throws Exception {

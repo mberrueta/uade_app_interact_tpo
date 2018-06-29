@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public class PaymentWorker implements Task {
-    private PaymentService paymentService;
+    private PaymentService paymentService = PaymentService.getInstance();
     private final StringBuilder errors = new StringBuilder();
     private static final Logger log = Logger.getLogger("PaymentWorker");
     private static PaymentWorker instance;

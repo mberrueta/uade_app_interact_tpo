@@ -111,20 +111,15 @@ public class GiftList extends PaymentObserver {
         this.delivered = delivered;
     }
 
-    public Boolean achieved() {
-        return false;
-    }
-
     public Boolean collected() {
-        return false;
+        return expectedAmount <= currentAmount;
     }
 
-    public Float amountPerGifter() {
-        return 0.0f;
-    }
-
-    public void setGifters(List<Subscription> gifters) {
-        this.gifters = gifters;
+    public Float amountPerGifter() throws Exception {
+        if( getGifters().size() > 0)
+            return expectedAmount / getGifters().size();
+        else
+            return expectedAmount;
     }
 
     public void addGifter(Subscription subscription) {
@@ -133,7 +128,7 @@ public class GiftList extends PaymentObserver {
 
     @Override
     public void update(Payment payment) throws Exception {
-        currentAmount = currentAmount + payment.getAmount();
+        this.currentAmount = currentAmount + payment.getAmount();
         GiftListDao.getInstance().update(this);
     }
 }
