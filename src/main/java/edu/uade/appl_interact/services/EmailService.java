@@ -56,17 +56,18 @@ public class EmailService {
 
     public void subscriptionEmail(GiftList giftList) {
         String subject = "TPO App Interactivas - Subscripción a nueva lista de regalos";
-        String body = "Bueno días '%s', bienvenido a la lista de regalos '%s' para '%s'." +
-                "La lista finalizará el día '%s' con el objetivo de juntar $ %s";
-
+        String body = "Bueno días %s, bienvenido a la lista de regalos %s para %s." +
+                "La lista finalizará el día %s con el objetivo de juntar $%s";
         try {
-            for (Subscription s : giftList.getGifters()) {
-                if (s.getId() == null) {
-                    sendMail(
-                            s.getUser().getEmail(),
-                            subject,
-                            String.format(body, s.getUser().getName(), giftList.getListName(), giftList.getToName(), giftList.getDueDate(), giftList.getExpectedAmount())
-                    );
+            if (giftList.getGifters().size() > 0) {
+                for (Subscription s : giftList.getGifters()) {
+                    if (s.getId() == null) {
+                        sendMail(
+                                s.getUser().getEmail(),
+                                subject,
+                                String.format(body, s.getUser().getName(), giftList.getListName(), giftList.getToName(), giftList.getDueDate(), giftList.getExpectedAmount())
+                        );
+                    }
                 }
             }
         } catch (Exception e) {
@@ -93,7 +94,7 @@ public class EmailService {
             body = "Bueno días '%s', tu amigo '%s' ah creado una lista de regalos para juntar dinero por tu cumpleaños." +
                     "Junto $ %s. Por favor comunicate con él para recibir el regalo! ";
 
-                sendMail(list.getToMail(), subject, String.format(body, list.getToName(), list.getOwner().getName(), list.getCurrentAmount()));
+            sendMail(list.getToMail(), subject, String.format(body, list.getToName(), list.getOwner().getName(), list.getCurrentAmount()));
 
         } catch (Exception e) {
             e.printStackTrace();

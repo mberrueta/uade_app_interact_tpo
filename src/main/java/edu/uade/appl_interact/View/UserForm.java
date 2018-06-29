@@ -136,6 +136,7 @@ public class UserForm extends JPanel implements ActionListener{
 		String userEmail = this.userEmail.getText();
 		String password = this.passwordField.getText();
 		String repassword = this.passwordField_1.getText();
+		String birthdayValue = this.birthday.getText();
 		if (!password.equals(repassword)) {
 			showDifferentPasswordLabel();
 			return  false;
@@ -145,9 +146,9 @@ public class UserForm extends JPanel implements ActionListener{
 			return false;
 		}
 		if (usrId == -1) {
-			controller.saveNewUser(name, userEmail, password);
+			controller.saveNewUser(name, userEmail, birthdayValue ,password);
 		} else {
-			controller.saveUser(name, userEmail, password, usrId);
+			controller.saveUser(name, userEmail, birthdayValue,  password, usrId);
 		}
 		return true;
  	}

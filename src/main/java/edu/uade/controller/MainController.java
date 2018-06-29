@@ -95,12 +95,13 @@ public class MainController implements ActionListener, IuserController {
     }
 
     @Override
-    public boolean saveNewUser(String name, String userEmail, String password) {
+    public boolean saveNewUser(String name, String userEmail, String birthDay ,String password) {
         return false;
     }
 
     @Override
-    public boolean saveUser(String name, String userEmail, String password, int id) {
+    public boolean saveUser(String name, String userEmail, String birthday, String password, int id) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         User user  = new User();
         user.setName(name);
         user.setEmail(userEmail);
@@ -108,6 +109,7 @@ public class MainController implements ActionListener, IuserController {
         user.setId(id);
         UserService manager = UserService.getInstance();
         try {
+            user.setBirthDate(format.parse(birthday));
             manager.saveUser(user);
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,6 +157,7 @@ public class MainController implements ActionListener, IuserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        dashboard.showDefault();
     }
 
     public void redirectToLoggedUserLists() {
@@ -164,7 +167,7 @@ public class MainController implements ActionListener, IuserController {
         boolean loadedLists = false;
         for( GiftList userList : userGiftLists) {
             loadedLists = true;
-            userLists.addItem(userList.getId(), userList.getListName(), String.valueOf(userList.getCurrentAmount()));
+            userLists.addItem(userList.getId(), userList.getListName(), String.valueOf(userList.getCurrentAmount()), userList.getDueDate().toString());
         }
         if (loadedLists) {
             dashboard.showPanel("userLists");
@@ -189,8 +192,6 @@ public class MainController implements ActionListener, IuserController {
         listCreationForm.fillValues(list.getId(), list.getListName(), list.getToMail(), list.getToName(), String.valueOf(list.getExpectedAmount()), list.getDueDate().toString(), subscriptions);
         dashboard.showPanel("CreateNew");
     }
-
-
 
     public void cleanValues() {
         listCreationForm.clearValues();
