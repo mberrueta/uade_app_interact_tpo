@@ -23,10 +23,6 @@ public class LoginController  implements  IuserController {
         userForm = new UserForm();
     }
 
-    public void addMain(Main main) {
-        this.main = main;
-    }
-
     public void updateView() {
         frame.setContentPane(this.getCurrentView());
         frame.repaint();
@@ -41,6 +37,11 @@ public class LoginController  implements  IuserController {
     @Override
     public void renderMain() {
         renderLoginForm();
+    }
+
+    @Override
+    public void setMainMenu(Main main) {
+        this.main = main;
     }
 
     private JPanel getCurrentView() {

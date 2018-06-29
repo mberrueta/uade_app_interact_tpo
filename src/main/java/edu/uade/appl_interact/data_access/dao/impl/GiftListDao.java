@@ -7,8 +7,6 @@ import java.util.List;
 import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.entities.User;
 
-import java.sql.ResultSet;
-
 public class GiftListDao extends Base<GiftList> {
     private static GiftListDao instance;
 

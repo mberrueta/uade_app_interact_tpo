@@ -25,6 +25,7 @@ public class MainController implements ActionListener, IuserController {
     private UserListsView userLists;
     private ListService listService;
     private UserSubscriptionsView userSubscriptios;
+    private Main main;
 
 
     public MainController(JFrame frame, User loggedUser) {
@@ -38,6 +39,10 @@ public class MainController implements ActionListener, IuserController {
         userLists = new UserListsView(this);
         userSubscriptios = new UserSubscriptionsView(this);
         listService = ListService.getInstance();
+    }
+
+    public void setMainMenu(Main main) {
+        this.main = main;
     }
 
     // TODO Add action permformed Events.
@@ -206,5 +211,10 @@ public class MainController implements ActionListener, IuserController {
         } else {
             dashboard.showDefault();
         }
+    }
+
+    public void logout() {
+        this.loggedUser = null;
+        main.OnUserLogout();
     }
 }

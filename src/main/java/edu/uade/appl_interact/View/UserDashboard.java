@@ -78,6 +78,14 @@ public class UserDashboard extends JPanel implements ActionListener {
 		editUser.setBounds(10, 176, 99, 23);
 		editUser.addActionListener(this);
 		add(editUser);
+
+		Button logout = new Button("Log out");
+		logout.setBackground(Color.LIGHT_GRAY);
+		logout.setBounds(10, 200, 99, 23);
+		logout.addActionListener(this);
+		add(logout);
+
+
 	}
 
 	public void setMainPanel(JPanel mainPanel) {
@@ -101,6 +109,9 @@ public class UserDashboard extends JPanel implements ActionListener {
 				break;
 			case "Subscriptions":
 				this.controller.redirectToUserSubscriptions();
+				break;
+			case "Log out":
+				this.controller.logout();
 				break;
             default:
                 System.out.println(e.getActionCommand());

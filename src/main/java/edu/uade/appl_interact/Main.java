@@ -26,12 +26,19 @@ public class Main  {
 
     public void run() {
         controller.updateView();
+    }
 
+    public void OnUserLogout() {
+        loggedUser = null;
+        controller = new LoginController(frame);
+        controller.setMain(this);
+        run();
     }
 
     public void OnUserLogin(User user) {
         loggedUser = user;
         controller = new MainController(frame, user);
+        controller.setMainMenu(this);
         run();
     }
 }

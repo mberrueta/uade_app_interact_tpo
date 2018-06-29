@@ -11,4 +11,5 @@ public interface Controller {
 
     public void renderMain();
 
+    void setMainMenu(Main main);
 }
