@@ -7,6 +7,7 @@ import edu.uade.appl_interact.model.entities.User;
 import edu.uade.appl_interact.services.UserService;
 
 import javax.swing.*;
+import java.text.SimpleDateFormat;
 
 
 public class LoginController  implements  IuserController {
@@ -83,13 +84,15 @@ public class LoginController  implements  IuserController {
     }
 
     @Override
-    public boolean saveNewUser(String name,String userEmail, String password) {
+    public boolean saveNewUser(String name,String userEmail, String birthDay, String password) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         User user  = new User();
         user.setName(name);
         user.setEmail(userEmail);
         user.setPassword(password);
         UserService manager = UserService.getInstance();
         try {
+            user.setBirthDate(format.parse(birthDay));
             manager.saveUser(user);
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,7 +101,7 @@ public class LoginController  implements  IuserController {
     }
 
     @Override
-    public boolean saveUser(String name,  String userEmail, String password, int id) {
+    public boolean saveUser(String name,  String userEmail, String password, String birthDay, int id) {
         return false;
     }
 
