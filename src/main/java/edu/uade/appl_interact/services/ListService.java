@@ -3,6 +3,7 @@ package edu.uade.appl_interact.services;
 import edu.uade.appl_interact.data_access.dao.impl.GiftListDao;
 import edu.uade.appl_interact.data_access.dao.impl.SubscriptionDao;
 import edu.uade.appl_interact.model.entities.GiftList;
+import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.model.entities.User;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class ListService {
     }
 
     public void saveList(GiftList giftList) {
+        EmailService.getInstance().subscriptionEmail(giftList);
         if (giftList.getId() != null) {
             updateList(giftList);
         } else {

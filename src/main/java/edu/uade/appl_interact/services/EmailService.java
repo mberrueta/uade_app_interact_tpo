@@ -54,7 +54,24 @@ public class EmailService {
         return instance;
     }
 
-    public void creationEmail(GiftList list) {
+    public void subscriptionEmail(GiftList giftList) {
+        String subject = "TPO App Interactivas - Subscripción a nueva lista de regalos";
+        String body = "Bueno días %s, bienvenido a la lista de regalos %s para %s." +
+                "La lista finalizará el día %s con el objetivo de juntar $%s";
+
+        try {
+            for (Subscription s : giftList.getGifters()) {
+                if (s.getId() == null) {
+                    sendMail(
+                            s.getUser().getEmail(),
+                            subject,
+                            String.format(body, s.getUser().getName(), giftList.getListName(), giftList.getToName(), giftList.getDueDate(), giftList.getExpectedAmount())
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void completitionEmail(GiftList list) {
@@ -80,6 +97,9 @@ public class EmailService {
     }
 
     private void sendMail(String to, String subject, String body) {
+
+        System.out.printf("Sending email to '%s', subject '%s'", to, subject);
+
         if (to == null)
             return;
         Message msg = new MimeMessage(session);
