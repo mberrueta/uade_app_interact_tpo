@@ -13,6 +13,7 @@ public class GiftListResultItem extends JPanel implements ActionListener {
 	private MainController controller;
 	
 	public GiftListResultItem(int listId, String listName, String dueDate, String currentAmmount) {
+		setBackground(UIManager.getColor("Button.shadow"));
         SpringLayout layout  = new SpringLayout();
 	    setLayout(layout);
 

@@ -12,6 +12,7 @@ public class SubscriptionItem extends JPanel implements ActionListener {
     private MainController controller;
 
     public SubscriptionItem(int listId, String listName) {
+    	setBackground(UIManager.getColor("Button.shadow"));
         SpringLayout layout  = new SpringLayout();
         setLayout(layout);
 
