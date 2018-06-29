@@ -1,6 +1,9 @@
 package edu.uade.appl_interact.data_access.dao.impl;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.entities.User;
 
@@ -64,6 +67,23 @@ public class GiftListDao extends Base<GiftList> {
         return result;
     }
 
+    public List<GiftList> getListWhereUserSubscribed(int userId) {
+        ArrayList<GiftList> result = new ArrayList<>();
+        StringBuilder query = new StringBuilder("Select * from gift_list ")
+                .append("JOIN subscription ON (gift_list.id = subscription.gift_list_id)")
+                .append(" WHERE subscription.user_id = " + userId)
+                .append( " AND subscription.active = 1");
+        try {
+            ResultSet resultSet = getConnection().getResults(query.toString());
+            while (resultSet.next()) {
+                result.add(toObject(resultSet));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return result;
+        }
+    }
 
     public void createList(GiftList list) {
         try {

@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.UIManager;
 
 
 public class UserForm extends JPanel implements ActionListener{
@@ -23,6 +24,7 @@ public class UserForm extends JPanel implements ActionListener{
 	 * Create the panel.
 	 */
 	public UserForm() {
+		setBackground(UIManager.getColor("Button.shadow"));
 		usrId = -1;
 		setLayout(null);
 		

@@ -3,7 +3,6 @@ package edu.uade.appl_interact.services;
 import edu.uade.appl_interact.data_access.dao.impl.GiftListDao;
 import edu.uade.appl_interact.data_access.dao.impl.SubscriptionDao;
 import edu.uade.appl_interact.model.entities.GiftList;
-import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.model.entities.User;
 
 import java.util.ArrayList;
@@ -86,6 +85,7 @@ public class ListService {
     }
 
     public void unsubscribeFromList(int listId, int userId) {
+        subscriptionDao.deleteFromUserAndList(listId, userId);
     }
 
     public void remove(int listId) {
@@ -100,5 +100,9 @@ public class ListService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<GiftList> getSubscriptionsForLoggedUser(Integer id) {
+        return listDao.getListWhereUserSubscribed(id);
     }
 }

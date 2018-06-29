@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.ListSelectionModel;
+import java.awt.Color;
+import javax.swing.UIManager;
 
 public class ListCreationForm extends JPanel implements ActionListener, KeyListener {
 	private JTextField nameField;
@@ -33,6 +35,7 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
 	 * Create the panel.
 	 */
 	public ListCreationForm() {
+    	setBackground(UIManager.getColor("Button.shadow"));
         listId = 0;
 		setLayout(null);
 		
@@ -51,7 +54,7 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
 		add(lblNewList);
 		
 		JLabel listNameLabek = new JLabel("Name");
-		listNameLabek.setEnabled(false);
+		listNameLabek.setForeground(new Color(51, 51, 51));
 		listNameLabek.setBounds(12, 88, 70, 15);
 		add(listNameLabek);
 		

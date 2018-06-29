@@ -1,10 +1,7 @@
 package edu.uade.controller;
 
 import edu.uade.appl_interact.Main;
-import edu.uade.appl_interact.View.ListCreationForm;
-import edu.uade.appl_interact.View.UserDashboard;
-import edu.uade.appl_interact.View.UserForm;
-import edu.uade.appl_interact.View.UserListsView;
+import edu.uade.appl_interact.View.*;
 import edu.uade.appl_interact.model.entities.GiftList;
 import edu.uade.appl_interact.model.entities.Subscription;
 import edu.uade.appl_interact.model.entities.User;
@@ -27,6 +24,7 @@ public class MainController implements ActionListener, IuserController {
     private UserDashboard dashboard;
     private UserListsView userLists;
     private ListService listService;
+    private UserSubscriptionsView userSubscriptios;
 
 
     public MainController(JFrame frame, User loggedUser) {
@@ -38,6 +36,7 @@ public class MainController implements ActionListener, IuserController {
         userService = UserService.getInstance();
         userForm.setUserController(this);
         userLists = new UserListsView(this);
+        userSubscriptios = new UserSubscriptionsView(this);
         listService = ListService.getInstance();
     }
 
@@ -64,6 +63,7 @@ public class MainController implements ActionListener, IuserController {
         dashboard.addToCardLayout(listCreationForm, "CreateNew");
         dashboard.addToCardLayout(userForm, "editUser");
         dashboard.addToCardLayout(userLists, "userLists");
+        dashboard.addToCardLayout(userSubscriptios, "userSubscriptions");
         frame.setContentPane(dashboard);
         frame.revalidate();
         frame.repaint();
@@ -168,11 +168,11 @@ public class MainController implements ActionListener, IuserController {
         } catch (Exception e) {
             System.out.println("Se pudrio todo");
         }
-
-
         listCreationForm.fillValues(list.getId(), list.getListName(), list.getToMail(), list.getToName(), String.valueOf(list.getExpectedAmount()), list.getDueDate().toString(), subscriptions);
         dashboard.showPanel("CreateNew");
     }
+
+
 
     public void cleanValues() {
         listCreationForm.clearValues();
@@ -185,5 +185,26 @@ public class MainController implements ActionListener, IuserController {
     public void onListDelete(int listId) {
         this.listService.deleteListFromId(listId);
         this.redirectToLoggedUserLists();
+    }
+
+    public void unsubscribe(int listId) {
+        this.listService.unsubscribeFromList(listId, this.loggedUser.getId());
+        this.redirectToUserSubscriptions();
+    }
+
+    public void redirectToUserSubscriptions() {
+        List<GiftList> result = listService.getSubscriptionsForLoggedUser(loggedUser.getId());
+        this.userSubscriptios.removeAll();
+        this.dashboard.revalidate();
+        boolean loadedLists = false;
+        for( GiftList subscribedList : result) {
+            loadedLists = true;
+            userSubscriptios.addItem(subscribedList.getId(), subscribedList.getListName());
+        }
+        if (loadedLists) {
+            dashboard.showPanel("userSubscriptions");
+        } else {
+            dashboard.showDefault();
+        }
     }
 }

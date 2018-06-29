@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Label;
 import java.awt.CardLayout;
+import javax.swing.border.BevelBorder;
+import java.awt.Font;
+import javax.swing.UIManager;
 
 public class UserDashboard extends JPanel implements ActionListener {
 	private JPanel mainPanel;
@@ -25,7 +28,9 @@ public class UserDashboard extends JPanel implements ActionListener {
     }
 
     public UserDashboard(String userName) {
-		setForeground(Color.LIGHT_GRAY);
+    	setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+    	setBackground(UIManager.getColor("InternalFrame.borderDarkShadow"));
+		setForeground(Color.DARK_GRAY);
 		setLayout(null);
 		//** TODO GENERATE ABSTRACT CLASS FROM JPANEL TO SHOW CONTENT
         //** EMPTY first time
@@ -39,30 +44,37 @@ public class UserDashboard extends JPanel implements ActionListener {
 		mainPanel.add(defaultPanel, "default");
 
 		Button listsIOwn = new Button("Lists I own");
+		listsIOwn.setBackground(Color.LIGHT_GRAY);
 		listsIOwn.addActionListener(this);
 		listsIOwn.setBounds(10, 87, 99, 23);
 		add(listsIOwn);
 		
 		Button subscriptions = new Button("Subscriptions");
+		subscriptions.setBackground(Color.LIGHT_GRAY);
 		subscriptions.addActionListener(this);
 		subscriptions.setBounds(10, 118, 99, 23);
 		add(subscriptions);
 		
 		Button myPayments = new Button("My payments");
+		myPayments.setBackground(Color.LIGHT_GRAY);
 		myPayments.addActionListener(this);
 		myPayments.setBounds(10, 147, 99, 23);
 		add(myPayments);
 		
 		Button createNewList = new Button("Create new");
+		createNewList.setBackground(Color.LIGHT_GRAY);
 		createNewList.setBounds(10, 59, 99, 23);
 		createNewList.addActionListener(this);
 		add(createNewList);
 		
 		Label welcomeMsg = new Label("Hello  " + userName);
+		welcomeMsg.setFont(new Font("Dialog", Font.BOLD, 19));
+		welcomeMsg.setAlignment(Label.CENTER);
 		welcomeMsg.setBounds(461, 26, 219, 21);
 		add(welcomeMsg);
 		
-		Button editUser = new Button("editUser");
+		Button editUser = new Button("Edit account");
+		editUser.setBackground(Color.LIGHT_GRAY);
 		editUser.setBounds(10, 176, 99, 23);
 		editUser.addActionListener(this);
 		add(editUser);
@@ -87,11 +99,14 @@ public class UserDashboard extends JPanel implements ActionListener {
 				System.out.println("User lists");
 				this.controller.redirectToLoggedUserLists();
 				break;
-
+			case "Subscriptions":
+				this.controller.redirectToUserSubscriptions();
+				break;
             default:
                 System.out.println(e.getActionCommand());
                 this.controller.preFillUserForm();
                 cardLayout.show(mainPanel, "editUser");
+                break;
         }
     }
 

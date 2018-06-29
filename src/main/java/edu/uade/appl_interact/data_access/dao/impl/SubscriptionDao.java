@@ -67,6 +67,18 @@ public class SubscriptionDao extends Base<Subscription> {
         }
     }
 
+    public void deleteFromUserAndList(int listId, int userId)  {
+        StringBuilder builder = new StringBuilder("UPDATE subscription set ")
+                .append(String.format("active = 0 " ))
+                .append(String.format("WHERE gift_list_id = " + listId))
+                .append(String.format(" AND user_id = " + userId));
+        try {
+            getConnection().execute(builder.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public User getUser(Integer id) {
         //TODO: implement
         return null;
