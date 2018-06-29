@@ -157,6 +157,7 @@ public class MainController implements ActionListener, IuserController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        dashboard.showDefault();
     }
 
     public void redirectToLoggedUserLists() {

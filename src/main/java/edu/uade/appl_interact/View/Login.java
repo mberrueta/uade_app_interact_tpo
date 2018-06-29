@@ -23,41 +23,38 @@ public class Login extends JPanel implements ActionListener {
 	 */
 
 	public Login() {
+    	setBackground(UIManager.getColor("Button.shadow"));
 		setLayout(null);
 		
 		userField = new TextField();
-        userField.setBounds(242, 41, 123, 21);
+        userField.setBounds(502, 212, 263, 21);
 		add(userField);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(242, 91, 123, 21);
+		passwordField.setBounds(502, 302, 263, 21);
 		add(passwordField);
 		
 		Label userNameLabel = new Label("User");
-		userNameLabel.setBounds(109, 41, 68, 21);
+		userNameLabel.setForeground(UIManager.getColor("Button.foreground"));
+		userNameLabel.setBounds(257, 212, 68, 21);
 		add(userNameLabel);
 		
 		Label PasswordLabel = new Label("Password");
-		PasswordLabel.setBounds(109, 91, 68, 21);
+		PasswordLabel.setForeground(UIManager.getColor("Button.foreground"));
+		PasswordLabel.setBounds(257, 302, 68, 21);
 		add(PasswordLabel);
-		
-		Button forgotPassword = new Button("Forgot password?");
-		forgotPassword.setBounds(248, 168, 117, 21);
-		add(forgotPassword);
 
         loginButton = new JButton("Login");
-		loginButton.setBounds(109, 168, 86, 21);
+		loginButton.setBounds(287, 507, 86, 21);
 		add(loginButton);
 
 
 		this.createAccountButton = new JButton("Create new account");
 		createAccountButton.setBorderPainted(false);
-		createAccountButton.setBounds(170, 220, 146, 15);
+		createAccountButton.setBounds(506, 510, 193, 15);
 		add(createAccountButton);
 
 		setForeground(Color.GRAY);
-		JButton Lgoin = new JButton("");
-		add(Lgoin, "1, 2, fill, default");
 		getLoginButton().addActionListener(this);
 		getCreateAccountButton().addActionListener(this);
 	}

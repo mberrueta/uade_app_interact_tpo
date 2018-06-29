@@ -58,20 +58,21 @@ public class EmailService {
         String subject = "TPO App Interactivas - Subscripción a nueva lista de regalos";
         String body = "Bueno días %s, bienvenido a la lista de regalos %s para %s." +
                 "La lista finalizará el día %s con el objetivo de juntar $%s";
-
         try {
-            for (Subscription s : giftList.getGifters()) {
-                if (s.getId() == null) {
-                    sendMail(
-                            s.getUser().getEmail(),
-                            subject,
-                            String.format(body, s.getUser().getName(), giftList.getListName(), giftList.getToName(), giftList.getDueDate(), giftList.getExpectedAmount())
-                    );
+            if (giftList.getGifters().size() >0) {
+                for (Subscription s : giftList.getGifters()) {
+                    if (s.getId() == null) {
+                        sendMail(
+                                s.getUser().getEmail(),
+                                subject,
+                                String.format(body, s.getUser().getName(), giftList.getListName(), giftList.getToName(), giftList.getDueDate(), giftList.getExpectedAmount())
+                        );
+                    }
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
     }
 
     public void completitionEmail(GiftList list) {
