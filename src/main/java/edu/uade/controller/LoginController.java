@@ -44,6 +44,11 @@ public class LoginController  implements  IuserController {
         this.main = main;
     }
 
+    @Override
+    public void deleteAccount() {
+        return;
+    }
+
     private JPanel getCurrentView() {
         if (currentView == null) {
             renderLoginForm();

@@ -41,6 +41,7 @@ public class UserDashboard extends JPanel implements ActionListener {
 		JPanel cardLayout2 = new ListCreationForm();
 		mainPanel.setLayout(cardLayout);
 		defaultPanel = new JPanel();
+		defaultPanel.setBackground(UIManager.getColor("Button.shadow"));
 		mainPanel.add(defaultPanel, "default");
 
 		Button listsIOwn = new Button("Lists I own");
@@ -81,7 +82,7 @@ public class UserDashboard extends JPanel implements ActionListener {
 
 		Button logout = new Button("Log out");
 		logout.setBackground(Color.LIGHT_GRAY);
-		logout.setBounds(10, 200, 99, 23);
+		logout.setBounds(10, 205, 99, 23);
 		logout.addActionListener(this);
 		add(logout);
 

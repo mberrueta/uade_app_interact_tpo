@@ -20,6 +20,7 @@ public class UserForm extends JPanel implements ActionListener{
 	private IuserController controller;
 	private int usrId;
 	private JTextField birthday;
+	private JButton deleteAccount;
 
 	/**
 	 * Create the panel.
@@ -30,12 +31,12 @@ public class UserForm extends JPanel implements ActionListener{
 		setLayout(null);
 		
 		JButton btnSave = new JButton("Save");
-		btnSave.setBounds(189, 420, 117, 25);
+		btnSave.setBounds(91, 420, 117, 25);
 		btnSave.addActionListener(this);
 		add(btnSave);
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(373, 420, 117, 25);
+		btnCancel.setBounds(295, 420, 117, 25);
 		btnCancel.addActionListener(this);
 		add(btnCancel);
 		
@@ -83,6 +84,11 @@ public class UserForm extends JPanel implements ActionListener{
 		birthday.setBounds(376, 191, 114, 19);
 		add(birthday);
 
+		deleteAccount = new JButton("Delete account");
+		deleteAccount.setBounds(491, 420, 162, 25);
+		add(deleteAccount);
+		deleteAccount.addActionListener(this);
+		deleteAccount.setVisible(false);
 	}
 
 	public void addNameInfo(String name) {
@@ -103,6 +109,7 @@ public class UserForm extends JPanel implements ActionListener{
 	}
 
 	public void setUsrId(int usrId) {
+		deleteAccount.setVisible(true);
 		this.usrId = usrId;
 	}
 
@@ -117,6 +124,10 @@ public class UserForm extends JPanel implements ActionListener{
 				break;
 			case "Cancel":
 				this.controller.renderMain();
+				break;
+			case "Delete account" :
+				this.controller.deleteAccount();
+				break;
 		}
 	}
 

@@ -45,7 +45,13 @@ public class MainController implements ActionListener, IuserController {
         this.main = main;
     }
 
-    // TODO Add action permformed Events.
+    @Override
+    public void deleteAccount() {
+        this.userService.deleteAccount(this.loggedUser.getId());
+        this.logout();
+    }
+
+    // TODO Add action permormed Events.
     @Override
     public void actionPerformed(ActionEvent e) {
 

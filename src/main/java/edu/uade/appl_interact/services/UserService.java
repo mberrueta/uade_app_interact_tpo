@@ -89,4 +89,12 @@ public class UserService {
             return null;
         }
     }
+
+    public void deleteAccount(Integer id) {
+        try {
+            this.userDao.delete(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
