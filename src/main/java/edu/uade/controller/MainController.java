@@ -167,7 +167,7 @@ public class MainController implements ActionListener, IuserController {
         boolean loadedLists = false;
         for( GiftList userList : userGiftLists) {
             loadedLists = true;
-            userLists.addItem(userList.getId(), userList.getListName(), String.valueOf(userList.getCurrentAmount()), userList.getDueDate().toString());
+            userLists.addItem(userList.getId(), userList.getListName(), String.valueOf(userList.getCurrentAmount()), userList.getDueDate().toString(), userList.getDelivered());
         }
         if (loadedLists) {
             dashboard.showPanel("userLists");
