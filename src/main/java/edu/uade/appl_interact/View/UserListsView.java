@@ -17,8 +17,8 @@ public class UserListsView extends JPanel {
 		this.controller = controller;
 	}
 
-	public void addItem(int id, String listName, String currentAmount, String dueDate) {
-		GiftListResultItem item  = new GiftListResultItem(id, listName, dueDate, currentAmount);
+	public void addItem(int id, String listName, String currentAmount, String dueDate, boolean delivered) {
+		GiftListResultItem item  = new GiftListResultItem(id, listName, dueDate, currentAmount, delivered);
 		item.setController(controller);
 		this.add(item);
 	}
