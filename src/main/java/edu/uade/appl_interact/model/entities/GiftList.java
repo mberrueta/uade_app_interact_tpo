@@ -4,6 +4,7 @@ package edu.uade.appl_interact.model.entities;
 import edu.uade.appl_interact.data_access.dao.impl.GiftListDao;
 import edu.uade.appl_interact.data_access.dao.impl.SubscriptionDao;
 import edu.uade.appl_interact.observers.PaymentObserver;
+import edu.uade.appl_interact.services.PaymentService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +24,8 @@ public class GiftList extends PaymentObserver {
     private Boolean delivered;
 
     public GiftList() {
+        setObservable(PaymentService.getInstance());
+        getObservable().add(this);
         gifters = new ArrayList<>();
     }
 
