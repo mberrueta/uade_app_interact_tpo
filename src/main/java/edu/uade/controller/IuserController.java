@@ -6,6 +6,5 @@ public interface  IuserController extends Controller {
 
     public boolean saveUser(String name, String userEmail, String password, String birthDay, int id);
 
-    public boolean userNameInUse();
 
 }

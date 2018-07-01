@@ -40,10 +40,6 @@ public class LoginController  implements  IuserController {
         renderLoginForm();
     }
 
-    @Override
-    public void setMainMenu(Main main) {
-        this.main = main;
-    }
 
     @Override
     public void deleteAccount() {
@@ -105,8 +101,4 @@ public class LoginController  implements  IuserController {
         return false;
     }
 
-    @Override
-    public boolean userNameInUse() {
-        return false;
-    }
 }

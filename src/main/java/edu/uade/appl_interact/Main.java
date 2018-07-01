@@ -38,7 +38,7 @@ public class Main  {
     public void OnUserLogin(User user) {
         loggedUser = user;
         controller = new MainController(frame, user);
-        controller.setMainMenu(this);
+        controller.setMain(this);
         run();
     }
 }

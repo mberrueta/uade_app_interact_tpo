@@ -11,13 +11,11 @@ import edu.uade.appl_interact.services.PaymentService;
 import edu.uade.appl_interact.services.UserService;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainController implements ActionListener, IuserController {
+public class MainController implements IuserController {
     private final UserService userService;
     private JFrame frame;
     private User loggedUser;
@@ -47,20 +45,10 @@ public class MainController implements ActionListener, IuserController {
         listService = ListService.getInstance();
     }
 
-    public void setMainMenu(Main main) {
-        this.main = main;
-    }
-
     @Override
     public void deleteAccount() {
         this.userService.deleteAccount(this.loggedUser.getId());
         this.logout();
-    }
-
-    // TODO Add action permormed Events.
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
     }
 
     @Override
@@ -70,7 +58,7 @@ public class MainController implements ActionListener, IuserController {
 
     @Override
     public void setMain(Main main) {
-        renderMain();
+        this.main = main;
     }
 
     @Override
@@ -120,15 +108,9 @@ public class MainController implements ActionListener, IuserController {
         return false;
     }
 
-    @Override
-    public boolean userNameInUse() {
-        return false;
-    }
-
     public ArrayList<String[]> getUserInfoForList(String text) {
         return userService.findMatchesByName(text);
     }
-
 
     public void saveList(String name, String email, String targetName, String expectedAmount, String dueDate, ArrayList<String[]> subscriptions, int listId) {
         GiftList list = new GiftList();
