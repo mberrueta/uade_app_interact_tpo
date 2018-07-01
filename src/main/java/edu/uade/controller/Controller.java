@@ -10,6 +10,6 @@ public interface Controller {
     public void setMain(Main main);
 
     public void renderMain();
-    
+
     void deleteAccount();
 }

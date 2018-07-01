@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.text.SimpleDateFormat;
 
 
-public class LoginController  implements  IuserController {
+public class LoginController  implements Controller, IuserController {
 
     private JFrame frame;
     private Login login;

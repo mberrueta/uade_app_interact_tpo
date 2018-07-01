@@ -1,6 +1,6 @@
 package edu.uade.controller;
 
-public interface  IuserController extends Controller {
+public interface  IuserController {
 
     public boolean saveNewUser(String name,  String userEmail, String birhtDay,String password);
 

@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainController implements IuserController {
+public class MainController implements Controller, IuserController {
     private final UserService userService;
     private JFrame frame;
     private User loggedUser;
