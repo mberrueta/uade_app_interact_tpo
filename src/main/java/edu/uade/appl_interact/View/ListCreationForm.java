@@ -163,8 +163,8 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
                     JOptionPane.showMessageDialog(null,"Cannot remove owner from gifters");
                 } else {
                     giftersTableModel.setValueAt("false", gifterToRemove, 3);
+                    revalidate();
                 }
-                revalidate();
                 break;
 			case "+":
 			    //** Take row from search table  and add it to gifters **

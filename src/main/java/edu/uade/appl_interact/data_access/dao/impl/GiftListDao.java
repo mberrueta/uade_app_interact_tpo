@@ -48,7 +48,7 @@ public class GiftListDao extends Base<GiftList> {
                 .append(String.format("due_date = '%s', ", formatter.format(entity.getDueDate())))
                 .append(String.format("to_name = '%s', ", entity.getToName()))
                 .append(String.format("to_mail = '%s' ,", entity.getToMail()))
-                .append(String.format("expected_amount = %s ", entity.getExpectedAmount()))
+                .append(String.format("expected_amount = %s ,", entity.getExpectedAmount()))
                 .append(String.format("current_amount = %s ", entity.getCurrentAmount()))
                 // .append(String.format("to_mail = '%s' ", entity.getOwner().getId()))
                 .append(String.format("WHERE id = %d", entity.getId()))
