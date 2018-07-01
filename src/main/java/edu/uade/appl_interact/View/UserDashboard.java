@@ -101,8 +101,7 @@ public class UserDashboard extends JPanel implements ActionListener {
         switch (e.getActionCommand()) {
             case "Create new":
                 System.out.println("show list form");
-                this.controller.cleanValues();
-                cardLayout.show(mainPanel, "CreateNew");
+                this.controller.redirectToListCreation();
                 break;
 			case "Lists I own":
 				System.out.println("User lists");

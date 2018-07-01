@@ -179,7 +179,7 @@ public class MainController implements ActionListener, IuserController {
     public void redirectToListEdition(int listId) {
         cleanValues();
         GiftList list = listService.getListFromId(listId);
-        ArrayList<String[]>  subscriptions =new ArrayList<>();
+        ArrayList<String[]>  subscriptions = new ArrayList<>();
         try {
             for (Subscription subscription : list.getGifters()) {
                 String[] value = new String[]{String.valueOf(subscription.getUser().getId()), subscription.getUser().getName(), subscription.getUser().getEmail(), String.valueOf(subscription.isActive()), String.valueOf(subscription.getId())};
@@ -190,6 +190,15 @@ public class MainController implements ActionListener, IuserController {
             System.out.println("Se pudrio todo");
         }
         listCreationForm.fillValues(list.getId(), list.getListName(), list.getToMail(), list.getToName(), String.valueOf(list.getExpectedAmount()), list.getDueDate().toString(), subscriptions);
+        dashboard.showPanel("CreateNew");
+    }
+
+    public void redirectToListCreation() {
+        cleanValues();
+        ArrayList<String[]>  subscriptions =new ArrayList<>();
+        String[] loogedUserSubscription = new String[] {String.valueOf(loggedUser.getId()), loggedUser.getName(), loggedUser.getEmail(), String.valueOf(true), ""};
+        subscriptions.add(loogedUserSubscription);
+        listCreationForm.fillValues(0, "","","","","",  subscriptions);
         dashboard.showPanel("CreateNew");
     }
 
@@ -238,5 +247,9 @@ public class MainController implements ActionListener, IuserController {
     public void logout() {
         this.loggedUser = null;
         main.OnUserLogout();
+    }
+
+    public boolean isLoggedUserId(int i) {
+        return loggedUser.getId() == i;
     }
 }

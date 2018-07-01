@@ -158,7 +158,12 @@ public class ListCreationForm extends JPanel implements ActionListener, KeyListe
         switch (e.getActionCommand()) {
 			case "-":
                 int gifterToRemove = giftersTable.getSelectedRow();
-                giftersTableModel.setValueAt("false", gifterToRemove, 3);
+                String idToRemove = giftersTableModel.getValueAt(gifterToRemove, 0).toString();
+                if (controller.isLoggedUserId(Integer.parseInt(idToRemove))) {
+                    JOptionPane.showMessageDialog(null,"Cannot remove owner from gifters");
+                } else {
+                    giftersTableModel.setValueAt("false", gifterToRemove, 3);
+                }
                 revalidate();
                 break;
 			case "+":
